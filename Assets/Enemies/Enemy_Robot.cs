@@ -8,11 +8,13 @@ public class Enemy_Robot : Enemy
     [Header("추적")]
     [SerializeField] private float chaseTimeMax = 7f; // 추적 시간
 
-    EnemyStateMeleeArc Melee1State;
+    EnemyStateMeleeArc melee1State;
+    EnemyStateChargeAttack chargeState;
 
     protected override void OnAwake()
     {
-        Melee1State = (EnemyStateMeleeArc)StateList[1];
+        melee1State = (EnemyStateMeleeArc)StateList[1];
+        chargeState = (EnemyStateChargeAttack)StateList[2];
         SetDefaultState(0);
     }
 
@@ -21,16 +23,20 @@ public class Enemy_Robot : Enemy
         switch (StateCurrIdx)
         {
             case 0: // 추적
-                if (Melee1State.IsTargetInRange() &&
-                    Melee1State.IsTargetInAngle())
+                if (melee1State.IsTargetInRange() &&
+                    melee1State.IsTargetInAngle())
                 {
                     SetState(1);
                 }
                 if (StateDuration > chaseTimeMax)
-                    Debug.Log("CHARGE ATTACK!"); // Transit to ChargeAttack / RangedAttack
+                    SetState(2);
                 break;
             case 1: // 근접 1
-                if (Melee1State.IsAttackOver())
+                if (melee1State.IsAttackOver())
+                    SetState(0);
+                break;
+            case 2: // 돌진
+                if (chargeState.IsAttackOver())
                     SetState(0);
                 break;
         }

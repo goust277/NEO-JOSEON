@@ -5545,6 +5545,7 @@ GameObject:
   - component: {fileID: 1038835528}
   - component: {fileID: 1038835531}
   - component: {fileID: 1038835530}
+  - component: {fileID: 1038835532}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -5650,9 +5651,10 @@ MonoBehaviour:
   stateList:
   - {fileID: 1038835531}
   - {fileID: 1038835530}
+  - {fileID: 1038835532}
   stateCurrIdx: 0
   stateDuration: 0
-  chaseTimeMax: 7
+  chaseTimeMax: 4
 --- !u!195 &1038835529
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5689,17 +5691,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   property: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 448
+  delayBefore: 0.3
+  delayAfter: 0.3
   meleeRange: 7.78
   meleeAngle: 44.4
   attackHeight: 2
   attackHeightOffset: -1
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 448
   lookTargetOnBeforeDelay: 0
-  delayBefore: 0.3
-  delayAfter: 0.3
-  VIEW_RANGE: 1
+  VIEW_RANGE: 0
 --- !u!114 &1038835531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5712,6 +5714,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85231a07cd47f03429b51f03976bfb95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1038835532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038835521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c225f10eb8cecb40bf7aad92b29679e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  property: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 448
+  delayBefore: 0.5
+  delayAfter: 0.5
+  chargeSpeed: 90
+  acceleration: 180
+  hitRadius: 1
+  hitHeight: 3
+  VIEW_RANGE: 1
 --- !u!1 &1058500232
 GameObject:
   m_ObjectHideFlags: 0
@@ -8528,7 +8554,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1711685868}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.06, y: 1.07, z: 4.17}
+  m_LocalPosition: {x: -16.07, y: 1.07, z: 15.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

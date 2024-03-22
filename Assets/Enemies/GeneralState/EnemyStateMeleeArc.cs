@@ -5,24 +5,14 @@ using UnityEditor;
 using UnityEditor.TerrainTools;
 using UnityEngine;
 
-public class EnemyStateMeleeArc : EnemyState
+public class EnemyStateMeleeArc : EnemyStateAttack
 {
-    [Header("피해 유형")]
-    [SerializeField] private float damage = 0f;
-    [SerializeField] private string property = "";
     [Header("공격 범위")]
     [SerializeField] private float meleeRange = 1f; // 근접 공격 거리
     [SerializeField] [Range(1, 180)] private float meleeAngle = 30; // 근접 공격 각도
     [SerializeField] [Min(0.1f)] private float attackHeight = 1f; // 공격 높이
     [SerializeField] private float attackHeightOffset = 0f; // 공격 높이 보정
-    [SerializeField] LayerMask layerMask; // 공격 대상 레이어
     [SerializeField] private bool lookTargetOnBeforeDelay = true;
-    [Header("공격 딜레이")]
-    [SerializeField] private float delayBefore = 0.3f; // 공격 전 딜레이
-    private float delayBeforeCurr = 0;
-    [SerializeField] private float delayAfter = 0.3f; // 공격 전 딜레이
-    private float delayAfterCurr = 0;
-    private bool isAttackOver = false;
 
 #if UNITY_EDITOR
     [Header("DEBUG")]
@@ -82,31 +72,11 @@ public class EnemyStateMeleeArc : EnemyState
 
     public override void OnExit()
     {
-        delayBeforeCurr = 0;
-        delayAfterCurr = 0;
-        isAttackOver = false;
+        base.OnExit();
         actor.SetLookAtTarget(true);
     }
 
-    public override void OnUpdate()
-    {
-        float deltaTime = Time.deltaTime;
-        if (delayBeforeCurr < delayBefore) // Before Attack Delay
-        {
-            delayBeforeCurr += deltaTime;
-            if (delayBeforeCurr >= delayBefore) // Attack
-                Attack();
-            return;
-        }
-        if (delayAfterCurr < delayAfter) // After Attack Delay
-        {
-            delayAfterCurr += deltaTime;
-            return;
-        }
-        isAttackOver = true;
-    }
-
-    private void Attack()
+    public override void Attack()
     {
         actor.SetLookAtTarget(false);
         Vector3 pos1 = transform.position;
@@ -142,11 +112,6 @@ public class EnemyStateMeleeArc : EnemyState
             d.property = property;
             target.TakeDamage(d);
         }
-    }
-
-    public bool IsAttackOver()
-    {
-        return isAttackOver;
     }
 
     // 타겟이 근접 범위 안에 있는지

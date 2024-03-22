@@ -38,6 +38,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         get { return stateCurrIdx; }
     }
 
+    public bool IsChasing
+    {
+        get { return isChasing; }
+    }
     /// <summary>
     /// 현재 상태가 얼마나 지속되었는지의 값입니다.
     /// </summary>
@@ -83,6 +87,28 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * rotationSpeed);
 
         OnUpdate();
+    }
+
+    public float Speed
+    {
+        get { return mAgent.speed; }
+        set { mAgent.speed = value; }
+    }
+
+    public float Acceleration
+    {
+        get { return mAgent.acceleration; }
+        set { mAgent.acceleration = value; }
+    }
+
+    public bool HasPath
+    {
+        get { return mAgent.hasPath; }
+    }
+
+    public Vector3 Dest
+    {
+        get { return mAgent.destination; }
     }
 
     /// <summary>
@@ -160,6 +186,13 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     public GameObject GetTarget()
     {
         return target;
+    }
+
+    public bool IsArrived(float threshold)
+    {
+        if ((transform.position - mAgent.destination).magnitude <= threshold + 1)
+            return true;
+        return false;
     }
 
     /// <summary>
