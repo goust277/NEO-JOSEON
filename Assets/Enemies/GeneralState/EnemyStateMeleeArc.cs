@@ -16,18 +16,27 @@ public class EnemyStateMeleeArc : EnemyStateAttack
 
 #if UNITY_EDITOR
     [Header("DEBUG")]
-    [SerializeField] private bool VIEW_RANGE = false;
+    [SerializeField] public bool VIEW_RANGE = false;
+
     private void OnDrawGizmos()
     {
         if (!VIEW_RANGE)
             return;
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, meleeRange);
+        Handles.color = new Color(1f, 1f, 1f, 0.1f);
+        Handles.DrawSolidDisc(transform.position, Vector3.up, meleeRange);
 
         if (delayBefore <= delayBeforeCurr && delayAfterCurr <= 0.12f)
+        {
+            Handles.color = new Color(1f, 0, 0, 0.3f);
             Gizmos.color = Color.magenta;
+        }
         else
+        {
+            Handles.color = new Color(1f, 0, 0, 0.1f);
             Gizmos.color = Color.blue;
+        }
+        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, meleeAngle, meleeRange);
+        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -meleeAngle, meleeRange);
 
         float rad = meleeAngle * Mathf.Deg2Rad;
         float rotationRad = transform.rotation.eulerAngles.y * Mathf.Deg2Rad;
@@ -47,18 +56,15 @@ public class EnemyStateMeleeArc : EnemyStateAttack
         vp += vho;
         direction += vho;
 
-        Gizmos.DrawLine(vp, direction); // 보는 방향
         Gizmos.DrawLine(vp, v1); // 공격각 1
         Gizmos.DrawLine(vp, v2); // 공격각 2
 
         Vector3 vh = new Vector3(0f, attackHeight, 0f);
         Vector3 vhp = vp + vh;
-        Gizmos.DrawLine(vhp, direction + vh);
         Gizmos.DrawLine(vhp, v1 + vh);
         Gizmos.DrawLine(vhp, v2 + vh);
 
         Gizmos.DrawLine(vp, vp + vh);
-        Gizmos.DrawLine(direction + vh, direction);
         Gizmos.DrawLine(v1, v1 + vh);
         Gizmos.DrawLine(v2, v2 + vh);
     }
@@ -68,12 +74,18 @@ public class EnemyStateMeleeArc : EnemyStateAttack
     {
         actor.SetChase(false);
         actor.SetLookAtTarget(lookTargetOnBeforeDelay);
+#if UNITY_EDITOR
+        VIEW_RANGE = true;
+#endif
     }
 
     public override void OnExit()
     {
         base.OnExit();
         actor.SetLookAtTarget(true);
+#if UNITY_EDITOR
+        VIEW_RANGE = false;
+#endif
     }
 
     public override void Attack()
@@ -136,5 +148,10 @@ public class EnemyStateMeleeArc : EnemyStateAttack
         if (dot < Mathf.Cos(Mathf.Deg2Rad * meleeAngle)) // 대상이 공격 각도 안인가?
             return false;
         return true;
+    }
+
+    public bool CanAttackTarget()
+    {
+        return IsTargetInAngle() && IsTargetInRange();
     }
 }

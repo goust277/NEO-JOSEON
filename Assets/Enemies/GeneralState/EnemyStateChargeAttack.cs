@@ -82,6 +82,10 @@ public class EnemyStateChargeAttack : EnemyStateAttack
         actor.Speed = chargeSpeed;
         accelPrev = actor.Acceleration;
         actor.Acceleration = acceleration;
+
+#if UNITY_EDITOR
+        VIEW_RANGE = true;
+#endif
     }
 
     public override void OnExit()
@@ -91,5 +95,9 @@ public class EnemyStateChargeAttack : EnemyStateAttack
         actor.Acceleration = accelPrev;
         hits.Clear();
         actor.SetLookAtTarget(true);
+
+#if UNITY_EDITOR
+        VIEW_RANGE = false;
+#endif
     }
 }
