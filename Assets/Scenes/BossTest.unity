@@ -5952,6 +5952,7 @@ GameObject:
   - component: {fileID: 591140887}
   - component: {fileID: 591140889}
   - component: {fileID: 591140890}
+  - component: {fileID: 591140891}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -6054,6 +6055,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &591140891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591140885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98240af51894a54186140e1d79e9c1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 25
 --- !u!1 &594827803
 GameObject:
   m_ObjectHideFlags: 0
@@ -9600,7 +9614,7 @@ MonoBehaviour:
   - {fileID: 1038835534}
   stateCurrIdx: 0
   stateDuration: 0
-  chaseTimeMax: 2
+  chaseTimeMax: 0.8
   chargeChance: 0.5
   swingChance: 0.409
 --- !u!195 &1038835529
@@ -9726,8 +9740,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 448
-  delayBefore: 1
-  delayAfter: 2
+  delayBefore: 0.7
+  delayAfter: 1
   meleeRange: 12
   meleeAngle: 180
   attackHeight: 3
