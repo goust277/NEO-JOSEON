@@ -74,18 +74,14 @@ public class EnemyStateMeleeArc : EnemyStateAttack
     {
         actor.SetChase(false);
         actor.SetLookAtTarget(lookTargetOnBeforeDelay);
-#if UNITY_EDITOR
-        VIEW_RANGE = true;
-#endif
+        TrySetAnimBool("Attack", true);
     }
 
     public override void OnExit()
     {
         base.OnExit();
         actor.SetLookAtTarget(true);
-#if UNITY_EDITOR
-        VIEW_RANGE = false;
-#endif
+        TrySetAnimBool("Attack", false);
     }
 
     public override void Attack()

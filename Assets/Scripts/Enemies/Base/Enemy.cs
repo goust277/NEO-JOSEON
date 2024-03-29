@@ -22,6 +22,14 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private int stateCurrIdx = -1;
     [SerializeField] private float stateDuration = 0.0f;
 
+
+    private Animator animator = null;
+
+    public Animator AnimControl
+    {
+        get { return animator; }
+    }
+
     /// <summary>
     /// 적의 상태 목록입니다.
     /// </summary>
@@ -54,6 +62,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     {
         mAgent = GetComponent<NavMeshAgent>();
         mAgent.updateRotation = false;
+        animator = GetComponentInChildren<Animator>();
         OnAwake();
     }
 

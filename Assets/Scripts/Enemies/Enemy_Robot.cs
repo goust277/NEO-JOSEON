@@ -16,7 +16,6 @@ public class Enemy_Robot : Enemy
     EnemyStateChargeAttack chargeState;
     EnemyStateAttack projectileState;
     EnemyStateMeleeArc swingState;
-
     protected override void OnAwake()
     {
         melee1State = (EnemyStateMeleeArc)StateList[1];
