@@ -10,7 +10,12 @@ public class Enemy_Robot : Enemy
 
     EnemyStateMeleeArc melee1State;
     EnemyStateChargeAttack chargeState;
+<<<<<<< HEAD
 
+=======
+    EnemyStateAttack projectileState;
+    EnemyStateMeleeArc swingState;
+>>>>>>> upstream/main
     protected override void OnAwake()
     {
         melee1State = (EnemyStateMeleeArc)StateList[1];

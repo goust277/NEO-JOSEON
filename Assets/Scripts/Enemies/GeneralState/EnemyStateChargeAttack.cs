@@ -38,6 +38,8 @@ public class EnemyStateChargeAttack : EnemyStateAttack
 
     public override void Attack()
     {
+        TrySetAnimBool("Idle", false);
+        TrySetAnimFloat("Speed", 3);
         isAttacking = true;
         actor.SetTarget(actor.GetTarget().transform.position);
         actor.SetLookAtTarget(false);
@@ -77,27 +79,21 @@ public class EnemyStateChargeAttack : EnemyStateAttack
 
     public override void OnEnter()
     {
+        TrySetAnimBool("Idle", true);
         actor.SetChase(false);
         speedPrev = actor.Speed;
         actor.Speed = chargeSpeed;
         accelPrev = actor.Acceleration;
         actor.Acceleration = acceleration;
-
-#if UNITY_EDITOR
-        VIEW_RANGE = true;
-#endif
     }
 
     public override void OnExit()
     {
         base.OnExit();
+        TrySetAnimFloat("Speed", 1);
         actor.Speed = speedPrev;
         actor.Acceleration = accelPrev;
         hits.Clear();
         actor.SetLookAtTarget(true);
-
-#if UNITY_EDITOR
-        VIEW_RANGE = false;
-#endif
     }
 }
