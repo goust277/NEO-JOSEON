@@ -5,16 +5,18 @@ using UnityEngine;
 
 public class Enemy_Robot : Enemy
 {
-    [Header("ÃßÀû")]
-    [SerializeField] private float chaseTimeMax = 7f; // ÃßÀû ½Ã°£
+    [Header("ì¶”ì ")]
+    [SerializeField] private float chaseTimeMax = 7f; // ì¶”ì  ì‹œê°„
 
-    [Header("»óÅÂ ÀüÈ¯")]
+
+    [Header("ìƒíƒœ ì „í™˜")]
     [SerializeField][Range(0f, 1f)] private float chargeChance = 0.5f;
     [SerializeField][Range(0f, 1f)] private float swingChance = 0.5f;
     [SerializeField][Range(0f, 1f)] private float hitDownChance = 0.5f;
 
     EnemyStateMeleeArc melee1State;
     EnemyStateChargeAttack chargeState;
+
     EnemyStateAttack projectileState;
     EnemyStateMeleeArc swingState;
     EnemyStateMeleeBox melee2State;
@@ -22,6 +24,7 @@ public class Enemy_Robot : Enemy
     {
         melee1State = (EnemyStateMeleeArc)StateList[1];
         chargeState = (EnemyStateChargeAttack)StateList[2];
+
         projectileState = (EnemyStateAttack)StateList[3];
         swingState = (EnemyStateMeleeArc)StateList[4];
         melee2State = (EnemyStateMeleeBox)StateList[5];
@@ -33,9 +36,11 @@ public class Enemy_Robot : Enemy
     {
         switch (StateCurrIdx)
         {
-            case 0: // ÃßÀû
-                if (melee1State.CanAttackTarget())
+            case 0: // ì¶”ì 
+                if (melee1State.IsTargetInRange() &&
+                    melee1State.IsTargetInAngle())
                 {
+                    SetState(1);
                     if (Random.value < swingChance && swingState.CanAttackTarget())
                         SetState(4);
                     else
@@ -47,21 +52,17 @@ public class Enemy_Robot : Enemy
                     }
                 }
                 if (StateDuration > chaseTimeMax)
-                {
-                    if (Random.value < chargeChance)
-                        SetState(2);
-                    else
-                        SetState(3);
-                }
+                    SetState(2);
                 break;
-            case 1: // ±ÙÁ¢ 1
+            case 1: // ê·¼ì ‘ 1
                 if (melee1State.IsAttackOver())
                     SetState(0);
                 break;
-            case 2: // µ¹Áø
+            case 2: // ëŒì§„
                 if (chargeState.IsAttackOver())
                     SetState(0);
                 break;
+
            case 3:
                 if (projectileState.IsAttackOver())
                     SetState(0);
