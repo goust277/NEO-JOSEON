@@ -16,6 +16,7 @@ public class PlayerMove : MonoBehaviour
     public float maxspeed;
     public float jumpHeight;
 
+
     public float atkDeley;
 
     private Rigidbody rb;
@@ -25,11 +26,13 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private bool isGround;
     [SerializeField] private bool isAttackReady;
     [SerializeField] private bool isNextAtk;
+    [SerializeField]private float groundCheck;
     private bool isDoubleJump;
 
     public LayerMask layer;
 
     private Vector3 dir = Vector3.zero;
+    private Animator animator;
 
     public Weapon weapon;
     PlayerDetect detect;
@@ -40,6 +43,7 @@ public class PlayerMove : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         detect = GetComponent<PlayerDetect>();
         skill = GetComponent<PlayerSkill>();
+        animator = GetComponent<Animator>();
 
     }
 
@@ -53,6 +57,7 @@ public class PlayerMove : MonoBehaviour
 
         CheckGround();
         Attack();
+        animator.SetInteger("Attack", weapon.attackLv);
 
         if (isAttackReady == false)
         {
@@ -63,6 +68,11 @@ public class PlayerMove : MonoBehaviour
         {
             isAttackReady = true;
         }
+        if(isGround)
+        {
+            animator.SetBool("jump", false);
+        }
+
 
         if (isAttackReady || weapon.isAtkTime)
         {
@@ -115,14 +125,26 @@ public class PlayerMove : MonoBehaviour
             {
                 Quaternion targetRotation = Quaternion.LookRotation(dir, Vector3.up);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotspeed);
+                if(isGround)
+                {
+                    animator.SetBool("Move", true);
+                }
             }
 
+            else
+            {
+                if (isGround)
+                {
+                    animator.SetBool("Move", false);
+                }
+            }
             rb.MovePosition(this.gameObject.transform.position + dir * speed * Time.deltaTime);
         }
 
     }
     void Jump()
     {
+        animator.SetBool("jump", true);
         Vector3 jumpPower = Vector3.up * jumpHeight;
         rb.AddForce(jumpPower, ForceMode.VelocityChange);
 
@@ -131,7 +153,7 @@ public class PlayerMove : MonoBehaviour
     private void CheckGround()
     {
 
-        if (Physics.BoxCast(transform.position + (Vector3.up * 1.3f), transform.lossyScale / 2.0f, Vector3.down, out RaycastHit hit, transform.rotation, 0.6f, layer))
+        if (Physics.BoxCast(transform.position + (Vector3.up * groundCheck), transform.lossyScale / 2.0f, Vector3.down, out RaycastHit hit, transform.rotation, 0.2f, layer))
         {
             isGround = true;
             isDoubleJump = false;
@@ -162,6 +184,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (isGround == true && isAttackReady == true && isNextAtk == true)
         {
+            animator.SetBool("Move", false);
             isAttackReady = false;
             if (detect.visibleTargets.Count > 0)
             {
@@ -177,6 +200,7 @@ public class PlayerMove : MonoBehaviour
             else { }
             weapon.Use();
             atkDeley = 0.0f;
+
 
             isNextAtk = false;
         }
