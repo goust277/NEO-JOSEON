@@ -721,7 +721,7 @@ MonoBehaviour:
   lookAtTarget: 1
   rotationSpeed: 8
   stateList:
-  - {fileID: 321979618}
+  - {fileID: 0}
   stateCurrIdx: -1
   stateDuration: 0
   chaseTimeMax: 1
