@@ -24,7 +24,6 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
-        rend = GetComponent<Renderer>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         capsuleCollider.enabled = false;
     }
@@ -42,6 +41,10 @@ public class Weapon : MonoBehaviour
         if (attackLv == 0 || attackLv == 3)
         {
             yield return GameDefine.waitForSeconds0_1;
+            if (attackLv == 3)
+            {
+                attackLv = 0;
+            }
             Attack();
         }
         else if (attackLv == 1)
@@ -61,7 +64,6 @@ public class Weapon : MonoBehaviour
             yield return null;
         }
         capsuleCollider.enabled = false;
-        rend.material = matarials[0];
         yield return new WaitForSeconds(0.2f);
         isAtkTime = false;
         attackLv = 0;
@@ -70,7 +72,6 @@ public class Weapon : MonoBehaviour
     private void Attack()
     {
         capsuleCollider.enabled = true;
-        rend.material = matarials[1];
         isAtkTime = true;
         attackLv++;
     }
