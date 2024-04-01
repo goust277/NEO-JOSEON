@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test : MonoBehaviour
+public class Test : MonoBehaviour, IDamageable
 {
     public float moveSpeed = 5.0f;
+
+    public void TakeDamage(Damage damage)
+    {
+        Debug.Log("HIT");
+    }
 
     private void Update()
     {

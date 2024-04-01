@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public abstract class Enemy : MonoBehaviour, IDamageable
 {
     protected NavMeshAgent mAgent;
+
     [Header("타겟 추적 정보")]
     [SerializeField] private GameObject target = null;
     private bool isChasing = false;
@@ -62,6 +63,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     {
         mAgent = GetComponent<NavMeshAgent>();
         mAgent.updateRotation = false;
+
         animator = GetComponentInChildren<Animator>();
         OnAwake();
     }
@@ -79,17 +81,18 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         // 현재 상태가 지속된 시간을 업데이트
         stateDuration += Time.deltaTime;
         // 추적 On / Off
-        if (isChasing && target != null)
+        if (isChasing && target != null && mAgent.enabled)
         {
             mAgent.SetDestination(target.transform.position);
         }
 
         if (lookAtTarget)
         {
-            if (mAgent.hasPath)
+            if (mAgent.enabled && mAgent.hasPath)
                 lookPos = mAgent.desiredVelocity;
             else
                 lookPos = target.transform.position - transform.position;
+            lookPos.y = 0;
         }
 
         Quaternion q = Quaternion.LookRotation(lookPos);
@@ -190,6 +193,11 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         stateCurrIdx = idx;
         stateCurr.OnEnter();
         stateDuration = 0.0f;
+    }
+
+    public void SetAiActive(bool b)
+    {
+        mAgent.enabled = b;
     }
 
     public GameObject GetTarget()

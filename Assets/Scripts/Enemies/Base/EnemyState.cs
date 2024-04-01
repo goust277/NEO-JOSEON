@@ -8,7 +8,7 @@ public abstract class EnemyState : MonoBehaviour
 {
     protected Enemy actor;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         actor = GetComponent<Enemy>();
     }
@@ -17,6 +17,7 @@ public abstract class EnemyState : MonoBehaviour
     {
         if (actor == null)
             actor = GetComponent<Enemy>();
+        actor = GetComponent<Enemy>();
     }
 
     private bool HasAnimParam(string name)

@@ -48,7 +48,7 @@ public abstract class EnemyStateAttack : EnemyState
         isAttackOver = false;
     }
 
-    public bool IsAttackOver()
+    public virtual bool IsAttackOver()
     {
         return isAttackOver;
     }
