@@ -10,7 +10,6 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] private Material[] matarials;
 
-    private Renderer rend;
     private CapsuleCollider capsuleCollider;
     public enum Type { Melee, Range };
     public Type type;

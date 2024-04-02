@@ -1,16 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour
 {
-    private Game game;
-    // Start is called before the first frame update
+    [SerializeField] private string SceneName;
+
+    private PlayerMove thePlayer;
+    private void Awake()
+    {
+        thePlayer = FindObjectOfType<PlayerMove>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            game.SceneControl.ChangeScene("Main_Test");
+            thePlayer.currentMapName = SceneName;
+            SceneManager.LoadScene(SceneName);
         }
     }
 }

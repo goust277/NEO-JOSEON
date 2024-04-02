@@ -5,9 +5,12 @@ using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.LookDev;
 
 public class PlayerMove : MonoBehaviour
 {
+    public string currentMapName;
+
     public float speed = 5.0f;
     public float dash;
     public float dashTime;
@@ -16,6 +19,9 @@ public class PlayerMove : MonoBehaviour
     public float maxspeed;
     public float jumpHeight;
 
+    [SerializeField] private float interactionRange = 3.0f;
+    [SerializeField] private GameObject currentInteractableObject;
+    private bool isInteracting = false;
 
     public float atkDeley;
 
@@ -23,13 +29,13 @@ public class PlayerMove : MonoBehaviour
 
     public Camera cam;
 
-    [SerializeField] private bool isGround;
-    [SerializeField] private bool isAttackReady;
-    [SerializeField] private bool isNextAtk;
-    [SerializeField]private float groundCheck;
+    private bool isGround;
+    private bool isAttackReady;
+    private bool isNextAtk;
+    [SerializeField] private float groundCheck;
     private bool isDoubleJump;
 
-    public LayerMask layer;
+    public LayerMask layer, interactableLayer;
 
     private Vector3 dir = Vector3.zero;
     private Animator animator;
@@ -91,7 +97,17 @@ public class PlayerMove : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !isInteracting && currentInteractableObject != null)
+        {
+            // 상호 작용 시작
+            StartInteraction();
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && isInteracting)
+        {
+            // 상호 작용 중지
+            EndInteraction();
+        }
+        if (Input.GetKeyDown(KeyCode.T))
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Confined;
@@ -139,6 +155,22 @@ public class PlayerMove : MonoBehaviour
                 }
             }
             rb.MovePosition(this.gameObject.transform.position + dir * speed * Time.deltaTime);
+        }
+
+        Vector3 playerPosition = transform.position;
+
+        // 상호 작용 가능한 오브젝트 찾기
+        Collider[] colliders = Physics.OverlapSphere(playerPosition, interactionRange, interactableLayer);
+
+        if (colliders.Length > 0)
+        {
+            // 가장 가까운 상호 작용 가능한 오브젝트 선택
+            currentInteractableObject = colliders[0].gameObject;
+        }
+        else
+        {
+            // 상호 작용 가능한 오브젝트가 없을 때
+            currentInteractableObject = null;
         }
 
     }
@@ -210,6 +242,18 @@ public class PlayerMove : MonoBehaviour
             isNextAtk = false;
         }
     }
+    //상호 작용 시작 함수
+    void StartInteraction()
+    {
+        isInteracting = true;
+        currentInteractableObject.GetComponent<InteractableObject>().Interact();
+    }
 
+    // 상호 작용 종료 함수
+    void EndInteraction()
+    {
+        isInteracting = false;
+        currentInteractableObject.GetComponent<InteractableObject>().EndInteract();
+    }
 }
 

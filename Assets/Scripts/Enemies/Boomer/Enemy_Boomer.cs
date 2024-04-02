@@ -15,7 +15,6 @@ public class Enemy_Boomer : Enemy, IDamageable
     public GameObject bomb;
     protected override void OnAwake()
     {
-
         meleeState = (EnemyStateMeleeArc)StateList[2];
         SetDefaultState(0);
         

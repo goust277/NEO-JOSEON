@@ -9,7 +9,7 @@ public class Enemy_Damage : MonoBehaviour
 
     private void Update()
     {
-        if (hp == 0)
+        if (hp <= 0)
         {
             Destroy(enemy);
         }
