@@ -16,7 +16,7 @@ public class BurnPanel : MonoBehaviour, IDamageable
 
     public void TakeDamage(Damage damage)
     {
-        if (!damage.property.Contains("FIRE")) return;
+        //if (!damage.property.Contains("FIRE")) return;
         heat = (heat + 1) % 3;
         meshRenderer.material = heatMaterial[heat];
     }

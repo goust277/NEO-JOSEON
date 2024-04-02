@@ -11,13 +11,22 @@ public class EnemyStateMeleeBox : EnemyStateAttack
     [SerializeField] private float meleeWidth = 1; // 근접 공격 판정 너비
     [SerializeField][Min(0.1f)] private float attackHeight = 1f; // 공격 높이
     [SerializeField] private float attackHeightOffset = 0f; // 공격 높이 보정
-    [SerializeField] private bool lookTargetOnBeforeDelay = true;
 
     [Header("타격 범위 개수")]
     [SerializeField] [Min(1)] private int attackWay = 1;
     [SerializeField] [Range(0f, 360f)] private float wayDiff = 90f;
     [SerializeField] [Range(0f, 360f)] private float diffOffset = 0f;
     private List<int> hits = new List<int>();
+
+    public float Range
+    {
+        get { return meleeRange; }
+    }
+
+    public float Width
+    {
+        get { return meleeWidth; }
+    }
 
 #if UNITY_EDITOR
     [Header("DEBUG")]
@@ -38,8 +47,8 @@ public class EnemyStateMeleeBox : EnemyStateAttack
             Quaternion rot = Quaternion.Euler(0, (wayDiff * (i - 0.5f * (attackWay - 1))) + diffOffset, 0);
             Vector3 width = rot * transform.right * meleeWidth * 0.5f;
 
-            Vector3 p1 = oriPos + rot * width + hOffset;
-            Vector3 p2 = oriPos - rot * width + hOffset;
+            Vector3 p1 = oriPos + width + hOffset;
+            Vector3 p2 = oriPos - width + hOffset;
             Vector3 p3 = p1 + rot * transform.forward * meleeRange;
             Vector3 p4 = p2 + rot * transform.forward * meleeRange;
 
@@ -70,7 +79,7 @@ public class EnemyStateMeleeBox : EnemyStateAttack
 
     public override void Attack()
     {
-        actor.SetLookAtTarget(false);
+        TrySetAnimBool("Attack", true);
         int selfId = gameObject.GetInstanceID();
 
         for (int i = 0; i < attackWay; i++)
@@ -114,19 +123,28 @@ public class EnemyStateMeleeBox : EnemyStateAttack
 
     public override void OnEnter()
     {
+        base.OnEnter();
         actor.SetChase(false);
-        actor.SetLookAtTarget(lookTargetOnBeforeDelay);
-        TrySetAnimBool("Attack", true);
+        TrySetAnimBool("Idle", true);
+
+
+#if UNITY_EDITOR
+        VIEW_RANGE = true;
+#endif
     }
     public override void OnExit()
     {
         base.OnExit();
-        actor.SetLookAtTarget(true);
         TrySetAnimBool("Attack", false);
+
+
+#if UNITY_EDITOR
+        VIEW_RANGE = false;
+#endif
     }
 
     // 타겟이 근접 범위 안에 있는지
-    public bool CanAttackTarget()
+    public override bool CanAttackTarget()
     {
         GameObject target = actor.GetTarget();
         if (target == null)

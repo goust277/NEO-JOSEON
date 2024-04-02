@@ -11,6 +11,7 @@ public class EnemyStateChargeAttack : EnemyStateAttack
     [SerializeField] private float acceleration = 40;
     private float speedPrev = 0f; // 돌진 전 속도
     private float accelPrev = 0f;
+    [SerializeField] private Transform dest = null; // 목표 지점, null이면 플레이어
     [Header("공격 범위")]
     [SerializeField] private float hitRadius = 1f;
     [SerializeField] private float hitHeight = 1f;
@@ -28,10 +29,16 @@ public class EnemyStateChargeAttack : EnemyStateAttack
         Gizmos.DrawWireSphere(transform.position - height, hitRadius);
         if (actor != null && !actor.IsChasing && delayAfterCurr <= 0)
         {
-            Vector3 dest = actor.GetTarget().transform.position;
-            if (actor.HasPath)
-                dest = actor.Dest;
-            Gizmos.DrawLine(transform.position, dest);
+            Vector3 _dest;
+            if (dest)
+                _dest = dest.position;
+            else
+            {
+                _dest = actor.GetTarget().transform.position;
+                if (actor.HasPath)
+                    _dest = actor.Dest;
+            }
+            Gizmos.DrawLine(transform.position, _dest);
         }
     }
 #endif
@@ -41,8 +48,10 @@ public class EnemyStateChargeAttack : EnemyStateAttack
         TrySetAnimBool("Idle", false);
         TrySetAnimFloat("Speed", 3);
         isAttacking = true;
-        actor.SetTarget(actor.GetTarget().transform.position);
-        actor.SetLookAtTarget(false);
+        if (dest)
+            actor.SetTarget(dest.position);
+        else
+            actor.SetTarget(actor.GetTarget().transform.position);
     }
 
     public override void OnAttacking()
@@ -79,12 +88,17 @@ public class EnemyStateChargeAttack : EnemyStateAttack
 
     public override void OnEnter()
     {
+        base.OnEnter();
         TrySetAnimBool("Idle", true);
         actor.SetChase(false);
         speedPrev = actor.Speed;
         actor.Speed = chargeSpeed;
         accelPrev = actor.Acceleration;
         actor.Acceleration = acceleration;
+
+#if UNITY_EDITOR
+        VIEW_RANGE = true;
+#endif
     }
 
     public override void OnExit()
@@ -94,6 +108,19 @@ public class EnemyStateChargeAttack : EnemyStateAttack
         actor.Speed = speedPrev;
         actor.Acceleration = accelPrev;
         hits.Clear();
-        actor.SetLookAtTarget(true);
+
+#if UNITY_EDITOR
+        VIEW_RANGE = false;
+#endif
+    }
+
+    public override bool CanAttackTarget()
+    {
+        return true;
+    }
+
+    public void SetDest(Transform t)
+    {
+        dest = t;
     }
 }

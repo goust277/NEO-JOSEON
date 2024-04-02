@@ -14,8 +14,15 @@ public abstract class EnemyStateAttack : EnemyState
     protected float delayBeforeCurr = 0;
     [SerializeField] protected float delayAfter = 0.3f; // 공격 후 딜레이
     protected float delayAfterCurr = 0;
+    [SerializeField] protected bool lookTargetOnBeforeDelay = false; // 타겟 오브젝트 바라보기 여부
+    [SerializeField] protected float lookTime = 0.2f; // 몇초까지 바라볼 것인지, delaybefore 이상인 경우 항상
     protected bool isAttacking = false;
     protected bool isAttackOver = false;
+
+    public float DelayBefore
+    {
+        get { return delayBefore; }
+    }
 
     public abstract void Attack();
 
@@ -39,10 +46,19 @@ public abstract class EnemyStateAttack : EnemyState
         }
         else
             isAttackOver = true;
+        if (lookTargetOnBeforeDelay &&
+            lookTime < delayBeforeCurr)
+            actor.SetLookAtTarget(false);
+    }
+
+    public override void OnEnter()
+    {
+        actor.SetLookAtTarget(lookTargetOnBeforeDelay);
     }
 
     public override void OnExit()
     {
+        actor.SetLookAtTarget(true);
         delayBeforeCurr = 0;
         delayAfterCurr = 0;
         isAttackOver = false;
@@ -52,4 +68,6 @@ public abstract class EnemyStateAttack : EnemyState
     {
         return isAttackOver;
     }
+
+    public abstract bool CanAttackTarget();
 }

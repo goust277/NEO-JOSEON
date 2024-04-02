@@ -14,6 +14,7 @@ public class EnemyStateProjectile : EnemyStateAttack
 
     public override void Attack()
     {
+        TrySetAnimBool("Attack", true);
         Projectile p = projQueue.GetProjectile();
         if (p == null) return;
 
@@ -39,6 +40,20 @@ public class EnemyStateProjectile : EnemyStateAttack
 
     public override void OnEnter()
     {
+        base.OnEnter();
         actor.SetChase(false);
+        TrySetAnimBool("Idle", true);
+    }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+
+        TrySetAnimBool("Attack", false);
+    }
+
+    public override bool CanAttackTarget()
+    {
+        return true;
     }
 }

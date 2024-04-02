@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody))]
 public abstract class Enemy : MonoBehaviour, IDamageable
 {
     protected NavMeshAgent mAgent;
@@ -64,6 +64,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         mAgent = GetComponent<NavMeshAgent>();
         mAgent.updateRotation = false;
 
+        GetComponent<Rigidbody>().isKinematic = true;
+
         animator = GetComponentInChildren<Animator>();
         OnAwake();
     }
@@ -87,16 +89,19 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         }
 
         if (lookAtTarget)
+                lookPos = target.transform.position - transform.position;
+        else
         {
             if (mAgent.enabled && mAgent.hasPath)
                 lookPos = mAgent.desiredVelocity;
-            else
-                lookPos = target.transform.position - transform.position;
-            lookPos.y = 0;
         }
+        lookPos.y = 0;
 
-        Quaternion q = Quaternion.LookRotation(lookPos);
-        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * rotationSpeed);
+        if (lookPos.magnitude != 0)
+        {
+            Quaternion q = Quaternion.LookRotation(lookPos);
+            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * rotationSpeed);
+        }
 
         OnUpdate();
     }
