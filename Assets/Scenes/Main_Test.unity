@@ -2397,7 +2397,7 @@ GameObject:
   - component: {fileID: 1266410338}
   - component: {fileID: 1266410337}
   - component: {fileID: 1266410340}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2572,6 +2572,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 263996754}
+    - target: {fileID: 1949079368, guid: 73977b98a5abd6b4a8bdd085083290f0, type: 3}
+      propertyPath: layer.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 7359971704629674086, guid: 73977b98a5abd6b4a8bdd085083290f0,
         type: 3}
       propertyPath: m_RootOrder
@@ -2631,6 +2635,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RPG-Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 7359971704630107142, guid: 73977b98a5abd6b4a8bdd085083290f0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1949079373, guid: 73977b98a5abd6b4a8bdd085083290f0, type: 3}
@@ -2751,7 +2760,7 @@ GameObject:
   - component: {fileID: 1616260056}
   - component: {fileID: 1616260055}
   - component: {fileID: 1616260058}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
