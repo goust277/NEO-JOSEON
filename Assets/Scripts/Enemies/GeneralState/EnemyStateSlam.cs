@@ -57,4 +57,9 @@ public class EnemyStateSlam : EnemyStateAttack
     {
         return base.IsAttackOver() && !isAttacking;
     }
+
+    public override bool CanAttackTarget()
+    {
+        return false;
+    }
 }

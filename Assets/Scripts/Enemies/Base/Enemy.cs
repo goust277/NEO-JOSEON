@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody))]
 public abstract class Enemy : MonoBehaviour, IDamageable
 {
     protected NavMeshAgent mAgent;
+
+    [Header("체력")]
+    [SerializeField] private float hpMax = 1;
+    private float hpCurr = 1f;
 
     [Header("타겟 추적 정보")]
     [SerializeField] private GameObject target = null;
@@ -15,6 +19,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     private Vector3 lookPos = Vector3.one;
     [SerializeField] [Min(0f)] private float rotationSpeed = 20f;
 
+    private bool lockSight = false;
+    private Vector3 lookPosLock = Vector3.zero;
+
     [Header("상태 목록")]
     [SerializeField] private EnemyState[] stateList;
     private EnemyState stateCurr = null;
@@ -22,7 +29,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [Header("현재 상태")]
     [SerializeField] private int stateCurrIdx = -1;
     [SerializeField] private float stateDuration = 0.0f;
-
 
     private Animator animator = null;
 
@@ -51,54 +57,13 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     {
         get { return isChasing; }
     }
+
     /// <summary>
     /// 현재 상태가 얼마나 지속되었는지의 값입니다.
     /// </summary>
     protected float StateDuration
     {
         get { return stateDuration; }
-    }
-
-    protected void Awake()
-    {
-        mAgent = GetComponent<NavMeshAgent>();
-        mAgent.updateRotation = false;
-
-        animator = GetComponentInChildren<Animator>();
-        OnAwake();
-    }
-
-    /// <summary>
-    /// Awake 대신 사용하세요.
-    /// </summary>
-    protected abstract void OnAwake();
-
-    private void Update()
-    {
-        // 현재 상태의 행동을 실행
-        if (stateCurr != null)
-            stateCurr.OnUpdate();
-        // 현재 상태가 지속된 시간을 업데이트
-        stateDuration += Time.deltaTime;
-        // 추적 On / Off
-        if (isChasing && target != null && mAgent.enabled)
-        {
-            mAgent.SetDestination(target.transform.position);
-        }
-
-        if (lookAtTarget)
-        {
-            if (mAgent.enabled && mAgent.hasPath)
-                lookPos = mAgent.desiredVelocity;
-            else
-                lookPos = target.transform.position - transform.position;
-            lookPos.y = 0;
-        }
-
-        Quaternion q = Quaternion.LookRotation(lookPos);
-        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * rotationSpeed);
-
-        OnUpdate();
     }
 
     public float Speed
@@ -121,6 +86,50 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     public Vector3 Dest
     {
         get { return mAgent.destination; }
+    }
+
+    protected void Awake()
+    {
+        mAgent = GetComponent<NavMeshAgent>();
+        mAgent.updateRotation = false;
+
+        GetComponent<Rigidbody>().isKinematic = true;
+
+        animator = GetComponentInChildren<Animator>();
+        OnAwake();
+    }
+
+    /// <summary>
+    /// Awake 대신 사용하세요.
+    /// </summary>
+    protected abstract void OnAwake();
+
+    private void Update()
+    {
+        // 현재 상태의 행동을 실행
+        if (stateCurr != null)
+            stateCurr.OnUpdate();
+        // 현재 상태가 지속된 시간을 업데이트
+        stateDuration += Time.deltaTime;
+        // 추적 On / Off
+        if (isChasing && target != null && mAgent.enabled)
+            mAgent.SetDestination(target.transform.position);
+
+        if (lockSight)
+            lookPos = lookPosLock - transform.position;
+        else if (lookAtTarget)
+            lookPos = target.transform.position - transform.position;
+        else if (mAgent.enabled && mAgent.hasPath)
+                lookPos = mAgent.desiredVelocity;
+        lookPos.y = 0;
+
+        if (lookPos.magnitude != 0)
+        {
+            Quaternion q = Quaternion.LookRotation(lookPos);
+            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * rotationSpeed);
+        }
+
+        OnUpdate();
     }
 
     /// <summary>
@@ -210,6 +219,17 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         if ((transform.position - mAgent.destination).magnitude <= threshold + 1)
             return true;
         return false;
+    }
+
+    protected void SetSightLock(Vector3 v)
+    {
+        lockSight = true;
+        lookPosLock = v;
+    }
+
+    protected void ResetSightLock()
+    {
+        lockSight = false;
     }
 
     /// <summary>

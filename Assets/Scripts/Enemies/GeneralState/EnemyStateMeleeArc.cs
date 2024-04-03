@@ -12,7 +12,6 @@ public class EnemyStateMeleeArc : EnemyStateAttack
     [SerializeField] [Range(1, 180)] private float meleeAngle = 30; // 근접 공격 각도
     [SerializeField] [Min(0.1f)] private float attackHeight = 1f; // 공격 높이
     [SerializeField] private float attackHeightOffset = 0f; // 공격 높이 보정
-    [SerializeField] private bool lookTargetOnBeforeDelay = true;
 
 #if UNITY_EDITOR
     [Header("DEBUG")]
@@ -72,21 +71,29 @@ public class EnemyStateMeleeArc : EnemyStateAttack
 
     public override void OnEnter()
     {
+        base.OnEnter();
         actor.SetChase(false);
-        actor.SetLookAtTarget(lookTargetOnBeforeDelay);
-        TrySetAnimBool("Attack", true);
+        TrySetAnimBool("Idle", true);
+
+#if UNITY_EDITOR
+        VIEW_RANGE = true;
+#endif
     }
 
     public override void OnExit()
     {
         base.OnExit();
-        actor.SetLookAtTarget(true);
         TrySetAnimBool("Attack", false);
+
+#if UNITY_EDITOR
+        VIEW_RANGE = false;
+#endif
     }
 
     public override void Attack()
     {
-        actor.SetLookAtTarget(false);
+        TrySetAnimBool("Attack", true);
+
         Vector3 pos1 = transform.position;
         pos1.y += attackHeightOffset + attackHeight * 0.5f;
         Vector3 size = new Vector3(meleeRange, attackHeight * 0.5f, meleeRange);
@@ -146,7 +153,7 @@ public class EnemyStateMeleeArc : EnemyStateAttack
         return true;
     }
 
-    public bool CanAttackTarget()
+    public override bool CanAttackTarget()
     {
         return IsTargetInAngle() && IsTargetInRange();
     }

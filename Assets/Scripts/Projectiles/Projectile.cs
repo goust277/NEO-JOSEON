@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
     private int ownerID = -1;
     private float range = 5f;
     private float distTrav = 0f; // 현재 이동한 거리
+    private bool piercing = false;
 
     private LayerMask layerRef = 0;
 
@@ -79,6 +80,15 @@ public class Projectile : MonoBehaviour
         rb.velocity = v;
     }
 
+    /// <summary>
+    /// 관통 여부를 지정합니다.
+    /// </summary>
+    /// <param name="b"></param>
+    public void SetPiercing(bool b)
+    {
+        piercing = b;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (((1 << other.gameObject.layer) & layerRef.value) == 0) return;
@@ -89,7 +99,7 @@ public class Projectile : MonoBehaviour
         if (target == null) return;
 
         target.TakeDamage(damage);
-        gameObject.SetActive(false);
+        if (!piercing) gameObject.SetActive(false);
     }
 
     public bool IsAvailable()
