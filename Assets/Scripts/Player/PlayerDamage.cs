@@ -27,6 +27,11 @@ public class PlayerDamage : MonoBehaviour, IDamageable
             isHitPosible = true;
         }
 
+        if (Time.timeScale < 0.9)
+        {
+            Time.timeScale += Time.deltaTime * 1.5f;
+        }
+
     }
 
     public void TakeDamage(Damage damage)

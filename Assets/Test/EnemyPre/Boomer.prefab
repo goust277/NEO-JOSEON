@@ -256,7 +256,7 @@ MonoBehaviour:
   property: fire
   layerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 64
   delayBefore: 0.3
   delayAfter: 2.5
   lookTargetOnBeforeDelay: 1

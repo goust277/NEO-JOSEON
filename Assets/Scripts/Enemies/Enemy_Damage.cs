@@ -9,6 +9,8 @@ public class Enemy_Damage : MonoBehaviour
     
     public GameObject enemy;
 
+    private float hit_lag = 0.5f;
+
     private Renderer rend;
 
     private void Awake()
@@ -29,6 +31,7 @@ public class Enemy_Damage : MonoBehaviour
         if (other.gameObject.CompareTag("Melee"))
         {
             rend.material = materials[1];
+            Time.timeScale = hit_lag;
             Weapon weapon = other.gameObject.GetComponent<Weapon>();
             hp -= weapon.damage;
             Debug.Log("MeleeAttack :" + hp);

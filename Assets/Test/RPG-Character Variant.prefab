@@ -596,13 +596,10 @@ MonoBehaviour:
   viewAngle: 180
   targetMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 128
   obstacleMask:
     serializedVersion: 2
     m_Bits: 512
-  InteractableMask:
-    serializedVersion: 2
-    m_Bits: 0
   visibleTargets: []
   Interactable: []
 --- !u!114 &8408866342804001854
