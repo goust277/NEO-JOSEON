@@ -236,7 +236,7 @@ MonoBehaviour:
   m_XAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 300
+    m_MaxSpeed: 650
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: Mouse X
@@ -398,7 +398,7 @@ Transform:
   m_GameObject: {fileID: 316753379}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.979, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4331, y: 1.4331, z: 1.4331}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 321979624}
@@ -590,7 +590,7 @@ MonoBehaviour:
   property: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 64
   delayBefore: 0.5
   delayAfter: 1
   lookTargetOnBeforeDelay: 1
@@ -628,7 +628,7 @@ MonoBehaviour:
   property: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 320
   delayBefore: 0.5
   delayAfter: 1
   lookTargetOnBeforeDelay: 1
@@ -658,7 +658,7 @@ MonoBehaviour:
   property: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 320
   delayBefore: 1.2
   delayAfter: 1
   lookTargetOnBeforeDelay: 0
@@ -684,7 +684,7 @@ MonoBehaviour:
   property: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 320
   delayBefore: 0.5
   delayAfter: 0.5
   lookTargetOnBeforeDelay: 1
@@ -714,7 +714,7 @@ MonoBehaviour:
   property: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 320
   delayBefore: 1
   delayAfter: 1
   lookTargetOnBeforeDelay: 1
@@ -741,7 +741,7 @@ MonoBehaviour:
   property: FIRE
   layerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 320
   delayBefore: 3
   delayAfter: 2.5
   lookTargetOnBeforeDelay: 1
@@ -771,7 +771,7 @@ MonoBehaviour:
   property: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 320
   delayBefore: 1
   delayAfter: 0.3
   lookTargetOnBeforeDelay: 1
@@ -798,7 +798,7 @@ MonoBehaviour:
   property: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 320
   delayBefore: 1
   delayAfter: 1
   lookTargetOnBeforeDelay: 1
@@ -1815,6 +1815,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1360559111}
     - target: {fileID: 1949079368, guid: 73977b98a5abd6b4a8bdd085083290f0, type: 3}
+      propertyPath: dash
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949079368, guid: 73977b98a5abd6b4a8bdd085083290f0, type: 3}
       propertyPath: layer.m_Bits
       value: 512
       objectReference: {fileID: 0}
@@ -2592,17 +2596,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 25f76e473f551e64a8438e7c32a0ec8e,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 25f76e473f551e64a8438e7c32a0ec8e,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 25f76e473f551e64a8438e7c32a0ec8e,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 25f76e473f551e64a8438e7c32a0ec8e,
         type: 3}

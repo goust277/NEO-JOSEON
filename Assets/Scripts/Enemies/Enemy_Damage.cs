@@ -35,7 +35,7 @@ public class Enemy_Damage : MonoBehaviour
             Weapon weapon = other.gameObject.GetComponent<Weapon>();
             hp -= weapon.damage;
             Debug.Log("MeleeAttack :" + hp);
-            Invoke("Idle", 0.5f);
+            Invoke("Idle", 0.1f);
         }
     }
 
