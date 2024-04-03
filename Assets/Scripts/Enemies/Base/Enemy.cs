@@ -8,12 +8,19 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 {
     protected NavMeshAgent mAgent;
 
+    [Header("체력")]
+    [SerializeField] private float hpMax = 1;
+    private float hpCurr = 1f;
+
     [Header("타겟 추적 정보")]
     [SerializeField] private GameObject target = null;
     private bool isChasing = false;
     [SerializeField] private bool lookAtTarget = true;
     private Vector3 lookPos = Vector3.one;
     [SerializeField] [Min(0f)] private float rotationSpeed = 20f;
+
+    private bool lockSight = false;
+    private Vector3 lookPosLock = Vector3.zero;
 
     [Header("상태 목록")]
     [SerializeField] private EnemyState[] stateList;
@@ -22,7 +29,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [Header("현재 상태")]
     [SerializeField] private int stateCurrIdx = -1;
     [SerializeField] private float stateDuration = 0.0f;
-
 
     private Animator animator = null;
 
@@ -51,12 +57,35 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     {
         get { return isChasing; }
     }
+
     /// <summary>
     /// 현재 상태가 얼마나 지속되었는지의 값입니다.
     /// </summary>
     protected float StateDuration
     {
         get { return stateDuration; }
+    }
+
+    public float Speed
+    {
+        get { return mAgent.speed; }
+        set { mAgent.speed = value; }
+    }
+
+    public float Acceleration
+    {
+        get { return mAgent.acceleration; }
+        set { mAgent.acceleration = value; }
+    }
+
+    public bool HasPath
+    {
+        get { return mAgent.hasPath; }
+    }
+
+    public Vector3 Dest
+    {
+        get { return mAgent.destination; }
     }
 
     protected void Awake()
@@ -84,17 +113,14 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         stateDuration += Time.deltaTime;
         // 추적 On / Off
         if (isChasing && target != null && mAgent.enabled)
-        {
             mAgent.SetDestination(target.transform.position);
-        }
 
-        if (lookAtTarget)
-                lookPos = target.transform.position - transform.position;
-        else
-        {
-            if (mAgent.enabled && mAgent.hasPath)
+        if (lockSight)
+            lookPos = lookPosLock - transform.position;
+        else if (lookAtTarget)
+            lookPos = target.transform.position - transform.position;
+        else if (mAgent.enabled && mAgent.hasPath)
                 lookPos = mAgent.desiredVelocity;
-        }
         lookPos.y = 0;
 
         if (lookPos.magnitude != 0)
@@ -104,28 +130,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         }
 
         OnUpdate();
-    }
-
-    public float Speed
-    {
-        get { return mAgent.speed; }
-        set { mAgent.speed = value; }
-    }
-
-    public float Acceleration
-    {
-        get { return mAgent.acceleration; }
-        set { mAgent.acceleration = value; }
-    }
-
-    public bool HasPath
-    {
-        get { return mAgent.hasPath; }
-    }
-
-    public Vector3 Dest
-    {
-        get { return mAgent.destination; }
     }
 
     /// <summary>
@@ -215,6 +219,17 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         if ((transform.position - mAgent.destination).magnitude <= threshold + 1)
             return true;
         return false;
+    }
+
+    protected void SetSightLock(Vector3 v)
+    {
+        lockSight = true;
+        lookPosLock = v;
+    }
+
+    protected void ResetSightLock()
+    {
+        lockSight = false;
     }
 
     /// <summary>

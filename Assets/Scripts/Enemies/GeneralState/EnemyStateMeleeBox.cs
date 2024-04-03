@@ -126,8 +126,6 @@ public class EnemyStateMeleeBox : EnemyStateAttack
         base.OnEnter();
         actor.SetChase(false);
         TrySetAnimBool("Idle", true);
-
-
 #if UNITY_EDITOR
         VIEW_RANGE = true;
 #endif
@@ -136,8 +134,6 @@ public class EnemyStateMeleeBox : EnemyStateAttack
     {
         base.OnExit();
         TrySetAnimBool("Attack", false);
-
-
 #if UNITY_EDITOR
         VIEW_RANGE = false;
 #endif

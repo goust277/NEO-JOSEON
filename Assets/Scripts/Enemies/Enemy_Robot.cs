@@ -11,8 +11,11 @@ public class Enemy_Robot : Enemy
     [SerializeField] private int melee1Weight = 1;
     [SerializeField] private int melee2Weight = 1;
     [SerializeField] private int melee3Weight = 1;
+
     [SerializeField] private int melee4Weight = 1;
     [SerializeField] private List<Transform> melee4Pos = new List<Transform>();
+    private int melee4lastPos = -1;
+
     private List<int> meleeTable = new List<int>();
     [SerializeField] [Range(0.0f, 1.0f)] private float chargeChance = 0.5f;
     [SerializeField] [Range(0.0f, 1.0f)] private float crossChance = 0.5f;
@@ -67,7 +70,8 @@ public class Enemy_Robot : Enemy
                     int next = meleeTable[Random.Range(0, meleeTable.Count)];
                     if (next == 7)
                     {
-                        melee4_1.SetDest(melee4Pos[Random.Range(0, melee4Pos.Count)]);
+                        melee4lastPos = Random.Range(0, melee4Pos.Count);
+                        melee4_1.SetDest(melee4Pos[melee4lastPos]);
                     }
                     SetState(next);
                 }
@@ -116,6 +120,10 @@ public class Enemy_Robot : Enemy
                     Vector3 end = origin + transform.forward * melee4_2.Range;
                     TEST_INDICATOR.SetThickness(melee4_2.Width * 2f);
                     TEST_INDICATOR.StartFill(origin, end, melee4_2.DelayBefore);
+
+                    int lockIndex = (melee4lastPos + (int)(melee4Pos.Count * 0.5f)) % melee4Pos.Count;
+                    SetSightLock(melee4Pos[lockIndex].position);
+
                     SetState(8);
                 }
                 break;
@@ -126,7 +134,10 @@ public class Enemy_Robot : Enemy
                     Vector3 end = origin + transform.forward * melee4_2.Range;
                     TEST_INDICATOR.ChangeVector(origin, end);
                     if (melee4_2.IsAttackOver())
-                           SetState(0);
+                    {
+                        ResetSightLock();
+                        SetState(0);
+                    }
                 }
                 break;
         }
