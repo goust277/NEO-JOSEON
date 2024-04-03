@@ -203,6 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb413416be3da8544b63fb144faba42a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpMax: 1
   target: {fileID: 0}
   lookAtTarget: 1
   rotationSpeed: 20
@@ -257,12 +258,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   delayBefore: 0.3
-  delayAfter: 1
+  delayAfter: 2.5
+  lookTargetOnBeforeDelay: 1
+  lookTime: 0.2
   meleeRange: 2
   meleeAngle: 180
   attackHeight: 1
   attackHeightOffset: 0
-  lookTargetOnBeforeDelay: 1
   VIEW_RANGE: 1
 --- !u!136 &7807632770491109584
 CapsuleCollider:
@@ -339,7 +341,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 2901f88d31c19a242aae59b9e4f687f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -421,4 +423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 5
+  materials:
+  - {fileID: 2100000, guid: 3374b1a3422c5d345806b4f794e94a5c, type: 2}
+  - {fileID: 2100000, guid: 7132f9265fbd5e64ca67c23a795a440a, type: 2}
   enemy: {fileID: 7807632770491109575}

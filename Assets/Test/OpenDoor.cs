@@ -5,6 +5,7 @@ using UnityEngine;
 public class OpenDoor : MonoBehaviour
 {
     public GameObject[] gameObjects;
+    public GameObject Door;
     void Start()
     {
         
@@ -13,9 +14,9 @@ public class OpenDoor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameObjects[0] == null)
+        if (gameObjects.Length == 0)
         {
-            Destroy(gameObject);
+            Destroy(Door);
         }
     }
 }

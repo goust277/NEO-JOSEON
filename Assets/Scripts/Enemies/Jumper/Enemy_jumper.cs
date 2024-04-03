@@ -12,7 +12,7 @@ public class Enemy_jumper : Enemy, IDamageable
 
     public bool detect = false;
     public bool isJumpReady = true;
-    public bool isJump = false;
+    public bool isGround = true;
 
     protected override void OnAwake()
     {
@@ -30,38 +30,13 @@ public class Enemy_jumper : Enemy, IDamageable
             isJumpReady = true;
         }
 
-        //switch (StateCurrIdx)
-        //{
-        //    case 0:
-        //        if (detect && isJumpReady)
-        //        {
-        //            SetState(1);
-        //            Jdelay = 0f;
-        //            isJumpReady = false;
-        //        }
-
-        //        break;
-        //    case 1:
-        //        if (!detect && !isJump)
-        //        {
-        //            SetState(0);
-        //        }
-        //        break;
-        //    case 2:
-        //        if (!isJumpReady && !isJump)
-        //        {
-        //            SetState(0);
-        //        }
-        //        break;
-
-        //}
         if (detect && isJumpReady)
         {
             SetState(1);
             Jdelay = 0f;
             isJumpReady = false;
         }
-        else if (!detect && !isJump)
+        else if (!detect && isGround)
         {
             SetState(0);
         }
@@ -75,7 +50,7 @@ public class Enemy_jumper : Enemy, IDamageable
     {
         if (collision.gameObject.CompareTag("Plane"))
         {
-            isJump = false;
+            isGround = true;
         }
 
     }
@@ -84,7 +59,7 @@ public class Enemy_jumper : Enemy, IDamageable
     {
         if (collision.gameObject.CompareTag("Plane"))
         {
-            isJump = true;
+            isGround = false;
         }
     }
 
