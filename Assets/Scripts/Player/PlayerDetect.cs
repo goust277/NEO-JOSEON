@@ -26,7 +26,6 @@ public class PlayerDetect : MonoBehaviour
         {
             yield return new WaitForSeconds(delay);
             FindVisibleTargets();
-            FindInteractable();
         }
     }
 
@@ -47,28 +46,6 @@ public class PlayerDetect : MonoBehaviour
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask)) 
                 {
                     visibleTargets.Add(target);
-                }
-            }
-        }
-    }
-
-    void FindInteractable()
-    {
-        Interactable.Clear();
-        Collider[] targetsinViewRadius = Physics.OverlapSphere(transform.position, viewRadius, InteractableMask);
-
-        for (int i = 0; i < targetsinViewRadius.Length; i++)
-        {
-            Transform target = targetsinViewRadius[i].transform;
-            Vector3 dirToTarget = (target.position - transform.position).normalized;
-
-            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
-            {
-                float dstToTarget = Vector3.Distance(transform.position, target.transform.position);
-
-                if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))
-                {
-                    Interactable.Add(target);
                 }
             }
         }

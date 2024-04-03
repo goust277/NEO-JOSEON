@@ -67,7 +67,7 @@ public class SceneControl : MonoBehaviour
     }
 
     // name 씬으로 효과 없이 전환
-    public void ChngeScene(string name)
+    public void ChangeScene(string name)
     {
         if (!CanChangeScene())
             return;
