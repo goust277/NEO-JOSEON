@@ -11,6 +11,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [Header("체력")]
     [SerializeField] private float hpMax = 1;
     private float hpCurr = 1f;
+    private float hitBlink = 0.3f;
+    private float hitBlinkCurr = 0f;
+    private Material material = null;
+    private Color cOrigin;
 
     [Header("타겟 추적 정보")]
     [SerializeField] private GameObject target = null;
@@ -95,6 +99,11 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
         GetComponent<Rigidbody>().isKinematic = true;
 
+        Renderer enemyRenderer = GetComponentInChildren<Renderer>();
+        material = Instantiate(enemyRenderer.material);
+        enemyRenderer.material = material;
+        cOrigin = material.color;
+
         animator = GetComponentInChildren<Animator>();
         OnAwake();
     }
@@ -127,6 +136,20 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         {
             Quaternion q = Quaternion.LookRotation(lookPos);
             transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * rotationSpeed);
+        }
+
+        // 피격 시 점멸
+        if (hitBlinkCurr > 0)
+        {
+            Color newColor = Color.white;
+            float cChange = hitBlinkCurr / hitBlink;
+            newColor.r = Mathf.Lerp(cOrigin.r, 1, cChange);
+            newColor.g = Mathf.Lerp(cOrigin.g, 1, cChange);
+            newColor.b = Mathf.Lerp(cOrigin.b, 1, cChange);
+            material.color = newColor;
+            hitBlinkCurr -= Time.deltaTime;
+            if (hitBlink < 0)
+                hitBlinkCurr = 0;
         }
 
         OnUpdate();
@@ -238,6 +261,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     /// <param name="damage">amount(float)와 property(string)을 포함하는 구조체입니다.</param>
     public virtual void TakeDamage(Damage damage)
     {
-
+        hitBlinkCurr = hitBlink;
     }
 }
