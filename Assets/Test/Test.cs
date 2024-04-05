@@ -28,4 +28,14 @@ public class Test : MonoBehaviour, IDamageable
         rot.y += Input.GetAxis("Mouse X") * 5f;
         transform.rotation = Quaternion.Euler(rot);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.TryGetComponent<IDamageable>(out IDamageable hit)) return;
+        if (LayerMask.LayerToName(other.gameObject.layer) != "Enemy") return;
+        Damage d;
+        d.amount = 0;
+        d.property = "";
+        hit.TakeDamage(d);
+    }
 }
