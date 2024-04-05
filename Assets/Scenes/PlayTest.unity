@@ -271,6 +271,7 @@ MonoBehaviour:
   gameObjects:
   - {fileID: 1684162088}
   - {fileID: 7807632770971507722}
+  Door: {fileID: 35223823}
 --- !u!1 &76258559
 GameObject:
   m_ObjectHideFlags: 0
@@ -1565,6 +1566,11 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1835972466}
+    - target: {fileID: 7807632770491109599, guid: 33c86942db1d74044b93349de6705a71,
+        type: 3}
+      propertyPath: delayAfter
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7807632770491109599, guid: 33c86942db1d74044b93349de6705a71,
         type: 3}
       propertyPath: layerMask.m_Bits

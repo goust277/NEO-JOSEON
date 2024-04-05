@@ -562,7 +562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentMapName: 
   speed: 8
-  dash: 5
+  dash: 10
   dashTime: 0.2
   dashCoolTime: 0
   rotspeed: 50
@@ -596,12 +596,23 @@ MonoBehaviour:
   viewAngle: 180
   targetMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 128
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 0
-  InteractableMask:
-    serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   visibleTargets: []
   Interactable: []
+--- !u!114 &8408866342804001854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7359971704630107142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb0b1e1da3ef0547bf0c7849f4d29cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 50
+  hitDelay: 0

@@ -9,7 +9,7 @@ public class PlayerDetect : MonoBehaviour
     [Range(0f, 360f)]
     public float viewAngle;
 
-    public LayerMask targetMask, obstacleMask, InteractableMask;
+    public LayerMask targetMask, obstacleMask;
 
     public List<Transform> visibleTargets = new List<Transform>();
     public List<Transform> Interactable = new List<Transform>();

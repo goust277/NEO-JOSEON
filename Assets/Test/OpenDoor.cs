@@ -1,10 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class OpenDoor : MonoBehaviour
 {
-    public GameObject[] gameObjects;
+    public List<GameObject> gameObjects;
+    public GameObject Door;
     void Start()
     {
         
@@ -13,9 +13,11 @@ public class OpenDoor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameObjects[0] == null)
+        gameObjects.RemoveAll(item => item == null);
+
+        if (gameObjects.Count == 0)
         {
-            Destroy(gameObject);
+            Destroy(Door);
         }
     }
 }
