@@ -476,7 +476,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149f20a6ea41b464689d0c4d5575c128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpMax: 1
+  hpMax: 100
+  hpCurr: 50
   target: {fileID: 1142411215}
   lookAtTarget: 1
   rotationSpeed: 8
@@ -504,6 +505,9 @@ MonoBehaviour:
   - {fileID: 607367332}
   chargeChance: 0.5
   crossChance: 0.5
+  phase2HP: 0.5
+  phase2SpeedUp: 0.2
+  isPhase2: 0
   TEST_INDICATOR: {fileID: 1057665922}
 --- !u!195 &321979620
 NavMeshAgent:
@@ -716,7 +720,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 320
   delayBefore: 1
-  delayAfter: 1
+  delayAfter: 0.5
   lookTargetOnBeforeDelay: 1
   lookTime: 0.5
   chargeSpeed: 60

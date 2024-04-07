@@ -19,6 +19,24 @@ public class EnemyStateProjectile : EnemyStateAttack
     [SerializeField][Range(0f, 360f)] private float wayDiff = 90f;
     [SerializeField][Range(0f, 360f)] private float diffOffset = 0f;
 
+    public int ShotWays
+    {
+        get { return shotWays; }
+        set { shotWays = value; }
+    }
+
+    public float WayDiff
+    {
+        get { return wayDiff; }
+        set { wayDiff = value; }
+    }
+
+    public float DiffOffset
+    {
+        get { return diffOffset; }
+        set { diffOffset = value; }
+    }
+
 #if UNITY_EDITOR
     [Header("DEBUG")]
     [SerializeField] public bool VIEW_RANGE = false;

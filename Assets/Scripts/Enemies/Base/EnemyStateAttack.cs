@@ -22,6 +22,17 @@ public abstract class EnemyStateAttack : EnemyState
     public float DelayBefore
     {
         get { return delayBefore; }
+        set { delayBefore = value; }
+    }
+    public float DelayAfter
+    {
+        get { return delayAfter; }
+        set { delayAfter = value; }
+    }
+    public float LookTime
+    {
+        get { return lookTime; }
+        set { lookTime = value; }
     }
 
     public abstract void Attack();

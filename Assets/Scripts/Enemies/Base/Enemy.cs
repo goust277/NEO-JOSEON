@@ -9,8 +9,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     protected NavMeshAgent mAgent;
 
     [Header("체력")]
-    [SerializeField] private float hpMax = 1;
-    private float hpCurr = 1f;
+    [SerializeField] protected float hpMax = 1;
+    [SerializeField] protected float hpCurr = 1f;
     private float hitBlink = 0.3f;
     private float hitBlinkCurr = 0f;
     private Material material = null;
@@ -103,6 +103,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         material = Instantiate(enemyRenderer.material);
         enemyRenderer.material = material;
         cOrigin = material.color;
+
+        hpCurr = hpMax;
 
         animator = GetComponentInChildren<Animator>();
         OnAwake();
@@ -261,6 +263,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     /// <param name="damage">amount(float)와 property(string)을 포함하는 구조체입니다.</param>
     public virtual void TakeDamage(Damage damage)
     {
+        hpCurr -= damage.amount;
         hitBlinkCurr = hitBlink;
     }
 }
