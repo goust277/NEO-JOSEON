@@ -305,6 +305,15 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         }
         return false;
     }
+    protected bool TryResetAnimTrigger(string name)
+    {
+        if (HasAnimParam(name))
+        {
+            AnimControl.ResetTrigger(name);
+            return true;
+        }
+        return false;
+    }
 
     /// <summary>
     /// 공격을 받았을 때 호출됩니다.

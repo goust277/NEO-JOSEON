@@ -113,7 +113,10 @@ public class Enemy_Robot : Enemy
                 if (StateDuration > chaseTimeMax)
                 {
                     if (Random.value <= chargeChance)
+                    {
                         SetState(6);
+                        TrySetAnimTrigger("Charge");
+                    }
                     else
                     {
                         if (Random.value <= crossChance)
@@ -144,16 +147,26 @@ public class Enemy_Robot : Enemy
                     SetState(0);
                 break;
             case 6: // 돌진
+                if (charge.IsAttacking())
+                    TrySetAnimBool("Charging", true);
+                else
+                    TrySetAnimBool("Charging", false);
+
                 if (charge.IsAttackOver())
                 {
+                    TrySetAnimBool("Charging", false);
                     chargeRepeatCurr = (chargeRepeatCurr + 1) % chargeRepeat;
                     if (chargeRepeatCurr == 0)
+                    {
+                        TrySetAnimTrigger("ChargeEnd");
                         SetState(0);
+                    }
                     else
                         SetState(6);
                 }
                 break;
             case 7:
+
                 if (melee4_1.IsAttackOver())
                 {
                     Vector3 origin = transform.position;

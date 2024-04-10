@@ -41,6 +41,8 @@ public class HitPad : MonoBehaviour, IDamageable
         hitGauge = 0;
         if (this.CompareTag("Key"))
         {
+            if (keyPad == null)
+                return;
             keyPad.OpenCancle();
         }
         else 
@@ -77,6 +79,8 @@ public class HitPad : MonoBehaviour, IDamageable
         {
             if (this.CompareTag("Key"))
             {
+                if (keyPad == null)
+                    return;
                 keyPad.AddOpen();
             }
             else
