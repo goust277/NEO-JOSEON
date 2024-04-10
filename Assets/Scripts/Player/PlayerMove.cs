@@ -29,9 +29,11 @@ public class PlayerMove : MonoBehaviour
 
     public Camera cam;
 
-    private bool isGround;
+    [SerializeField]private bool isGround;
     private bool isAttackReady;
     private bool isNextAtk;
+    private bool isDashing = false;
+    private bool isCooldown = false;
     [SerializeField] private float groundCheck;
     private bool isDoubleJump;
 
@@ -74,9 +76,23 @@ public class PlayerMove : MonoBehaviour
         {
             isAttackReady = true;
         }
-        if(isGround)
+
+        if (!isGround)
+        {
+            animator.SetBool("jump", true);
+        }
+        else if(isGround)
         {
             animator.SetBool("jump", false);
+        }
+
+        if (isDashing)
+        {
+            animator.SetBool("Dash", true);
+        }
+        else if (!isDashing)
+        {
+            animator.SetBool("Dash", false);
         }
 
 
@@ -117,7 +133,7 @@ public class PlayerMove : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }    
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isCooldown)
         {
             StartCoroutine(Dash());
         }
@@ -156,7 +172,6 @@ public class PlayerMove : MonoBehaviour
             }
             rb.MovePosition(this.gameObject.transform.position + dir * speed * Time.deltaTime);
         }
-
         Vector3 playerPosition = transform.position;
 
         // 상호 작용 가능한 오브젝트 찾기
@@ -176,7 +191,6 @@ public class PlayerMove : MonoBehaviour
     }
     void Jump()
     {
-        animator.SetBool("jump", true);
         Vector3 jumpPower = Vector3.up * jumpHeight;
         rb.AddForce(jumpPower, ForceMode.VelocityChange);
 
@@ -185,7 +199,7 @@ public class PlayerMove : MonoBehaviour
     private void CheckGround()
     {
 
-        if (Physics.BoxCast(transform.position + (Vector3.up * groundCheck), transform.lossyScale / 2.0f, Vector3.down, out RaycastHit hit, transform.rotation, 0.2f, layer))
+        if (Physics.BoxCast(transform.position + (Vector3.up * groundCheck), transform.lossyScale / 2.0f, Vector3.down, out RaycastHit hit, transform.rotation, 0.1f, layer))
         {
             isGround = true;
             isDoubleJump = false;
@@ -198,10 +212,15 @@ public class PlayerMove : MonoBehaviour
 
     private IEnumerator Dash()
     {
+        isCooldown = true;
+
         weapon.isAtkTime = false;
         rb.useGravity = false;
         Vector3 dashPower = dir * dash;
         rb.AddForce(dashPower, ForceMode.VelocityChange);
+
+        isDashing = true;
+
         float delay = 0;
         while (delay < dashTime)
         {
@@ -210,6 +229,12 @@ public class PlayerMove : MonoBehaviour
         }
         rb.useGravity = true;
         rb.velocity = Vector3.zero;
+
+        isDashing = false;
+
+        yield return new WaitForSeconds(dashCoolTime);
+
+        isCooldown = false;
     }
 
     void Attack()
