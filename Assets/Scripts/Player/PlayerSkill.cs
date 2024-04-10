@@ -15,7 +15,7 @@ public class PlayerSkill : MonoBehaviour
 
     private void Awake()
     {
-        range.SetActive(false);
+       // range.SetActive(false);
     }
     private void Update()
     {
