@@ -12,7 +12,6 @@ public class PlayerDetect : MonoBehaviour
     public LayerMask targetMask, obstacleMask;
 
     public List<Transform> visibleTargets = new List<Transform>();
-    public List<Transform> Interactable = new List<Transform>();
 
 
     void Start()
