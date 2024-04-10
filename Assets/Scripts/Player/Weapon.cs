@@ -7,10 +7,7 @@ using UnityEngine.XR.WSA;
 
 public class Weapon : MonoBehaviour
 {
-
-    [SerializeField] private Material[] matarials;
-
-    private CapsuleCollider capsuleCollider;
+    private BoxCollider BoxCollider;
     public enum Type { Melee, Range };
     public Type type;
 
@@ -23,8 +20,8 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
-        capsuleCollider = GetComponent<CapsuleCollider>();
-        capsuleCollider.enabled = false;
+        BoxCollider = GetComponent<BoxCollider>();
+        BoxCollider.enabled = false;
     }
     public void Use()
     {
@@ -62,7 +59,7 @@ public class Weapon : MonoBehaviour
             onAttack += Time.deltaTime;
             yield return null;
         }
-        capsuleCollider.enabled = false;
+        BoxCollider.enabled = false;
         yield return new WaitForSeconds(0.2f);
         isAtkTime = false;
         attackLv = 0;
@@ -70,7 +67,7 @@ public class Weapon : MonoBehaviour
 
     private void Attack()
     {
-        capsuleCollider.enabled = true;
+        BoxCollider.enabled = true;
         isAtkTime = true;
         attackLv++;
     }

@@ -30,7 +30,6 @@ public class Enemy_Damage : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Melee"))
         {
-            rend.material = materials[1];
             Time.timeScale = hit_lag;
             Weapon weapon = other.gameObject.GetComponent<Weapon>();
             hp -= weapon.damage;
