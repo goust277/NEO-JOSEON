@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Animation/Player_Act/son_hyomin/Chapter2_exclusive_monsters_act/LONG_sangmo_idle.fbx.meta
-guid: e87864ec9a4d4514aa827dfdb999bbb5
-========
-guid: 8f180ae638d1c184884afd018753957b
->>>>>>>> upstream/main:Assets/hyeonmin/stage1/bossstage.fbx.meta
+guid: 3cc90716f52a33546ad1b4cfd710e3b6
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerSkill : MonoBehaviour
 {
-    public GameObject range;
-
     public float skillRange;
     public float pushForce;
 
@@ -52,15 +50,13 @@ public class PlayerSkill : MonoBehaviour
         {
             HitPad hitPad = collider.GetComponent<HitPad>();
             hitPad.HitDown();
-            
+
         }
-        range.SetActive(true);
 
         Invoke("SkillOff", 0.2f);
     }
 
     private void SkillOff()
     {
-        range.SetActive(false);
     }
 }
