@@ -100,10 +100,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
         GetComponent<Rigidbody>().isKinematic = true;
 
-        Renderer enemyRenderer = GetComponentInChildren<Renderer>();
-        material = Instantiate(enemyRenderer.material);
-        enemyRenderer.material = material;
-        cOrigin = material.color;
+        //Renderer enemyRenderer = GetComponentInChildren<Renderer>();
+        //material = Instantiate(enemyRenderer.material);
+        //enemyRenderer.material = material;
+        //cOrigin = material.color;
 
         hpCurr = hpMax;
 
@@ -147,18 +147,18 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         TrySetAnimFloat("MoveSpeed", moveSpeed);
 
         // ÇÇ°Ý ½Ã Á¡¸ê
-        if (hitBlinkCurr > 0)
-        {
-            Color newColor = Color.white;
-            float cChange = hitBlinkCurr / hitBlink;
-            newColor.r = Mathf.Lerp(cOrigin.r, 1, cChange);
-            newColor.g = Mathf.Lerp(cOrigin.g, 1, cChange);
-            newColor.b = Mathf.Lerp(cOrigin.b, 1, cChange);
-            material.color = newColor;
-            hitBlinkCurr -= Time.deltaTime;
-            if (hitBlink < 0)
-                hitBlinkCurr = 0;
-        }
+        //if (hitBlinkCurr > 0)
+        //{
+        //    Color newColor = Color.white;
+        //    float cChange = hitBlinkCurr / hitBlink;
+        //    newColor.r = Mathf.Lerp(cOrigin.r, 1, cChange);
+        //    newColor.g = Mathf.Lerp(cOrigin.g, 1, cChange);
+        //    newColor.b = Mathf.Lerp(cOrigin.b, 1, cChange);
+        //    material.color = newColor;
+        //    hitBlinkCurr -= Time.deltaTime;
+        //    if (hitBlink < 0)
+        //        hitBlinkCurr = 0;
+        //}
 
         OnUpdate();
     }

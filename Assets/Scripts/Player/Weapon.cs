@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Mail;
@@ -17,6 +18,7 @@ public class Weapon : MonoBehaviour
     public float rate;
 
     public bool isAtkTime;
+    [SerializeField] private float atkDelay = 0.3f;
 
     private void Start()
     {
@@ -42,16 +44,40 @@ public class Weapon : MonoBehaviour
                 attackLv = 0;
             }
             Attack();
+            float delay = 0;
+            while (delay < atkDelay)
+            {
+                delay += Time.deltaTime;
+                yield return null;
+            }
+            BoxCollider.enabled = true;
+
         }
         else if (attackLv == 1)
         {
             yield return GameDefine.waitForSeconds0_1;
             Attack();
+            float delay = 0;
+            while (delay < atkDelay)
+            {
+                delay += Time.deltaTime;
+                yield return null;
+            }
+            BoxCollider.enabled = true;
+
         }
         else if (attackLv == 2)
         {
             yield return GameDefine.waitForSeconds0_1;
             Attack();
+            float delay = 0;
+            while (delay < atkDelay)
+            {
+                delay += Time.deltaTime;
+                yield return null;
+            }
+            BoxCollider.enabled = true;
+
         }
         float onAttack = 0;
         while (onAttack < rate)
@@ -60,14 +86,13 @@ public class Weapon : MonoBehaviour
             yield return null;
         }
         BoxCollider.enabled = false;
-        yield return new WaitForSeconds(0.2f);
         isAtkTime = false;
         attackLv = 0;
     }
 
     private void Attack()
     {
-        BoxCollider.enabled = true;
+
         isAtkTime = true;
         attackLv++;
     }
