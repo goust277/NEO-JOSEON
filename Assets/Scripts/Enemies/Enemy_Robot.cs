@@ -74,6 +74,7 @@ public class Enemy_Robot : Enemy
             {
                 isPhase2 = true;
                 chargeRepeat++;
+                TrySetAnimFloat("AnimSpeed", 1.2f);
                 for (int i = 1; i < StateList.Length; i++)
                 {
                     EnemyStateAttack state = ((EnemyStateAttack)StateList[i]);
@@ -107,6 +108,7 @@ public class Enemy_Robot : Enemy
                         melee4_1.SetDest(melee4Pos[melee4lastPos]);
                     }
                     SetState(next);
+                    TrySetAnimTrigger("Melee1");
                 }
                 if (StateDuration > chaseTimeMax)
                 {

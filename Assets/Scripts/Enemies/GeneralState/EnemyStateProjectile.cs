@@ -65,7 +65,6 @@ public class EnemyStateProjectile : EnemyStateAttack
 
     public override void Attack()
     {
-        TrySetAnimBool("Attack", true);
         FireProjectile();
     }
 
@@ -99,7 +98,6 @@ public class EnemyStateProjectile : EnemyStateAttack
     {
         base.OnEnter();
         actor.SetChase(false);
-        TrySetAnimBool("Idle", true);
 #if UNITY_EDITOR
         VIEW_RANGE = true;
 #endif
@@ -108,7 +106,6 @@ public class EnemyStateProjectile : EnemyStateAttack
     public override void OnExit()
     {
         base.OnExit();
-        TrySetAnimBool("Attack", false);
 #if UNITY_EDITOR
         VIEW_RANGE = false;
 #endif

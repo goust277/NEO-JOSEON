@@ -79,7 +79,6 @@ public class EnemyStateMeleeBox : EnemyStateAttack
 
     public override void Attack()
     {
-        TrySetAnimBool("Attack", true);
         int selfId = gameObject.GetInstanceID();
 
         for (int i = 0; i < attackWay; i++)
@@ -125,7 +124,6 @@ public class EnemyStateMeleeBox : EnemyStateAttack
     {
         base.OnEnter();
         actor.SetChase(false);
-        TrySetAnimBool("Idle", true);
 #if UNITY_EDITOR
         VIEW_RANGE = true;
 #endif
@@ -133,7 +131,6 @@ public class EnemyStateMeleeBox : EnemyStateAttack
     public override void OnExit()
     {
         base.OnExit();
-        TrySetAnimBool("Attack", false);
 #if UNITY_EDITOR
         VIEW_RANGE = false;
 #endif

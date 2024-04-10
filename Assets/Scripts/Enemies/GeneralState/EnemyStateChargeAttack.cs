@@ -45,8 +45,6 @@ public class EnemyStateChargeAttack : EnemyStateAttack
 
     public override void Attack()
     {
-        TrySetAnimBool("Idle", false);
-        TrySetAnimFloat("Speed", 3);
         isAttacking = true;
         if (dest)
             actor.SetTarget(dest.position);
@@ -89,7 +87,6 @@ public class EnemyStateChargeAttack : EnemyStateAttack
     public override void OnEnter()
     {
         base.OnEnter();
-        TrySetAnimBool("Idle", true);
         actor.SetChase(false);
         speedPrev = actor.Speed;
         actor.Speed = chargeSpeed;
@@ -104,7 +101,6 @@ public class EnemyStateChargeAttack : EnemyStateAttack
     public override void OnExit()
     {
         base.OnExit();
-        TrySetAnimFloat("Speed", 1);
         actor.Speed = speedPrev;
         actor.Acceleration = accelPrev;
         hits.Clear();

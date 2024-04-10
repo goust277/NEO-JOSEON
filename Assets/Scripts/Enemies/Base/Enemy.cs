@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -140,6 +141,11 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * rotationSpeed);
         }
 
+        float moveSpeed = 0;
+        if (mAgent.enabled)
+            moveSpeed = mAgent.desiredVelocity.magnitude;
+        TrySetAnimFloat("MoveSpeed", moveSpeed);
+
         // 피격 시 점멸
         if (hitBlinkCurr > 0)
         {
@@ -257,6 +263,49 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         lockSight = false;
     }
 
+    private bool HasAnimParam(string name)
+    {
+        if (AnimControl == null)
+            return false;
+        AnimatorControllerParameter[] a = AnimControl.parameters;
+        foreach (AnimatorControllerParameter param in a)
+        {
+            if (param.name == name)
+                return true;
+        }
+        return false;
+    }
+
+    protected bool TrySetAnimBool(string name, bool b)
+    {
+        if (HasAnimParam(name))
+        {
+            AnimControl.SetBool(name, b);
+            return true;
+        }
+        return false;
+    }
+
+    protected bool TrySetAnimFloat(string name, float f)
+    {
+        if (HasAnimParam(name))
+        {
+            AnimControl.SetFloat(name, f);
+            return true;
+        }
+        return false;
+    }
+
+    protected bool TrySetAnimTrigger(string name)
+    {
+        if (HasAnimParam(name))
+        {
+            AnimControl.SetTrigger(name);
+            return true;
+        }
+        return false;
+    }
+
     /// <summary>
     /// 공격을 받았을 때 호출됩니다.
     /// </summary>
@@ -265,5 +314,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     {
         hpCurr -= damage.amount;
         hitBlinkCurr = hitBlink;
+
+        if (hpCurr <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
