@@ -72,8 +72,20 @@ public class Weapon : MonoBehaviour
         attackLv++;
     }
 
-    void attackRester()
+    private void OnTriggerEnter(Collider other)
     {
-        attackLv = 0;
+        IDamageable target = other.GetComponent<IDamageable>(); // 인터페이스 찾기
+        if (target == null) return; // 없다면 리턴
+
+        /*
+
+         니가 추가로 확인할 것들 
+
+         */
+
+        Damage d; // 대미지 구조체
+        d.amount = damage; // 피해량
+        d.property = string.Empty; // 속성
+        target.TakeDamage(d); // '피해 받기' 메서드 호출
     }
 }
