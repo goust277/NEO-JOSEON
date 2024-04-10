@@ -39,12 +39,14 @@ public class HitPad : MonoBehaviour, IDamageable
     {
         hit = false;
         hitGauge = 0;
-        if (this.CompareTag("key"))
+        if (this.CompareTag("Key"))
         {
             keyPad.OpenCancle();
         }
         else 
         {
+            if (keyPad == null)
+                return;
             keyPad.notOpen--;
         }
             
@@ -59,8 +61,10 @@ public class HitPad : MonoBehaviour, IDamageable
             {
                 keyPad.notOpen--;
             }
-            if (this.CompareTag("key"))
+            if (this.CompareTag("Key"))
             {
+                if (keyPad == null)
+                    return;
                 keyPad.OpenCancle();
             }
         }
@@ -71,13 +75,14 @@ public class HitPad : MonoBehaviour, IDamageable
     {
         if (hit)
         {
-            if (this.CompareTag("key"))
+            if (this.CompareTag("Key"))
             {
-                Debug.Log("key");
                 keyPad.AddOpen();
             }
             else
             {
+                if (keyPad == null)
+                    return;
                 keyPad.CloseDoor();
                 keyPad.notOpen++;
             }
