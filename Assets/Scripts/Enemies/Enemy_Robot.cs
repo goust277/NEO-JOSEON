@@ -18,7 +18,13 @@ public class Enemy_Robot : Enemy
 
     private List<int> meleeTable = new List<int>();
     [SerializeField] [Range(0.0f, 1.0f)] private float chargeChance = 0.5f;
+    private int chargeRepeat = 2;
+    private int chargeRepeatCurr = 0;
     [SerializeField] [Range(0.0f, 1.0f)] private float crossChance = 0.5f;
+
+    [SerializeField] [Range(0.0f, 1.0f)] private float phase2HP = 0.5f;
+    [SerializeField] private float phase2SpeedUp = 0.2f;
+    [SerializeField] private bool isPhase2 = false;
 
     [Header("MISC")]
     [SerializeField] private ArrowIndicator TEST_INDICATOR = null;
@@ -62,18 +68,47 @@ public class Enemy_Robot : Enemy
 
     protected override void OnUpdate()
     {
+        if (!isPhase2)
+        {
+            if (phase2HP * hpMax >= hpCurr)
+            {
+                isPhase2 = true;
+                chargeRepeat++;
+                TrySetAnimFloat("AnimSpeed", 1.2f);
+                for (int i = 1; i < StateList.Length; i++)
+                {
+                    EnemyStateAttack state = ((EnemyStateAttack)StateList[i]);
+                    state.DelayBefore *= (1 - phase2SpeedUp);
+                    state.DelayAfter *= (1 - phase2SpeedUp);
+                    state.LookTime *= (1 - phase2SpeedUp);
+                    if (i == 5) // Cross
+                    {
+                        EnemyStateProjectile statep = (EnemyStateProjectile)state;
+                        statep.ShotWays = 8;
+                        statep.WayDiff = 45f;
+                        statep.DiffOffset = 0f;
+                    }
+                }
+            }
+        }
+
         switch (StateCurrIdx)
         {
             case 0: // 추적
                 if (melee1.CanAttackTarget())
                 {
                     int next = meleeTable[Random.Range(0, meleeTable.Count)];
+                    while(!isPhase2 && next == 7)
+                    {
+                        next = meleeTable[Random.Range(0, meleeTable.Count)];
+                    }    
                     if (next == 7)
                     {
                         melee4lastPos = Random.Range(0, melee4Pos.Count);
                         melee4_1.SetDest(melee4Pos[melee4lastPos]);
                     }
                     SetState(next);
+                    TrySetAnimTrigger("Melee1");
                 }
                 if (StateDuration > chaseTimeMax)
                 {
@@ -110,7 +145,13 @@ public class Enemy_Robot : Enemy
                 break;
             case 6: // 돌진
                 if (charge.IsAttackOver())
-                    SetState(0);
+                {
+                    chargeRepeatCurr = (chargeRepeatCurr + 1) % chargeRepeat;
+                    if (chargeRepeatCurr == 0)
+                        SetState(0);
+                    else
+                        SetState(6);
+                }
                 break;
             case 7:
                 if (melee4_1.IsAttackOver())

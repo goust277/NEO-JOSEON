@@ -19,6 +19,24 @@ public class EnemyStateProjectile : EnemyStateAttack
     [SerializeField][Range(0f, 360f)] private float wayDiff = 90f;
     [SerializeField][Range(0f, 360f)] private float diffOffset = 0f;
 
+    public int ShotWays
+    {
+        get { return shotWays; }
+        set { shotWays = value; }
+    }
+
+    public float WayDiff
+    {
+        get { return wayDiff; }
+        set { wayDiff = value; }
+    }
+
+    public float DiffOffset
+    {
+        get { return diffOffset; }
+        set { diffOffset = value; }
+    }
+
 #if UNITY_EDITOR
     [Header("DEBUG")]
     [SerializeField] public bool VIEW_RANGE = false;
@@ -47,7 +65,6 @@ public class EnemyStateProjectile : EnemyStateAttack
 
     public override void Attack()
     {
-        TrySetAnimBool("Attack", true);
         FireProjectile();
     }
 
@@ -81,7 +98,6 @@ public class EnemyStateProjectile : EnemyStateAttack
     {
         base.OnEnter();
         actor.SetChase(false);
-        TrySetAnimBool("Idle", true);
 #if UNITY_EDITOR
         VIEW_RANGE = true;
 #endif
@@ -90,7 +106,6 @@ public class EnemyStateProjectile : EnemyStateAttack
     public override void OnExit()
     {
         base.OnExit();
-        TrySetAnimBool("Attack", false);
 #if UNITY_EDITOR
         VIEW_RANGE = false;
 #endif

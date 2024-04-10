@@ -73,7 +73,6 @@ public class EnemyStateMeleeArc : EnemyStateAttack
     {
         base.OnEnter();
         actor.SetChase(false);
-        TrySetAnimBool("Idle", true);
 
 #if UNITY_EDITOR
         VIEW_RANGE = true;
@@ -83,7 +82,6 @@ public class EnemyStateMeleeArc : EnemyStateAttack
     public override void OnExit()
     {
         base.OnExit();
-        TrySetAnimBool("Attack", false);
 
 #if UNITY_EDITOR
         VIEW_RANGE = false;
@@ -92,8 +90,6 @@ public class EnemyStateMeleeArc : EnemyStateAttack
 
     public override void Attack()
     {
-        TrySetAnimBool("Attack", true);
-
         Vector3 pos1 = transform.position;
         pos1.y += attackHeightOffset + attackHeight * 0.5f;
         Vector3 size = new Vector3(meleeRange, attackHeight * 0.5f, meleeRange);
