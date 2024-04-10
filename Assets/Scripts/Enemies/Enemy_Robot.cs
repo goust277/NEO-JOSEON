@@ -101,15 +101,14 @@ public class Enemy_Robot : Enemy
                     while(!isPhase2 && next == 7)
                     {
                         next = meleeTable[Random.Range(0, meleeTable.Count)];
-                        TrySetAnimTrigger("Melee1");
                     }    
                     if (next == 7)
                     {
                         melee4lastPos = Random.Range(0, melee4Pos.Count);
                         melee4_1.SetDest(melee4Pos[melee4lastPos]);
-                        TryResetAnimTrigger("Melee1");
                     }
                     SetState(next);
+                    TrySetAnimTrigger("Melee1");
                 }
                 if (StateDuration > chaseTimeMax)
                 {
