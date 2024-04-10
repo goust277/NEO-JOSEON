@@ -80,5 +80,10 @@ public abstract class EnemyStateAttack : EnemyState
         return isAttackOver;
     }
 
+    public virtual bool IsAttacking()
+    {
+        return isAttacking;
+    }
+
     public abstract bool CanAttackTarget();
 }

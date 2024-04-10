@@ -101,19 +101,23 @@ public class Enemy_Robot : Enemy
                     while(!isPhase2 && next == 7)
                     {
                         next = meleeTable[Random.Range(0, meleeTable.Count)];
+                        TrySetAnimTrigger("Melee1");
                     }    
                     if (next == 7)
                     {
                         melee4lastPos = Random.Range(0, melee4Pos.Count);
                         melee4_1.SetDest(melee4Pos[melee4lastPos]);
+                        TryResetAnimTrigger("Melee1");
                     }
                     SetState(next);
-                    TrySetAnimTrigger("Melee1");
                 }
                 if (StateDuration > chaseTimeMax)
                 {
                     if (Random.value <= chargeChance)
+                    {
                         SetState(6);
+                        TrySetAnimTrigger("Charge");
+                    }
                     else
                     {
                         if (Random.value <= crossChance)
@@ -144,16 +148,26 @@ public class Enemy_Robot : Enemy
                     SetState(0);
                 break;
             case 6: // 돌진
+                if (charge.IsAttacking())
+                    TrySetAnimBool("Charging", true);
+                else
+                    TrySetAnimBool("Charging", false);
+
                 if (charge.IsAttackOver())
                 {
+                    TrySetAnimBool("Charging", false);
                     chargeRepeatCurr = (chargeRepeatCurr + 1) % chargeRepeat;
                     if (chargeRepeatCurr == 0)
+                    {
+                        TrySetAnimTrigger("ChargeEnd");
                         SetState(0);
+                    }
                     else
                         SetState(6);
                 }
                 break;
             case 7:
+
                 if (melee4_1.IsAttackOver())
                 {
                     Vector3 origin = transform.position;

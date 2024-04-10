@@ -8087,6 +8087,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6200166922544192280, guid: 5756be57d68c8f944ae797434f56ba91,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6542044873083586185, guid: 5756be57d68c8f944ae797434f56ba91,
         type: 3}
       propertyPath: projQueue
@@ -8197,6 +8202,11 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 5331018720758484704}
+    - target: {fileID: 6542044873083586207, guid: 5756be57d68c8f944ae797434f56ba91,
+        type: 3}
+      propertyPath: chaseTimeMax
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6542044873083586209, guid: 5756be57d68c8f944ae797434f56ba91,
         type: 3}
       propertyPath: m_Name
@@ -34271,7 +34281,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5331018720758484704}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 6.62, y: 0, z: -6.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
