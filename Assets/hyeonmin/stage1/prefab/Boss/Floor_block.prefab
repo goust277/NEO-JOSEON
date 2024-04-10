@@ -116,6 +116,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 1bc1d56a7d5e11c4f988ec517cbf2744, type: 2}
   - {fileID: 2100000, guid: 71582558f4cfeb24e91e01fa61c70e15, type: 2}
   - {fileID: 2100000, guid: 6128d384a812a514c9d14cb3195f07c9, type: 2}
-  resetTime: 0
+  resetTime: 1.5
   hitGauge: 0
   keyPad: {fileID: 0}
