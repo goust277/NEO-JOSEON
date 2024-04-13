@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cdc1f02e8361e894cb97d8d87cc081fc, type: 2}
+  - {fileID: 2100000, guid: 47e94ac470dea3d4d8d372425b6edc4d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -112,10 +112,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hit: 0
   matarials:
-  - {fileID: 2100000, guid: cdc1f02e8361e894cb97d8d87cc081fc, type: 2}
-  - {fileID: 2100000, guid: 1bc1d56a7d5e11c4f988ec517cbf2744, type: 2}
-  - {fileID: 2100000, guid: 71582558f4cfeb24e91e01fa61c70e15, type: 2}
-  - {fileID: 2100000, guid: 6128d384a812a514c9d14cb3195f07c9, type: 2}
+  - {fileID: 2100000, guid: 47e94ac470dea3d4d8d372425b6edc4d, type: 2}
+  - {fileID: 2100000, guid: ade7bb40686588f4da90564791c829d2, type: 2}
+  - {fileID: 2100000, guid: 489727108700c9e44aac9f756899f759, type: 2}
+  - {fileID: 2100000, guid: 6c0ea73a31f52584db34248e4b81c398, type: 2}
   resetTime: 1.5
   hitGauge: 0
   keyPad: {fileID: 0}

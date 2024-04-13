@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class EnemyStateChargeAttack : EnemyStateAttack
 {
-    private List<int> hits = new List<int>(); // 타격 대상들의 ID 저장
     [Header("공격 방식")]
     [SerializeField] private float chargeSpeed = 20;
     [SerializeField] private float acceleration = 40;
@@ -43,16 +42,16 @@ public class EnemyStateChargeAttack : EnemyStateAttack
     }
 #endif
 
-    public override void Attack()
+    public override void AttackStart()
     {
-        isAttacking = true;
+        keepAttacking = true;
         if (dest)
             actor.SetTarget(dest.position);
         else
             actor.SetTarget(actor.GetTarget().transform.position);
     }
 
-    public override void OnAttacking()
+    public override void Attacking()
     {
         Vector3 height = new Vector3(0, Mathf.Max(0, hitHeight * 0.5f - hitRadius) + hitRadius, 0);
         Vector3 point1 = transform.position + height;
@@ -69,19 +68,19 @@ public class EnemyStateChargeAttack : EnemyStateAttack
             int cID = c.GetInstanceID();
             if (cID == selfId) // 자신은 제외
                 continue;
-
-            if (hits.Contains(cID)) // 이미 한 번 공격한 대상인가?
-                continue;
-            hits.Add(cID);
-
-            Damage d;
-            d.amount = damage;
-            d.property = property;
-            target.TakeDamage(d);
+            
+            if (CheckHitlist(cID))
+            {
+                Damage d;
+                d.amount = damage;
+                d.property = property;
+                target.TakeDamage(d);
+                onHitAttack?.Invoke(c);
+            }
         }
 
         if (actor.IsArrived(0.5f))
-            isAttacking = false;
+            keepAttacking = false;
     }
 
     public override void OnEnter()
@@ -103,7 +102,6 @@ public class EnemyStateChargeAttack : EnemyStateAttack
         base.OnExit();
         actor.Speed = speedPrev;
         actor.Acceleration = accelPrev;
-        hits.Clear();
 
 #if UNITY_EDITOR
         VIEW_RANGE = false;

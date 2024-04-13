@@ -32,13 +32,13 @@ public class EnemyStateSlam : EnemyStateAttack
         actor.SetAiActive(true);
     }
 
-    public override void Attack()
+    public override void AttackStart()
     {
-        isAttacking = true;
+        keepAttacking = true;
         rb.AddRelativeForce(transform.up * jumpPower, ForceMode.Impulse);
     }
 
-    public override void OnAttacking()
+    public override void Attacking()
     {
         Vector3 vec = targetPos - transform.position;
         vec.y = 0;
@@ -50,12 +50,12 @@ public class EnemyStateSlam : EnemyStateAttack
 
         // 나중에 판정 고치기
         if (rb.velocity.y <= 0 && Mathf.Abs(targetPos.y - transform.position.y) < 0.1f)
-            isAttacking = false;
+            keepAttacking = false;
     }
 
     public override bool IsAttackOver()
     {
-        return base.IsAttackOver() && !isAttacking;
+        return base.IsAttackOver() && !keepAttacking;
     }
 
     public override bool CanAttackTarget()

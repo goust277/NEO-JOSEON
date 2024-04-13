@@ -24,7 +24,7 @@ public class EnemyStateMeleeArc : EnemyStateAttack
         Handles.color = new Color(1f, 1f, 1f, 0.1f);
         Handles.DrawSolidDisc(transform.position, Vector3.up, meleeRange);
 
-        if (delayBefore <= delayBeforeCurr && delayAfterCurr <= 0.12f)
+        if (isAttacking)
         {
             Handles.color = new Color(1f, 0, 0, 0.3f);
             Gizmos.color = Color.magenta;
@@ -88,7 +88,7 @@ public class EnemyStateMeleeArc : EnemyStateAttack
 #endif
     }
 
-    public override void Attack()
+    public override void Attacking()
     {
         Vector3 pos1 = transform.position;
         pos1.y += attackHeightOffset + attackHeight * 0.5f;
@@ -118,10 +118,14 @@ public class EnemyStateMeleeArc : EnemyStateAttack
             if (dot < Mathf.Cos(Mathf.Deg2Rad * meleeAngle)) // 대상이 공격 각도 안인가?
                 continue;
 
-            Damage d;
-            d.amount = damage;
-            d.property = property;
-            target.TakeDamage(d);
+            if (CheckHitlist(ele.GetInstanceID()))
+            {
+                Damage d;
+                d.amount = damage;
+                d.property = property;
+                target.TakeDamage(d);
+                onHitAttack?.Invoke(ele);
+            }
         }
     }
 

@@ -16,7 +16,6 @@ public class EnemyStateMeleeBox : EnemyStateAttack
     [SerializeField] [Min(1)] private int attackWay = 1;
     [SerializeField] [Range(0f, 360f)] private float wayDiff = 90f;
     [SerializeField] [Range(0f, 360f)] private float diffOffset = 0f;
-    private List<int> hits = new List<int>();
 
     public float Range
     {
@@ -58,7 +57,11 @@ public class EnemyStateMeleeBox : EnemyStateAttack
             Vector3 p7 = p3 + attackH;
             Vector3 p8 = p4 + attackH;
 
-            Gizmos.color = Color.red;
+            if (isAttacking)
+                Gizmos.color = Color.magenta;
+            else
+                Gizmos.color = Color.blue;
+
             Gizmos.DrawLine(p1, p2);
             Gizmos.DrawLine(p3, p4);
             Gizmos.DrawLine(p1, p3);
@@ -77,7 +80,7 @@ public class EnemyStateMeleeBox : EnemyStateAttack
     }
 #endif
 
-    public override void Attack()
+    public override void Attacking()
     {
         int selfId = gameObject.GetInstanceID();
 
@@ -107,17 +110,17 @@ public class EnemyStateMeleeBox : EnemyStateAttack
                 if (id == selfId) // 자신은 제외
                     continue;
 
-                if (hits.Contains(id)) // 이미 친 대상 제외
-                    continue;
-
-                hits.Add(id);
-                Damage d;
-                d.amount = damage;
-                d.property = property;
-                target.TakeDamage(d);
+                if (CheckHitlist(id)) // 이미 친 대상 제외
+                {
+                    Damage d;
+                    d.amount = damage;
+                    d.property = property;
+                    target.TakeDamage(d);
+                    onHitAttack?.Invoke(ele);
+                }
             }
+
         }
-        hits.Clear();
     }
 
     public override void OnEnter()

@@ -78,9 +78,7 @@ public class Enemy_Robot : Enemy
                 for (int i = 1; i < StateList.Length; i++)
                 {
                     EnemyStateAttack state = ((EnemyStateAttack)StateList[i]);
-                    state.DelayBefore *= (1 - phase2SpeedUp);
-                    state.DelayAfter *= (1 - phase2SpeedUp);
-                    state.LookTime *= (1 - phase2SpeedUp);
+                    state.MultTiming(1 - phase2SpeedUp);
                     if (i == 5) // Cross
                     {
                         EnemyStateProjectile statep = (EnemyStateProjectile)state;
@@ -91,7 +89,6 @@ public class Enemy_Robot : Enemy
                 }
             }
         }
-
         switch (StateCurrIdx)
         {
             case 0: // 추적
@@ -166,7 +163,6 @@ public class Enemy_Robot : Enemy
                 }
                 break;
             case 7:
-
                 if (melee4_1.IsAttackOver())
                 {
                     Vector3 origin = transform.position;
