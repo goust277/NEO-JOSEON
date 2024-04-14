@@ -15,13 +15,9 @@ public class SceneControl : MonoBehaviour
 
     private delegate void Callback();
 
-    private void Awake()
+    public void Initialize(GameObject screenEffect)
     {
-        GameObject prefab = Resources.Load<GameObject>("Prefab/System/ScreenEffect");
-        GameObject newInst = Instantiate(prefab);
-        DontDestroyOnLoad(newInst);
-
-        fadeImage = newInst.GetComponentInChildren<Image>();
+        fadeImage = screenEffect.transform.GetChild(1).GetComponentInChildren<Image>();
         fadeImage.rectTransform.sizeDelta = new Vector2(Screen.width, Screen.height);
         fadeImage.color = Vector4.zero;
     }
