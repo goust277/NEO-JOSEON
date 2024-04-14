@@ -11,6 +11,7 @@ public class PlayerMove : MonoBehaviour
 {
     public string currentMapName;
 
+    [Header("플레이어 이동")]
     public float speed = 5.0f;
     public float dash;
     public float dashTime;
@@ -23,7 +24,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private GameObject currentInteractableObject;
     private bool isInteracting = false;
 
-    public float atkDeley;
+    private float atkDeley;
 
     private Rigidbody rb;
 
@@ -46,6 +47,11 @@ public class PlayerMove : MonoBehaviour
     PlayerDetect detect;
     PlayerSkill skill;
 
+
+    [Header("무기")]
+    public int damage;
+    public float rate;
+    public float atkDelay;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -53,10 +59,18 @@ public class PlayerMove : MonoBehaviour
         skill = GetComponent<PlayerSkill>();
         animator = GetComponent<Animator>();
 
+        weapon.atkDelay = atkDelay;
+        weapon.rate = rate;
+        weapon.damage = damage;
+
     }
 
     void Update()
     {
+        if (Time.timeScale < 1.0f && Time.timeScale != 0)
+        {
+            Time.timeScale += 0.2f;
+        }
         Vector3 cameraForward = Vector3.Scale(cam.transform.forward, new Vector3(1, 0, 1)).normalized;
 
         float x = Input.GetAxis("Horizontal");
@@ -85,7 +99,14 @@ public class PlayerMove : MonoBehaviour
         {
             animator.SetBool("jump", false);
         }
-
+        if (isDoubleJump)
+        {
+            animator.SetBool("DoubleJump", true);
+        }
+        else if(!isDoubleJump)
+        {
+            animator.SetBool("DoubleJump", false);
+        }
         if (isDashing)
         {
             animator.SetBool("Dash", true);

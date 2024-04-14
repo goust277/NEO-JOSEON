@@ -11,9 +11,11 @@ public class PlayerSkill : MonoBehaviour
 
     private float delay;
 
+    private Animator animator;
+
     private void Awake()
     {
-       // range.SetActive(false);
+        animator = GetComponent<Animator>();
     }
     private void Update()
     {
@@ -27,13 +29,14 @@ public class PlayerSkill : MonoBehaviour
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, skillRange, enemyLayer);
         Collider[] hidCols = Physics.OverlapSphere(transform.position, skillRange, HitLayer);
+        animator.SetTrigger("Skill");
 
         foreach (Collider collider in colliders)
         {
             Rigidbody enemyRigidbody = collider.GetComponent<Rigidbody>();
             if (enemyRigidbody != null)
             {
-                enemyRigidbody.isKinematic = false;
+                //enemyRigidbody.isKinematic = false;
                 Vector3 pushDirection = (collider.transform.position - transform.position).normalized;
 
                 enemyRigidbody.AddForce(pushDirection * pushForce, ForceMode.Impulse);
@@ -41,7 +44,7 @@ public class PlayerSkill : MonoBehaviour
             delay = 0;
             if (delay > 1f)
             {
-                enemyRigidbody.isKinematic = true;
+                //enemyRigidbody.isKinematic = true;
             }
 
         }
@@ -52,7 +55,7 @@ public class PlayerSkill : MonoBehaviour
             hitPad.HitDown();
 
         }
-
+        
         Invoke("SkillOff", 0.2f);
     }
 
