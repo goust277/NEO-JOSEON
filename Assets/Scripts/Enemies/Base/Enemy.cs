@@ -42,6 +42,11 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         get { return animator; }
     }
 
+    public float HPPercentage
+    {
+        get { return hpCurr / hpMax; }
+    }
+
     /// <summary>
     /// 적의 상태 목록입니다.
     /// </summary>

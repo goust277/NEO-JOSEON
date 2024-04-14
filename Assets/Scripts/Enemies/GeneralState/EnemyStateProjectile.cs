@@ -63,7 +63,7 @@ public class EnemyStateProjectile : EnemyStateAttack
     }
 #endif
 
-    public override void Attack()
+    public override void AttackStart()
     {
         FireProjectile();
     }
