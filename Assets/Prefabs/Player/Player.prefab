@@ -314,6 +314,7 @@ MonoBehaviour:
   damage: 0
   rate: 1
   isAtkTime: 0
+  atkDelay: 0.3
 --- !u!65 &471123443396367450
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3186,7 +3187,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   visibleTargets: []
-  Interactable: []
 --- !u!114 &9101710224750354168
 MonoBehaviour:
   m_ObjectHideFlags: 0
