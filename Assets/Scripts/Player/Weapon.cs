@@ -16,9 +16,10 @@ public class Weapon : MonoBehaviour
 
     public int damage;
     public float rate;
+    public float atkDelay = 0.3f;
 
     public bool isAtkTime;
-    [SerializeField] private float atkDelay = 0.3f;
+    
 
     private void Start()
     {
@@ -102,11 +103,7 @@ public class Weapon : MonoBehaviour
         IDamageable target = other.GetComponent<IDamageable>(); // 인터페이스 찾기
         if (target == null) return; // 없다면 리턴
 
-        /*
-
-         니가 추가로 확인할 것들 
-
-         */
+        Time.timeScale = 0.1f;
 
         Damage d; // 대미지 구조체
         d.amount = damage; // 피해량
