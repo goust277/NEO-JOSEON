@@ -5,7 +5,9 @@ using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Rendering.LookDev;
+using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -47,6 +49,12 @@ public class PlayerMove : MonoBehaviour
     PlayerDetect detect;
     PlayerSkill skill;
 
+    private bool isSetting = false;
+    [Header("메뉴")]
+    private GameObject mainSetting;
+    private GameObject stageSetting;
+
+    [SerializeField] private string main;
 
     [Header("무기")]
 
@@ -61,7 +69,8 @@ public class PlayerMove : MonoBehaviour
         skill = GetComponent<PlayerSkill>();
         animator = GetComponent<Animator>();
 
-
+        mainSetting = GameObject.Find("Main_Setting");
+        stageSetting = GameObject.Find("Stage_Setting");
     }
 
     void Update()
@@ -70,106 +79,98 @@ public class PlayerMove : MonoBehaviour
         weapon.rate = rate;
         weapon.damage = damage;
         weapon.effectTime = effectTime;
-
-        Vector3 cameraForward = Vector3.Scale(cam.transform.forward, new Vector3(1, 0, 1)).normalized;
-
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-        dir = z * cameraForward + x * cam.transform.right;
-
-        CheckGround();
-        Attack();
-        animator.SetInteger("Attack", weapon.attackLv);
-
-        if (isAttackReady == false)
-        {
-            atkDeley += Time.deltaTime;
-        }
-
-        if (weapon.rate < atkDeley)
-        {
-            isAttackReady = true;
-        }
-
-        if (!isGround)
-        {
-            animator.SetBool("jump", true);
-        }
-        else if(isGround)
-        {
-            animator.SetBool("jump", false);
-        }
-        if (isDoubleJump)
-        {
-            animator.SetBool("DoubleJump", true);
-        }
-        else if(!isDoubleJump)
-        {
-            animator.SetBool("DoubleJump", false);
-        }
-        if (isDashing)
-        {
-            animator.SetBool("Dash", true);
-        }
-        else if (!isDashing)
-        {
-            animator.SetBool("Dash", false);
-        }
-
-
-        if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                if (isGround == true)
-                {
-                    Jump();
-                }
-                else if (isDoubleJump == false)
-                {
-                    Jump();
-                    isDoubleJump = true;
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Mouse1))
-            {
-               skill.TriggerSkill();
-            }
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.E) && !isInteracting && currentInteractableObject != null)
+        if (Input.GetKeyDown(KeyCode.Escape) && !isSetting)
         {
             // 상호 작용 시작
-            StartInteraction();
+            StartSetting();
         }
-        else if (Input.GetKeyDown(KeyCode.E) && isInteracting)
+        else if (Input.GetKeyDown(KeyCode.Escape) && isSetting)
         {
             // 상호 작용 중지
-            EndInteraction();
+            EndSettring();
         }
-        if (Input.GetKeyDown(KeyCode.T))
+        if (!isSetting) 
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Confined;
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-        }    
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isCooldown)
-        {
-            StartCoroutine(Dash());
-        }
+            Vector3 cameraForward = Vector3.Scale(cam.transform.forward, new Vector3(1, 0, 1)).normalized;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            isNextAtk = true;
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
+            dir = z * cameraForward + x * cam.transform.right;
+
+            CheckGround();
+            Attack();
+            animator.SetInteger("Attack", weapon.attackLv);
+
+            if (isAttackReady == false)
+            {
+                atkDeley += Time.deltaTime;
+            }
+
+            if (weapon.rate < atkDeley)
+            {
+                isAttackReady = true;
+            }
+
+            ani();
+
+
+            if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime)
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    if (isGround == true)
+                    {
+                        Jump();
+                    }
+                    else if (isDoubleJump == false)
+                    {
+                        Jump();
+                        isDoubleJump = true;
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.Mouse1))
+                {
+                    skill.TriggerSkill();
+                }
+
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && !isInteracting && currentInteractableObject != null)
+            {
+                // 상호 작용 시작
+                StartInteraction();
+            }
+            else if (Input.GetKeyDown(KeyCode.E) && isInteracting)
+            {
+                // 상호 작용 중지
+                EndInteraction();
+            }
+
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Confined;
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+            if (Input.GetKeyDown(KeyCode.LeftShift) && !isCooldown)
+            {
+                StartCoroutine(Dash());
+            }
+
+            if (Input.GetKeyDown(KeyCode.Mouse0) && !isInteracting)
+            {
+                isNextAtk = true;
+            }
         }
-
-
+        else if (isSetting)
+        {
+            dir = Vector3.zero;
+        }
     }
 
     private void FixedUpdate()
@@ -212,13 +213,39 @@ public class PlayerMove : MonoBehaviour
         }
 
     }
-    void Jump()
+    private void Jump()
     {
         Vector3 jumpPower = Vector3.up * jumpHeight;
         rb.AddForce(jumpPower, ForceMode.VelocityChange);
 
     }
-
+    private void ani()
+    {
+        if (!isGround)
+        {
+            animator.SetBool("jump", true);
+        }
+        else if (isGround)
+        {
+            animator.SetBool("jump", false);
+        }
+        if (isDoubleJump)
+        {
+            animator.SetBool("DoubleJump", true);
+        }
+        else if (!isDoubleJump)
+        {
+            animator.SetBool("DoubleJump", false);
+        }
+        if (isDashing)
+        {
+            animator.SetBool("Dash", true);
+        }
+        else if (!isDashing)
+        {
+            animator.SetBool("Dash", false);
+        }
+    }
     private void CheckGround()
     {
 
@@ -291,17 +318,43 @@ public class PlayerMove : MonoBehaviour
         }
     }
     //상호 작용 시작 함수
-    void StartInteraction()
+    private void StartInteraction()
     {
         isInteracting = true;
         currentInteractableObject.GetComponent<InteractableObject>().Interact();
     }
 
     // 상호 작용 종료 함수
-    void EndInteraction()
+    private void EndInteraction()
     {
         isInteracting = false;
         currentInteractableObject.GetComponent<InteractableObject>().EndInteract();
+    }
+
+    private void StartSetting()
+    {
+        isSetting = true;
+        if (SceneManager.GetActiveScene().name == main)
+        {
+            mainSetting.GetComponent<MainSetting>().Open();
+        }
+        else
+        {
+            stageSetting.GetComponent<StageSetting>().Open();
+        }
+    }
+
+    private void EndSettring()
+    {
+        isSetting = false;
+        if (SceneManager.GetActiveScene().name == main)
+        {
+            mainSetting.GetComponent<MainSetting>().Close();
+        }
+        else
+        {
+            stageSetting.GetComponent<StageSetting>().Close();
+        }
     }
 }
 

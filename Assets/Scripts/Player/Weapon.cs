@@ -138,7 +138,7 @@ public class Weapon : MonoBehaviour
     {
         Time.timeScale = 0.1f;
 
-        yield return new WaitForSecondsRealtime(0.1f);
+        yield return new WaitForSecondsRealtime(0.15f);
 
         Time.timeScale = 1f;
 

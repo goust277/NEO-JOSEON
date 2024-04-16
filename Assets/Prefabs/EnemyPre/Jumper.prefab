@@ -261,6 +261,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   delayBefore: 0.3
+  attackDuration: 0.1
   delayAfter: 0.3
   lookTargetOnBeforeDelay: 0
   lookTime: 0.2

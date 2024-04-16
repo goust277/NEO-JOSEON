@@ -222,7 +222,6 @@ GameObject:
   - component: {fileID: 1449491996611256097}
   - component: {fileID: 8918306085781357485}
   - component: {fileID: 8423253010358725638}
-  - component: {fileID: 471123443396367445}
   - component: {fileID: 471123443396367450}
   m_Layer: 6
   m_Name: sword
@@ -297,24 +296,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &471123443396367445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 471123443396367451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 109a62e3fcc1c304b97e6b4336c3017c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  attackLv: 0
-  damage: 0
-  rate: 1
-  isAtkTime: 0
-  atkDelay: 0.3
 --- !u!65 &471123443396367450
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3133,6 +3114,8 @@ MonoBehaviour:
   HitLayer:
     serializedVersion: 2
     m_Bits: 0
+  effect: {fileID: 0}
+  isSkillTime: 0
 --- !u!114 &9101710224750354170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3155,7 +3138,6 @@ MonoBehaviour:
   jumpHeight: 5
   interactionRange: 3
   currentInteractableObject: {fileID: 0}
-  atkDeley: 1
   cam: {fileID: 0}
   isGround: 0
   groundCheck: 0.6
@@ -3165,7 +3147,12 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 256
-  weapon: {fileID: 471123443396367445}
+  weapon: {fileID: 0}
+  main: 
+  damage: 0
+  rate: 0
+  atkDelay: 0
+  effectTime: 0
 --- !u!114 &9101710224750354171
 MonoBehaviour:
   m_ObjectHideFlags: 0

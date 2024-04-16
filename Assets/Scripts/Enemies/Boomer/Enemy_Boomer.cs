@@ -9,9 +9,22 @@ public class Enemy_Boomer : Enemy
     EnemyStateMeleeArc meleeState;
 
     public bool detect = false;
+    [SerializeField] private GameObject effect;
     protected override void OnAwake()
     {
+        meleeState = GetComponent<EnemyStateMeleeArc>();
+
         SetDefaultState(0);
+        meleeState.SetCallbackHit(OnHit);
+
+        GameObject target = GameObject.FindGameObjectWithTag("Player");
+        SetTarget(target);
+    }
+    private void OnHit(Collider a)
+    {
+        GameObject spawnEffect = Instantiate(effect, transform.position, Quaternion.identity);
+
+        Destroy(spawnEffect, 1.2f);
     }
 
     protected override void OnUpdate()
