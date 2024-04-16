@@ -11,13 +11,18 @@ public class EnemyStateGoto : EnemyState
     public override void OnEnter()
     {
         actor.SetChase(false);
-        Vector3 v;
+        Vector3 v = Vector3.zero;
+        Vector3 targetPos = actor.GetTarget().transform.position;
+        Vector3 actorPos = actor.transform.position;
         if (toTarget)
-            v = actor.GetTarget().transform.position;
+        {
+            if (invert)
+                v = 2 * actorPos - targetPos;
+            else
+                v = targetPos;
+        }
         else
             v = targetPos;
-        if (invert)
-            v *= -1;
         actor.SetTarget(v);
     }
 
@@ -27,12 +32,15 @@ public class EnemyStateGoto : EnemyState
 
     public override void OnUpdate()
     {
-        Vector3 v;
+        Vector3 v = Vector3.zero;
+        Vector3 targetPos = actor.GetTarget().transform.position;
+        Vector3 actorPos = actor.transform.position;
         if (toTarget)
         {
-            v = actor.GetTarget().transform.position;
             if (invert)
-                v *= -1;
+                v = 2 * actorPos - targetPos;
+            else
+                v = targetPos;
             actor.SetTarget(v);
         }
     }
