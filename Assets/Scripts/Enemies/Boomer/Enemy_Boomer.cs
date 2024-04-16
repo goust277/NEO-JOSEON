@@ -11,7 +11,6 @@ public class Enemy_Boomer : Enemy
     public bool detect = false;
     protected override void OnAwake()
     {
-        meleeState = (EnemyStateMeleeArc)StateList[2];
         SetDefaultState(0);
     }
 
