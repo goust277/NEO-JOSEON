@@ -49,9 +49,11 @@ public class PlayerMove : MonoBehaviour
 
 
     [Header("¹«±â")]
-    public int damage;
-    public float rate;
-    public float atkDelay;
+
+    [SerializeField] private int damage;
+    [SerializeField] private float rate;
+    [SerializeField] private float atkDelay;
+    [SerializeField] private float effectTime;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -59,18 +61,16 @@ public class PlayerMove : MonoBehaviour
         skill = GetComponent<PlayerSkill>();
         animator = GetComponent<Animator>();
 
-        weapon.atkDelay = atkDelay;
-        weapon.rate = rate;
-        weapon.damage = damage;
 
     }
 
     void Update()
     {
-        if (Time.timeScale < 1.0f && Time.timeScale != 0)
-        {
-            Time.timeScale += 0.2f;
-        }
+        weapon.atkDelay = atkDelay;
+        weapon.rate = rate;
+        weapon.damage = damage;
+        weapon.effectTime = effectTime;
+
         Vector3 cameraForward = Vector3.Scale(cam.transform.forward, new Vector3(1, 0, 1)).normalized;
 
         float x = Input.GetAxis("Horizontal");
@@ -117,7 +117,7 @@ public class PlayerMove : MonoBehaviour
         }
 
 
-        if (isAttackReady || weapon.isAtkTime)
+        if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -130,6 +130,11 @@ public class PlayerMove : MonoBehaviour
                     Jump();
                     isDoubleJump = true;
                 }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+               skill.TriggerSkill();
             }
 
         }
@@ -164,15 +169,12 @@ public class PlayerMove : MonoBehaviour
             isNextAtk = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            skill.TriggerSkill();
-        }
+
     }
 
     private void FixedUpdate()
     {
-        if (isAttackReady || !weapon.isAtkTime)
+        if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime)
         {
             if (dir != Vector3.zero)
             {
@@ -262,7 +264,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (isGround == true && isAttackReady == true && isNextAtk == true)
         {
-            animator.SetBool("Move", false);
+            //animator.SetBool("Move", false);
             isAttackReady = false;
             if (detect.visibleTargets.Count > 0)
             {

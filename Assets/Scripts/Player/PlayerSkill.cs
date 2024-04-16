@@ -12,6 +12,9 @@ public class PlayerSkill : MonoBehaviour
     private float delay;
 
     private Animator animator;
+    [SerializeField] private GameObject effect;
+
+    public bool isSkillTime;
 
     private void Awake()
     {
@@ -27,9 +30,13 @@ public class PlayerSkill : MonoBehaviour
     }
     public void TriggerSkill()
     {
+        isSkillTime = true;
+        Invoke("SkillOff", 1f);
         Collider[] colliders = Physics.OverlapSphere(transform.position, skillRange, enemyLayer);
         Collider[] hidCols = Physics.OverlapSphere(transform.position, skillRange, HitLayer);
         animator.SetTrigger("Skill");
+
+        Invoke("SkillEffect", 0.3f);
 
         foreach (Collider collider in colliders)
         {
@@ -56,10 +63,15 @@ public class PlayerSkill : MonoBehaviour
 
         }
         
-        Invoke("SkillOff", 0.2f);
+    }
+    private void SkillEffect()
+    {
+        GameObject spawnEffect = Instantiate(effect, transform.position, Quaternion.identity);
+        Destroy(spawnEffect, 0.7f);
     }
 
     private void SkillOff()
     {
+        isSkillTime = false;
     }
 }
