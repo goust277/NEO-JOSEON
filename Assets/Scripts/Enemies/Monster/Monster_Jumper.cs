@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Monster_Jumper : MonoBehaviour
+public class Monster_Jumper : MonoBehaviour, IDamageable
 {
     private StageManagerAssist stagemanager;
 
@@ -124,9 +124,6 @@ public class Monster_Jumper : MonoBehaviour
 
     public void TakeDamage()
     {
-
-
-
         if (currentHp <= 0)
         {
             StartCoroutine(Die());
@@ -174,8 +171,6 @@ public class Monster_Jumper : MonoBehaviour
                 StartCoroutine(Attack());
             
             }
-           
-
         }
     }
 
@@ -185,5 +180,9 @@ public class Monster_Jumper : MonoBehaviour
         stagemanager.smallNum++;
     }
 
-
+    public void TakeDamage(Damage damage)
+    {
+        currentHp--;
+        TakeDamage();
+    }
 }

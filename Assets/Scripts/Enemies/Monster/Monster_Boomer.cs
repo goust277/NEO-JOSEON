@@ -183,7 +183,8 @@ public class Monster_Boomer : MonoBehaviour ,IDamageable
 
     public void TakeDamage(Damage damage)
     {
-        throw new System.NotImplementedException();
+        TakeDamage();
+        currentHp--;
     }
 }
 

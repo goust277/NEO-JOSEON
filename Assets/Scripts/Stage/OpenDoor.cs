@@ -5,7 +5,6 @@ using UnityEngine;
 public class OpenDoor : MonoBehaviour
 {
     public List<GameObject> gameObjects;
-    public GameObject Door;
     private List<GameObject> previousGameObjects = new List<GameObject>();
 
     [SerializeField] private int targetKill;
@@ -28,11 +27,6 @@ public class OpenDoor : MonoBehaviour
         foreach (var obj in new List<GameObject>(gameObjects))
         {
             RemoveAndCheckEmpty(obj);
-        }
-
-        if (gameObjects.Count == 0)
-        {
-            Destroy(Door);
         }
     }
     private void RemoveAndCheckEmpty(GameObject obj)

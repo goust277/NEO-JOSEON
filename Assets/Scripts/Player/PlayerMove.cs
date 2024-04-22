@@ -87,6 +87,7 @@ public class PlayerMove : MonoBehaviour
         weapon.rate = rate;
         weapon.damage = damage;
         weapon.effectTime = effectTime;
+
         if (Input.GetKeyDown(KeyCode.Escape) && !isSetting)
         {
             // 상호 작용 시작
@@ -186,6 +187,11 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    private void TakeDamage()
+    {
+        weapon.TakeDamage();
+
+    }
     private void FixedUpdate()
     {
         if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime && !playerDamge.isHit && !isDashing)
@@ -275,8 +281,11 @@ public class PlayerMove : MonoBehaviour
 
     private IEnumerator Dash()
     {
-        isCooldown = true;
         weapon.isAtkTime = false;
+        Quaternion targetRotation = Quaternion.LookRotation(dir, Vector3.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1000);
+        yield return new WaitForSeconds(0.1f);
+        isCooldown = true;
         rb.useGravity = false;
         Vector3 dashDirection = dir != Vector3.zero ? dir : transform.forward;
 

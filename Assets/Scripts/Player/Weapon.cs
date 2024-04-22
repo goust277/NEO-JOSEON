@@ -35,6 +35,11 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    public void TakeDamage()
+    {
+        StopCoroutine("Swing");        
+    }
+
     IEnumerator Swing()
     {
         if (attackLv == 0 || attackLv == 2)
@@ -140,9 +145,9 @@ public class Weapon : MonoBehaviour
 
     IEnumerator HitLag()
     {
-        Time.timeScale = 0.1f;
+        Time.timeScale = 0.2f;
 
-        yield return new WaitForSecondsRealtime(0.15f);
+        yield return new WaitForSecondsRealtime(0.05f);
 
         Time.timeScale = 1f;
     }

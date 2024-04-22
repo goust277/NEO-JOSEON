@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Stage1Button : MonoBehaviour
 {
+    [SerializeField] private string SceneName; 
     public void OnClick()
     {
-        Debug.Log("Stage1");
-        SceneManager.LoadScene("Stage1_Test");
+        SceneManager.LoadScene(SceneName);
     }
 }
