@@ -6,6 +6,7 @@ public class PlayerDamage : MonoBehaviour, IDamageable
 {
     [SerializeField] private int hp;
     [SerializeField] private float hitDelay;
+    public bool isHit = false;
     private float delay = 0f;
     private bool isHitPosible = true;
     private Animator animator;
@@ -34,10 +35,19 @@ public class PlayerDamage : MonoBehaviour, IDamageable
         Debug.Log("Hit");
         if (isHitPosible)
         {
+            StartCoroutine(Hit());
             isHitPosible = false;
             delay = 0f;
             animator.SetTrigger("Hit");
             //animator.ResetTrigger("Hit");
         }
     }
+
+    IEnumerator Hit()
+    {
+        isHit = true;
+        yield return new WaitForSecondsRealtime(0.4f);
+        isHit = false;
+    }
+
 }

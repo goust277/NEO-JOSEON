@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 2285377016899149286}
   m_Layer: 7
   m_Name: Jumper
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,6 +215,7 @@ MonoBehaviour:
   detect: 0
   isJumpReady: 1
   isGround: 1
+  effect: {fileID: 2620900230531709731, guid: 437c8771e90832549a7367478a304dfa, type: 3}
 --- !u!114 &2285377016899149284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +260,7 @@ MonoBehaviour:
   property: fire
   layerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 64
   delayBefore: 0.3
   attackDuration: 0.1
   delayAfter: 0.3

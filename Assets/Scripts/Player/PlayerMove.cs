@@ -1,4 +1,5 @@
 
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -62,15 +63,22 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float rate;
     [SerializeField] private float atkDelay;
     [SerializeField] private float effectTime;
+
+    private PlayerDamage playerDamge;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         detect = GetComponent<PlayerDetect>();
         skill = GetComponent<PlayerSkill>();
         animator = GetComponent<Animator>();
+        playerDamge = GetComponent<PlayerDamage>();
 
         mainSetting = GameObject.Find("Main_Setting");
         stageSetting = GameObject.Find("Stage_Setting");
+
+        MouseOff();
+
+        cam = Camera.main;
     }
 
     void Update()
@@ -87,6 +95,7 @@ public class PlayerMove : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Escape) && isSetting)
         {
             // 상호 작용 중지
+
             EndSettring();
         }
         if (!isSetting) 
@@ -100,6 +109,10 @@ public class PlayerMove : MonoBehaviour
             CheckGround();
             Attack();
             animator.SetInteger("Attack", weapon.attackLv);
+            if (weapon.isAtkTime)
+            {
+                animator.SetBool("Move", false);
+            }
 
             if (isAttackReady == false)
             {
@@ -114,7 +127,7 @@ public class PlayerMove : MonoBehaviour
             ani();
 
 
-            if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime)
+            if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime && !playerDamge.isHit)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
@@ -175,7 +188,7 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime)
+        if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime && !playerDamge.isHit && !isDashing)
         {
             if (dir != Vector3.zero)
             {
@@ -249,7 +262,7 @@ public class PlayerMove : MonoBehaviour
     private void CheckGround()
     {
 
-        if (Physics.BoxCast(transform.position + (Vector3.up * groundCheck), transform.lossyScale / 2.0f, Vector3.down, out RaycastHit hit, transform.rotation, 0.1f, layer))
+        if (Physics.BoxCast(transform.position + (Vector3.up * groundCheck), transform.lossyScale / 2.0f, Vector3.down, out RaycastHit hit, transform.rotation, 0.2f, layer))
         {
             isGround = true;
             isDoubleJump = false;
@@ -263,11 +276,14 @@ public class PlayerMove : MonoBehaviour
     private IEnumerator Dash()
     {
         isCooldown = true;
-
         weapon.isAtkTime = false;
         rb.useGravity = false;
-        Vector3 dashPower = dir * dash;
+        Vector3 dashDirection = dir != Vector3.zero ? dir : transform.forward;
+
+        Vector3 dashPower = dashDirection * dash;
         rb.AddForce(dashPower, ForceMode.VelocityChange);
+
+        Quaternion originalRotation = rb.rotation;
 
         isDashing = true;
 
@@ -275,6 +291,11 @@ public class PlayerMove : MonoBehaviour
         while (delay < dashTime)
         {
             delay += Time.deltaTime;
+
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            rb.rotation = originalRotation;
+
             yield return null;
         }
         rb.useGravity = true;
@@ -291,7 +312,6 @@ public class PlayerMove : MonoBehaviour
     {
         if (isGround == true && isAttackReady == true && isNextAtk == true)
         {
-            //animator.SetBool("Move", false);
             isAttackReady = false;
             if (detect.visibleTargets.Count > 0)
             {
@@ -306,8 +326,8 @@ public class PlayerMove : MonoBehaviour
             }
             else { }
             weapon.Use();
-            atkDeley = 0.0f;
 
+            atkDeley = 0.0f;
 
             isNextAtk = false;
         }
@@ -320,6 +340,7 @@ public class PlayerMove : MonoBehaviour
     //상호 작용 시작 함수
     private void StartInteraction()
     {
+        MouseOn();
         isInteracting = true;
         currentInteractableObject.GetComponent<InteractableObject>().Interact();
     }
@@ -327,12 +348,14 @@ public class PlayerMove : MonoBehaviour
     // 상호 작용 종료 함수
     private void EndInteraction()
     {
+        MouseOff();
         isInteracting = false;
         currentInteractableObject.GetComponent<InteractableObject>().EndInteract();
     }
 
     private void StartSetting()
     {
+        MouseOn();
         isSetting = true;
         if (SceneManager.GetActiveScene().name == main)
         {
@@ -346,6 +369,7 @@ public class PlayerMove : MonoBehaviour
 
     private void EndSettring()
     {
+        MouseOff();
         isSetting = false;
         if (SceneManager.GetActiveScene().name == main)
         {
@@ -355,6 +379,18 @@ public class PlayerMove : MonoBehaviour
         {
             stageSetting.GetComponent<StageSetting>().Close();
         }
+    }
+
+    private void MouseOn()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    private void MouseOff()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 }
 

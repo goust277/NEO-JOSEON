@@ -37,10 +37,10 @@ public class Weapon : MonoBehaviour
 
     IEnumerator Swing()
     {
-        if (attackLv == 0 || attackLv == 3)
+        if (attackLv == 0 || attackLv == 2)
         {
             yield return GameDefine.waitForSeconds0_1;
-            if (attackLv == 3)
+            if (attackLv == 2)
             {
                 attackLv = 0;
             }
@@ -52,14 +52,6 @@ public class Weapon : MonoBehaviour
                 yield return null;
             }
             BoxCollider.enabled = true;
-
-            float atk = 0;
-            while (atk < 0.4f)
-            {
-                atk += Time.deltaTime;
-                yield return null;
-            }
-            BoxCollider.enabled = false;
 
         }
         else if (attackLv == 1)
@@ -116,23 +108,35 @@ public class Weapon : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        IDamageable target = other.GetComponent<IDamageable>(); // 인터페이스 찾기
-        if (target == null) return; // 없다면 리턴
+        if (other.CompareTag("Enemy"))
+        {
+            Vector3 triggerPosition = other.ClosestPoint(transform.position);
 
-        Vector3 triggerPosition = other.ClosestPoint(transform.position);
+            if (effect != null)
+            {
+                GameObject spawnEffect = Instantiate(effect, triggerPosition, Quaternion.identity);
+                Destroy(spawnEffect, effectTime);
+            }
+        }
 
-        GameObject spawnEffect = Instantiate(effect, triggerPosition, Quaternion.identity);
-        Destroy(spawnEffect,effectTime);
-
-        Debug.Log("Hit");
-
-        StartCoroutine(HitLag());
-
-        Damage d; // 대미지 구조체
-        d.amount = damage; // 피해량
-        d.property = string.Empty; // 속성
-        target.TakeDamage(d); // '피해 받기' 메서드 호출
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            IDamageable target = other.GetComponent<IDamageable>(); // 인터페이스 찾기
+            if (target == null) return; // 없다면 리턴
+
+            StartCoroutine(HitLag());
+
+            Damage d; // 대미지 구조체
+            d.amount = damage; // 피해량
+            d.property = string.Empty; // 속성
+            target.TakeDamage(d); // '피해 받기' 메서드 호출
+        }
+    }
+
 
     IEnumerator HitLag()
     {
@@ -141,10 +145,5 @@ public class Weapon : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.15f);
 
         Time.timeScale = 1f;
-
-        //if (Time.timeScale < 1.0f && Time.timeScale != 0)
-        //{
-        //    Time.timeScale += 0.2f;
-        //}
     }
 }

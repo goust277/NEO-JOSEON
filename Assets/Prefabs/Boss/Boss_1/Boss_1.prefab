@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 6542044873083586191}
   m_Layer: 7
   m_Name: Boss_1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,6 +142,7 @@ MonoBehaviour:
   phase2SpeedUp: 0.2
   isPhase2: 0
   TEST_INDICATOR: {fileID: 0}
+  stepBackTime: 2
 --- !u!114 &6542044873083586193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +173,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 320
   delayBefore: 0.5
+  attackDuration: 0.1
   delayAfter: 1
   lookTargetOnBeforeDelay: 1
   lookTime: 0.3
@@ -198,6 +200,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 320
   delayBefore: 0.5
+  attackDuration: 0.1
   delayAfter: 1
   lookTargetOnBeforeDelay: 1
   lookTime: 0.2
@@ -228,6 +231,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 320
   delayBefore: 1.2
+  attackDuration: 0.1
   delayAfter: 1
   lookTargetOnBeforeDelay: 0
   lookTime: 0.2
@@ -254,6 +258,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 320
   delayBefore: 0.5
+  attackDuration: 0.1
   delayAfter: 0.5
   lookTargetOnBeforeDelay: 1
   lookTime: 0.2
@@ -284,6 +289,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 320
   delayBefore: 1
+  attackDuration: 0.1
   delayAfter: 1
   lookTargetOnBeforeDelay: 1
   lookTime: 0.2
@@ -314,6 +320,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 320
   delayBefore: 1
+  attackDuration: 0.1
   delayAfter: 0.5
   lookTargetOnBeforeDelay: 1
   lookTime: 0.5
@@ -341,6 +348,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 320
   delayBefore: 1
+  attackDuration: 0.1
   delayAfter: 0.3
   lookTargetOnBeforeDelay: 1
   lookTime: 0.5
@@ -368,6 +376,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 320
   delayBefore: 3
+  attackDuration: 0.1
   delayAfter: 2.5
   lookTargetOnBeforeDelay: 1
   lookTime: 3

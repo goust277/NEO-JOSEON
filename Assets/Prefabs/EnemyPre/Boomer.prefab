@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 3893614457655584452}
   m_Layer: 7
   m_Name: Boomer
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -204,9 +204,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  delayBefore: 0.3
+  delayBefore: 1.5
   attackDuration: 0.1
-  delayAfter: 2.5
+  delayAfter: 3
   lookTargetOnBeforeDelay: 1
   lookTime: 0.2
   meleeRange: 2

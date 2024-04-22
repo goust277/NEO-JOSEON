@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 8918306085781357485}
   - component: {fileID: 8423253010358725638}
   - component: {fileID: 471123443396367450}
+  - component: {fileID: 1217710340029379717}
   m_Layer: 6
   m_Name: sword
   m_TagString: Melee
@@ -307,8 +308,28 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.120388344, y: 0.08823485, z: 0.95314276}
-  m_Center: {x: 0.010998261, y: 0.0000002472186, z: -0.36519608}
+  m_Size: {x: 0.78, y: 0.6, z: 1.2}
+  m_Center: {x: 0.01, y: 0, z: -0.7}
+--- !u!114 &1217710340029379717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471123443396367451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 109a62e3fcc1c304b97e6b4336c3017c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  attackLv: 0
+  damage: 0
+  rate: 0
+  atkDelay: 0.3
+  isAtkTime: 0
+  effectTime: 0
+  effect: {fileID: 5376103415881461882, guid: 3f39bf906f8c2e14a812bf4203f6a13e, type: 3}
 --- !u!1 &674755082314461881
 GameObject:
   m_ObjectHideFlags: 0
@@ -3113,8 +3134,8 @@ MonoBehaviour:
     m_Bits: 128
   HitLayer:
     serializedVersion: 2
-    m_Bits: 0
-  effect: {fileID: 0}
+    m_Bits: 256
+  effect: {fileID: 7107396929851728891, guid: 94b3a337299a6cc42bd3e8fa5d8a3437, type: 3}
   isSkillTime: 0
 --- !u!114 &9101710224750354170
 MonoBehaviour:
@@ -3129,8 +3150,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentMapName: 
-  speed: 8
-  dash: 10
+  speed: 6
+  dash: 13
   dashTime: 0.5
   dashCoolTime: 2
   rotspeed: 50
@@ -3147,12 +3168,12 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 256
-  weapon: {fileID: 0}
+  weapon: {fileID: 1217710340029379717}
   main: 
-  damage: 0
-  rate: 0
-  atkDelay: 0
-  effectTime: 0
+  damage: 1
+  rate: 0.5
+  atkDelay: 0.1
+  effectTime: 0.4
 --- !u!114 &9101710224750354171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3188,6 +3209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 50
   hitDelay: 0
+  isHit: 0
 --- !u!95 &9101710224750354169
 Animator:
   serializedVersion: 5

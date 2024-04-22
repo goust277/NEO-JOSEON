@@ -18,14 +18,20 @@ public class DoorManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (killCount == targetKill)
+        {
+            Destroy(door);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Enemy"))
-        {
-            killCount ++;
-        }
+        //if (other.CompareTag("Enemy"))
+        //{
+            if (other.gameObject == null)
+            {
+                killCount++;
+            }
+        //}
     }
 }

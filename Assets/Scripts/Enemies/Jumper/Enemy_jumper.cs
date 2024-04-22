@@ -14,9 +14,20 @@ public class Enemy_jumper : Enemy, IDamageable
     public bool isJumpReady = true;
     public bool isGround = true;
 
+    EnemyStateSlam meleeState;
+    [SerializeField] private GameObject effect;
     protected override void OnAwake()
     {
+        meleeState = GetComponent<EnemyStateSlam>();
+
         SetDefaultState(0);
+
+        meleeState.SetCallbackHit(OnHit);
+    }
+
+    private void OnHit(Collider a)
+    {
+        
     }
 
     protected override void OnUpdate()
