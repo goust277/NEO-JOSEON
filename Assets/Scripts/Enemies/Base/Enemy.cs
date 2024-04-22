@@ -35,7 +35,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private int stateCurrIdx = -1;
     [SerializeField] private float stateDuration = 0.0f;
 
-    private Animator animator = null;
+    [SerializeField] private Animator animator = null;
 
     public Animator AnimControl
     {
