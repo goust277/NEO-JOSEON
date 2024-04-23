@@ -128,7 +128,7 @@ public class PlayerMove : MonoBehaviour
             ani();
 
 
-            if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime && !playerDamge.isHit)
+            if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime && !playerDamge.isHit &&isGround)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
@@ -187,9 +187,10 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void TakeDamage()
+    public void TakeDamage()
     {
         weapon.TakeDamage();
+        skill.StopSkill();
 
     }
     private void FixedUpdate()
@@ -283,8 +284,8 @@ public class PlayerMove : MonoBehaviour
     {
         weapon.isAtkTime = false;
         Quaternion targetRotation = Quaternion.LookRotation(dir, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1000);
-        yield return new WaitForSeconds(0.1f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 100000);
+        yield return new WaitForSeconds(0.01f);
         isCooldown = true;
         rb.useGravity = false;
         Vector3 dashDirection = dir != Vector3.zero ? dir : transform.forward;

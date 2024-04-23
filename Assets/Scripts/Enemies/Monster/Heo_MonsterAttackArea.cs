@@ -15,8 +15,7 @@ public class Heo_MonsterAttackArea : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("플레이어 데미지 입음");
-            // 데미지 처리 
+            other.gameObject.GetComponent<PlayerDamage>().TakeDamage();
         }
     }
 }

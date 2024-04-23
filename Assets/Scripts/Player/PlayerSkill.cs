@@ -26,19 +26,14 @@ public class PlayerSkill : MonoBehaviour
         {
             delay += Time.deltaTime;
         }
-
     }
     public void TriggerSkill()
     {
-        isSkillTime = true;
-        Invoke("SkillOff", 1.2f);
-
-        animator.SetTrigger("Skill");
-        Invoke("Skill", 0.8f);
-        Invoke("SkillEffect", 0.3f);
-
-
-        
+        StartCoroutine("Skill_");
+    }
+    public void StopSkill()
+    {
+        StopCoroutine("Skill_");
     }
     private void SkillEffect()
     {
@@ -51,6 +46,17 @@ public class PlayerSkill : MonoBehaviour
         isSkillTime = false;
     }
 
+    IEnumerator Skill_()
+    {
+        isSkillTime = true;
+        Invoke("SkillOff", 1.2f);
+
+        animator.SetTrigger("Skill");
+        Invoke("Skill", 0.8f);
+        Invoke("SkillEffect", 0.3f);
+
+        yield return null;
+    }
     private void Skill()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, skillRange, enemyLayer);
