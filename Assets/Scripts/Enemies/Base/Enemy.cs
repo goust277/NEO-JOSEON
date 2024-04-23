@@ -127,7 +127,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             material = Instantiate(enemyRenderer.material);
             enemyRenderer.material = material;
         }
-        cOrigin = material.color;
+        //cOrigin = material.color;
 
         hpCurr = hpMax;
 

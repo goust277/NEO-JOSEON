@@ -19,12 +19,16 @@ public class Weapon : MonoBehaviour
 
     public float effectTime;
     [SerializeField] private GameObject effect;
+
+    [SerializeField] private GameObject atk1;
+    [SerializeField] private GameObject atk2;
     
 
     private void Start()
     {
         BoxCollider = GetComponent<BoxCollider>();
         BoxCollider.enabled = false;
+        atk1.SetActive(false);
     }
     public void Use()
     {
@@ -50,6 +54,8 @@ public class Weapon : MonoBehaviour
                 attackLv = 0;
             }
             Attack();
+            atk1.SetActive(true);
+            Invoke("OffEffect1", 0.5f);
             float delay = 0;
             while (delay < atkDelay)
             {
@@ -63,6 +69,8 @@ public class Weapon : MonoBehaviour
         {
             yield return GameDefine.waitForSeconds0_1;
             Attack();
+            atk2.SetActive(true);
+            Invoke("OffEffect2", 0.5f);
             float delay = 0;
             while (delay < atkDelay)
             {
@@ -72,26 +80,26 @@ public class Weapon : MonoBehaviour
             BoxCollider.enabled = true;
 
         }
-        else if (attackLv == 2)
-        {
-            yield return GameDefine.waitForSeconds0_1;
-            Attack();
-            float delay = 0;
-            while (delay < atkDelay)
-            {
-                delay += Time.deltaTime;
-                yield return null;
-            }
-            BoxCollider.enabled = true;
-            float atk = 0;
-            while (atk < 0.2f)
-            {
-                atk += Time.deltaTime;
-                yield return null;
-            }
-            BoxCollider.enabled = false;
+        //else if (attackLv == 2)
+        //{
+        //    yield return GameDefine.waitForSeconds0_1;
+        //    Attack();
+        //    float delay = 0;
+        //    while (delay < atkDelay)
+        //    {
+        //        delay += Time.deltaTime;
+        //        yield return null;
+        //    }
+        //    BoxCollider.enabled = true;
+        //    float atk = 0;
+        //    while (atk < 0.2f)
+        //    {
+        //        atk += Time.deltaTime;
+        //        yield return null;
+        //    }
+        //    BoxCollider.enabled = false;
 
-        }
+        //}
         float onAttack = 0;
         while (onAttack < rate)
         {
@@ -102,7 +110,14 @@ public class Weapon : MonoBehaviour
         isAtkTime = false;
         attackLv = 0;
     }
-
+    private void OffEffect1()
+    {
+        atk1.SetActive(false);
+    }
+    private void OffEffect2()
+    {
+        atk2.SetActive(false);
+    }
     private void Attack()
     {
 

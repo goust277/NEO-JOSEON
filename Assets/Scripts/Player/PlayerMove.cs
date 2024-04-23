@@ -39,7 +39,7 @@ public class PlayerMove : MonoBehaviour
     private bool isDashing = false;
     private bool isCooldown = false;
     [SerializeField] private float groundCheck;
-    private bool isDoubleJump;
+    [SerializeField] private bool isDoubleJump;
 
     public LayerMask layer, interactableLayer;
 
@@ -128,7 +128,7 @@ public class PlayerMove : MonoBehaviour
             ani();
 
 
-            if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime && !playerDamge.isHit &&isGround)
+            if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime && !playerDamge.isHit)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
@@ -142,12 +142,14 @@ public class PlayerMove : MonoBehaviour
                         isDoubleJump = true;
                     }
                 }
-
-                if (Input.GetKeyDown(KeyCode.Mouse1))
+                if (isGround)
                 {
-                    skill.TriggerSkill();
+                    if (Input.GetKeyDown(KeyCode.Mouse1))
+                    {
+                        skill.TriggerSkill();
+                        animator.SetBool("Move", false);
+                    }
                 }
-
             }
 
             if (Input.GetKeyDown(KeyCode.E) && !isInteracting && currentInteractableObject != null)

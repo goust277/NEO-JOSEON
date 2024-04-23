@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 6276729473594941770}
   - component: {fileID: 75928261722995667}
   - component: {fileID: 45023460067608177}
+  - component: {fileID: 6345729801874827214}
   m_Layer: 0
   m_Name: base_gate
   m_TagString: Untagged
@@ -199,3 +200,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6345729801874827214
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7615869079936172666}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 11.645253, y: 4.522464, z: 2.8718169}
+  m_Center: {x: 2.7914415e-15, y: 2.2612314, z: 0.0000035762787}
