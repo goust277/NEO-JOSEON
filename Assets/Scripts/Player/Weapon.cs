@@ -154,6 +154,8 @@ public class Weapon : MonoBehaviour
             d.amount = damage; // 피해량
             d.property = string.Empty; // 속성
             target.TakeDamage(d); // '피해 받기' 메서드 호출
+
+
         }
     }
 
