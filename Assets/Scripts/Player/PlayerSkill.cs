@@ -22,47 +22,18 @@ public class PlayerSkill : MonoBehaviour
     }
     private void Update()
     {
-        if (delay < 3f)
+        if (delay < 0.2f)
         {
             delay += Time.deltaTime;
         }
-
     }
     public void TriggerSkill()
     {
-        isSkillTime = true;
-        Invoke("SkillOff", 1f);
-        Collider[] colliders = Physics.OverlapSphere(transform.position, skillRange, enemyLayer);
-        Collider[] hidCols = Physics.OverlapSphere(transform.position, skillRange, HitLayer);
-        animator.SetTrigger("Skill");
-
-        Invoke("SkillEffect", 0.3f);
-
-        foreach (Collider collider in colliders)
-        {
-            Rigidbody enemyRigidbody = collider.GetComponent<Rigidbody>();
-            if (enemyRigidbody != null)
-            {
-                //enemyRigidbody.isKinematic = false;
-                Vector3 pushDirection = (collider.transform.position - transform.position).normalized;
-
-                enemyRigidbody.AddForce(pushDirection * pushForce, ForceMode.Impulse);
-            }
-            delay = 0;
-            if (delay > 1f)
-            {
-                //enemyRigidbody.isKinematic = true;
-            }
-
-        }
-
-        foreach (Collider collider in hidCols)
-        {
-            HitPad hitPad = collider.GetComponent<HitPad>();
-            hitPad.HitDown();
-
-        }
-        
+        StartCoroutine("Skill_");
+    }
+    public void StopSkill()
+    {
+        StopCoroutine("Skill_");
     }
     private void SkillEffect()
     {
@@ -73,5 +44,57 @@ public class PlayerSkill : MonoBehaviour
     private void SkillOff()
     {
         isSkillTime = false;
+    }
+
+    IEnumerator Skill_()
+    {
+        isSkillTime = true;
+        Invoke("SkillOff", 1.2f);
+
+        animator.SetTrigger("Skill");
+        Invoke("Skill", 0.8f);
+        Invoke("SkillEffect", 0.3f);
+
+        yield return null;
+    }
+    private void Skill()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, skillRange, enemyLayer);
+        Collider[] hidCols = Physics.OverlapSphere(transform.position, skillRange, HitLayer);
+
+
+        foreach (Collider collider in colliders)
+        {
+            Rigidbody enemyRigidbody = collider.GetComponent<Rigidbody>();
+            if (enemyRigidbody != null)
+            {
+                enemyRigidbody.velocity = Vector3.zero;
+
+                enemyRigidbody.isKinematic = false;
+                Vector3 pushDirection = (collider.transform.position - transform.position).normalized;
+
+                enemyRigidbody.AddForce(pushDirection * pushForce, ForceMode.Impulse);
+            }
+        }
+        StartCoroutine(ResetEnemyVelocity(colliders, 0.1f));
+        foreach (Collider collider in hidCols)
+        {
+            HitPad hitPad = collider.GetComponent<HitPad>();
+            hitPad.HitDown();
+        }
+    }
+    IEnumerator ResetEnemyVelocity(Collider[] colliders, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        foreach (Collider collider in colliders)
+        {
+            Rigidbody enemyRigidbody = collider.GetComponent<Rigidbody>();
+            if (enemyRigidbody != null)
+            {
+                enemyRigidbody.isKinematic = true;
+                enemyRigidbody.velocity = Vector3.zero; // 적의 속도를 0으로 설정
+            }
+        }
     }
 }

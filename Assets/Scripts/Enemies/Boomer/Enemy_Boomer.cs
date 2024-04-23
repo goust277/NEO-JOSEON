@@ -7,11 +7,25 @@ using UnityEngine.UI;
 public class Enemy_Boomer : Enemy
 {
     EnemyStateMeleeArc meleeState;
-
+    private Rigidbody rb;
     public bool detect = false;
+    [SerializeField] private GameObject effect;
     protected override void OnAwake()
     {
+        meleeState = GetComponent<EnemyStateMeleeArc>();
+        rb = GetComponent<Rigidbody>();
+
         SetDefaultState(0);
+        meleeState.SetCallbackHit(OnHit);
+
+        GameObject target = GameObject.FindGameObjectWithTag("Player");
+        SetTarget(target);
+    }
+    private void OnHit(Collider a)
+    {
+        GameObject spawnEffect = Instantiate(effect, transform.position, Quaternion.identity);
+
+        Destroy(spawnEffect, 1.2f);
     }
 
     protected override void OnUpdate()
@@ -33,7 +47,6 @@ public class Enemy_Boomer : Enemy
             case 2:
                 if (meleeState.IsAttackOver())
                 {
-                    
                     SetState(1);
                 }
                 break;

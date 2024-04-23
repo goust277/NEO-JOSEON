@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 5191859400603401157}
   - component: {fileID: 8452902558801115972}
   - component: {fileID: 3897982221524535493}
-  m_Layer: 0
+  - component: {fileID: 4082034820848528753}
+  - component: {fileID: 6464596524645292679}
+  m_Layer: 8
   m_Name: pad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,6 +86,40 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4082034820848528753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558807909528975366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f99f9d712594fa46b099807e8114821, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hit: 0
+  matarials:
+  - {fileID: 2100000, guid: 47e94ac470dea3d4d8d372425b6edc4d, type: 2}
+  - {fileID: 2100000, guid: ade7bb40686588f4da90564791c829d2, type: 2}
+  - {fileID: 2100000, guid: 489727108700c9e44aac9f756899f759, type: 2}
+  - {fileID: 2100000, guid: 6c0ea73a31f52584db34248e4b81c398, type: 2}
+  resetTime: 1
+  hitGauge: 0
+  keyPad: {fileID: 0}
+--- !u!65 &6464596524645292679
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558807909528975366}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.019384377, z: 1}
+  m_Center: {x: -0.5, y: 0.00969214, z: 0.5}
 --- !u!1 &3850143660297715564
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1987609856013247437}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hitpad
   m_TagString: Untagged
   m_Icon: {fileID: 0}

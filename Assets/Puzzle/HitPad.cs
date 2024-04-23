@@ -58,11 +58,17 @@ public class HitPad : MonoBehaviour, IDamageable
     {
         if (hitGauge > 0)
         {
+            Debug.Log("Pad");
             hitGauge--;
-            if(keyPad.notOpen > 0 && hitGauge == 0)
+            if (keyPad != null)
             {
-                keyPad.notOpen--;
+                if (keyPad.notOpen > 0 && hitGauge == 0)
+                {
+                    keyPad.notOpen--;
+
+                }
             }
+
             if (this.CompareTag("Key"))
             {
                 if (keyPad == null)

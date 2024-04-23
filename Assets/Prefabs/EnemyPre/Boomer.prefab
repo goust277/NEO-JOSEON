@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7807632769589649735}
   - component: {fileID: 7807632769589649753}
   - component: {fileID: 7807632769589649734}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Detect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,9 +76,9 @@ GameObject:
   - component: {fileID: 5956356450464773307}
   - component: {fileID: 5260876977719969452}
   - component: {fileID: 3893614457655584452}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Boomer
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,6 +162,7 @@ MonoBehaviour:
   stateCurrIdx: -1
   stateDuration: 0
   detect: 0
+  effect: {fileID: 9191127644885697925, guid: d07867fc5bfc07d41bbea4f78da2e622, type: 3}
 --- !u!114 &3132742950359908218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,8 +204,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  delayBefore: 0.3
-  delayAfter: 2.5
+  delayBefore: 1.5
+  attackDuration: 0.1
+  delayAfter: 3
   lookTargetOnBeforeDelay: 1
   lookTime: 0.2
   meleeRange: 2
@@ -232,6 +234,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7807632770491109574}
     m_Modifications:
+    - target: {fileID: -8764077512085610462, guid: 23083497a9afd594dba35d27dc436c6c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: -8764077512085610462, guid: 23083497a9afd594dba35d27dc436c6c,
         type: 3}
       propertyPath: m_IsActive
@@ -356,6 +363,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Box_Monster
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 23083497a9afd594dba35d27dc436c6c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7742780737561719692, guid: 23083497a9afd594dba35d27dc436c6c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23083497a9afd594dba35d27dc436c6c, type: 3}

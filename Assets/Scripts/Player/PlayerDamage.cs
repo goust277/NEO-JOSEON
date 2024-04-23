@@ -6,13 +6,16 @@ public class PlayerDamage : MonoBehaviour, IDamageable
 {
     [SerializeField] private int hp;
     [SerializeField] private float hitDelay;
+    public bool isHit = false;
     private float delay = 0f;
     private bool isHitPosible = true;
     private Animator animator;
+    private PlayerMove hit;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        hit = GetComponent<PlayerMove>();
     }
 
     // Update is called once per frame
@@ -34,10 +37,31 @@ public class PlayerDamage : MonoBehaviour, IDamageable
         Debug.Log("Hit");
         if (isHitPosible)
         {
+            StartCoroutine(Hit());
             isHitPosible = false;
             delay = 0f;
             animator.SetTrigger("Hit");
-            //animator.ResetTrigger("Hit");
+            hit.TakeDamage();
         }
     }
+
+    public void TakeDamage()
+    {
+        if (isHitPosible)
+        {
+            StartCoroutine(Hit());
+            isHitPosible = false;
+            delay = 0f;
+            animator.SetTrigger("Hit");
+            hit.TakeDamage();
+        }
+    }
+
+    IEnumerator Hit()
+    {
+        isHit = true;
+        yield return new WaitForSecondsRealtime(0.4f);
+        isHit = false;
+    }
+
 }
