@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
+using UnityEditor;
+using UnityEditor.Rendering.Toon;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,8 +14,12 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [Header("체력")]
     [SerializeField] protected float hpMax = 1;
     [SerializeField] protected float hpCurr = 1f;
-    private float hitBlink = 0.3f;
-    private float hitBlinkCurr = 0f;
+
+    [Header("피격 블링크")]
+    [SerializeField] private float hitBlink = 0.2f;
+    [SerializeField] private bool isToonShader = false;
+    [SerializeField] private Color hitColor = Color.red;
+    [SerializeField] private float hitBlinkCurr = 0f;
     private Material material = null;
     private Color cOrigin;
 
@@ -105,10 +111,23 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
         GetComponent<Rigidbody>().isKinematic = true;
 
-        //Renderer enemyRenderer = GetComponentInChildren<Renderer>();
-        //material = Instantiate(enemyRenderer.material);
-        //enemyRenderer.material = material;
-        //cOrigin = material.color;
+
+        if (isToonShader)
+        {
+            Renderer[] enemyRenderer = GetComponentsInChildren<Renderer>();
+            material = Instantiate(enemyRenderer[0].material);
+            for (int i = 0; i < enemyRenderer.Length; i++)
+            {
+                enemyRenderer[i].material = material;
+            }
+        }
+        else
+        {
+            Renderer enemyRenderer = GetComponentInChildren<Renderer>();
+            material = Instantiate(enemyRenderer.material);
+            enemyRenderer.material = material;
+        }
+        cOrigin = material.color;
 
         hpCurr = hpMax;
 
@@ -152,18 +171,17 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         TrySetAnimFloat("MoveSpeed", moveSpeed);
 
         // 피격 시 점멸
-        //if (hitBlinkCurr > 0)
-        //{
-        //    Color newColor = Color.white;
-        //    float cChange = hitBlinkCurr / hitBlink;
-        //    newColor.r = Mathf.Lerp(cOrigin.r, 1, cChange);
-        //    newColor.g = Mathf.Lerp(cOrigin.g, 1, cChange);
-        //    newColor.b = Mathf.Lerp(cOrigin.b, 1, cChange);
-        //    material.color = newColor;
-        //    hitBlinkCurr -= Time.deltaTime;
-        //    if (hitBlink < 0)
-        //        hitBlinkCurr = 0;
-        //}
+        if (hitBlinkCurr > 0)
+        {
+            float cChange = hitBlinkCurr / hitBlink;
+            if (isToonShader)
+                material.SetColor("_BaseColor", Color.Lerp(cOrigin, hitColor, cChange));
+            else
+                material.SetColor("_BASE_COLOR", Color.Lerp(cOrigin, hitColor, cChange));
+            hitBlinkCurr -= Time.deltaTime;
+            if (hitBlinkCurr < 0)
+                hitBlinkCurr = 0;
+        }
 
         OnUpdate();
     }
