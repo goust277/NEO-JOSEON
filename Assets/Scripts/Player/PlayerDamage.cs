@@ -29,6 +29,10 @@ public class PlayerDamage : MonoBehaviour, IDamageable
         {
             isHitPosible = true;
         }
+        if(hp <= 0)
+        {
+
+        }
     }
 
     public void TakeDamage(Damage damage)
@@ -40,6 +44,7 @@ public class PlayerDamage : MonoBehaviour, IDamageable
             delay = 0f;
             animator.SetTrigger("Hit");
             hit.TakeDamage();
+            hp -= (int)damage.amount;
         }
     }
 
@@ -52,6 +57,7 @@ public class PlayerDamage : MonoBehaviour, IDamageable
             delay = 0f;
             animator.SetTrigger("Hit");
             hit.TakeDamage();
+            hp--;
         }
     }
 

@@ -80,6 +80,8 @@ public class PlayerSkill : MonoBehaviour
         foreach (Collider collider in hidCols)
         {
             HitPad hitPad = collider.GetComponent<HitPad>();
+            if (collider.isTrigger == true)
+                return;
             hitPad.HitDown();
         }
     }

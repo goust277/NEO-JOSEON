@@ -8,6 +8,7 @@ TagManager:
   - Plane
   - Key
   - Enemy
+  - FLCamera
   layers:
   - Default
   - TransparentFX

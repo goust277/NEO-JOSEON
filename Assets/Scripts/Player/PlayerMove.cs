@@ -28,6 +28,7 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody rb;
 
     public Camera cam;
+    [SerializeField] private GameObject freeLookCamera;
 
     [SerializeField]private bool isGround;
     private bool isAttackReady;
@@ -75,6 +76,8 @@ public class PlayerMove : MonoBehaviour
         MouseOff();
 
         cam = Camera.main;
+        freeLookCamera = GameObject.FindGameObjectWithTag("FLCamera");
+
     }
 
     void Update()
@@ -84,6 +87,10 @@ public class PlayerMove : MonoBehaviour
         weapon.damage = damage;
         weapon.effectTime = effectTime;
 
+        if (!mainSetting.activeSelf && !stageSetting.activeSelf) 
+        {
+            EndSettring();
+        }
         if (Input.GetKeyDown(KeyCode.Escape) && !isSetting)
         {
             // 상호 작용 시작
@@ -393,12 +400,20 @@ public class PlayerMove : MonoBehaviour
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        if (freeLookCamera != null)
+        {
+            freeLookCamera.SetActive(false);
+        }
     }
 
     private void MouseOff()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
+        if (freeLookCamera != null)
+        {
+            freeLookCamera.SetActive(true);
+        }
     }
 }
 
