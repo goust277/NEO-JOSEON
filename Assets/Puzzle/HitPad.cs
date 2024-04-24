@@ -32,7 +32,6 @@ public class HitPad : MonoBehaviour, IDamageable
                 }
             }
         }
-
     }
 
     public void ClearPad()

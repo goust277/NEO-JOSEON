@@ -29,6 +29,7 @@ public class Weapon : MonoBehaviour
         BoxCollider = GetComponent<BoxCollider>();
         BoxCollider.enabled = false;
         atk1.SetActive(false);
+        atk2.SetActive(false);
     }
     public void Use()
     {
@@ -41,7 +42,8 @@ public class Weapon : MonoBehaviour
 
     public void TakeDamage()
     {
-        StopCoroutine("Swing");        
+        StopCoroutine("Swing");  
+        attackLv = 0;
     }
 
     IEnumerator Swing()

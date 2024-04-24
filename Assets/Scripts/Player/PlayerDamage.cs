@@ -29,12 +29,10 @@ public class PlayerDamage : MonoBehaviour, IDamageable
         {
             isHitPosible = true;
         }
-
     }
 
     public void TakeDamage(Damage damage)
     {
-        Debug.Log("Hit");
         if (isHitPosible)
         {
             StartCoroutine(Hit());

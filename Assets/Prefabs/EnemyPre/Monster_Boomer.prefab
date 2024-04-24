@@ -68904,7 +68904,7 @@ GameObject:
   - component: {fileID: 5446279098342319153}
   - component: {fileID: 5446279098342319152}
   - component: {fileID: 5446279098342319155}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Monster_Boomer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

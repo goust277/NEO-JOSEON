@@ -1,10 +1,6 @@
 
 using Cinemachine;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.LookDev;
@@ -286,7 +282,7 @@ public class PlayerMove : MonoBehaviour
     {
         weapon.isAtkTime = false;
         Quaternion targetRotation = Quaternion.LookRotation(dir, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 100000);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1000000);
         yield return new WaitForSeconds(0.01f);
         isCooldown = true;
         rb.useGravity = false;
