@@ -21,6 +21,12 @@ public class Fireball : MonoBehaviour
     private float fireTimeCurr = 0;
     [SerializeField] private float fireTiming = 1.2f;
 
+    [Header("¿Ãºú∆Æ")]
+    [SerializeField] private GameObject warnEffect = null;
+    [SerializeField] private float destroyTimeWarn = 1.0f;
+    [SerializeField] private GameObject hitEffect = null;
+    [SerializeField] private float destroyTime = 1.0f;
+
     private GameObject model = null;
 
     private void Awake()
@@ -46,6 +52,10 @@ public class Fireball : MonoBehaviour
         }
         if (Activated)
         {
+            if (fireTimeCurr == 0)
+            {
+                Warn();
+            }
             if (fireTimeCurr < fireTiming && fireTimeCurr + deltaTime >= fireTiming)
             {
                 Fire();
@@ -57,6 +67,16 @@ public class Fireball : MonoBehaviour
                 Activated = false;
                 model.SetActive(false);
             }
+        }
+    }
+
+    private void Warn()
+    {
+        for(int i = 0; i < 20; i++)
+        {
+            GameObject inst = Instantiate(warnEffect, model.transform);
+            inst.transform.Translate(0, -2.5f, i, Space.Self);
+            Destroy(inst, destroyTimeWarn);
         }
     }
 
@@ -73,6 +93,14 @@ public class Fireball : MonoBehaviour
         p.SetRange(range);
         p.SetPiercing(true);
         p.SetLayerMask(ref layerMask);
+        if (hitEffect)
+        {
+            p.SetCallbackHit((Collider c) =>
+            {
+                GameObject inst = Instantiate(hitEffect, c.transform);
+                Destroy(inst, destroyTime);
+            });
+        }
 
         p.SetSpeedVector(model.transform.forward * velocity);
         p.Fire(model.transform.position);

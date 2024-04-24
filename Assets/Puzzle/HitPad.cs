@@ -12,13 +12,20 @@ public class HitPad : MonoBehaviour, IDamageable
     [SerializeField] private float resetTime;
 
     [SerializeField] private int hitGauge = 0;
+    [SerializeField] private GameObject effect = null;
+
+    ParticleSystem ps = null;
 
     private Renderer rend;
     public KeyPad keyPad;
     private float delay = 0f;
+
+    [SerializeField] private float hitTime = 0.5f;
+    private float hitTimeCurr = 0;
+    [SerializeField] private float padDamage = 5.0f;
+
     public void TakeDamage(Damage damage)
     {
-        Debug.Log("hit");
         if (hitGauge != 3)
         {
             if (damage.property.Contains("fire"))
@@ -58,7 +65,6 @@ public class HitPad : MonoBehaviour, IDamageable
     {
         if (hitGauge > 0)
         {
-            Debug.Log("Pad");
             hitGauge--;
             if (keyPad != null)
             {
@@ -102,6 +108,10 @@ public class HitPad : MonoBehaviour, IDamageable
     void Start()
     {
         rend = GetComponent<Renderer>();
+
+        ps = Instantiate(effect, transform).GetComponent<ParticleSystem>();
+        ps.transform.Translate(-0.5f, 0, 0.5f);
+        ps.Stop();
     }
 
     
@@ -120,10 +130,28 @@ public class HitPad : MonoBehaviour, IDamageable
             else
             {
                 ClearPad();
+                hitTimeCurr = hitTime;
+                if (effect)
+                    ps.Play();
                 delay = 0;
             }
 
         }
         rend.material = matarials[hitGauge];
+        if (hitTimeCurr > 0)
+            hitTimeCurr -= Time.deltaTime;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (hitTimeCurr <= 0)
+            return;
+        if (!other.CompareTag("Player"))
+            return;
+
+        Damage d;
+        d.amount = padDamage;
+        d.property = string.Empty;
+        other.GetComponent<IDamageable>().TakeDamage(d);
     }
 }

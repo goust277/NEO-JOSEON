@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static EnemyStateAttack;
 
 [RequireComponent(typeof(Collider), typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
@@ -14,6 +15,9 @@ public class Projectile : MonoBehaviour
 
     private LayerMask layerRef = 0;
 
+    public delegate void Callback2(Collider c);
+    protected Callback2 onHit = null;
+
     private void Awake()
     {
         damage.amount = 0;
@@ -26,6 +30,15 @@ public class Projectile : MonoBehaviour
         distTrav += Time.deltaTime * rb.velocity.magnitude;
         if (distTrav >= range)
             gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// 타격 시 콜백을 지정합니다.
+    /// </summary>
+    /// <param name="cb"></param>
+    public void SetCallbackHit(Callback2 cb)
+    {
+        onHit = cb;
     }
 
     /// <summary>
@@ -91,6 +104,8 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.isTrigger)
+            return;
         if (((1 << other.gameObject.layer) & layerRef.value) == 0) return;
 
         if (other.gameObject.GetInstanceID() == ownerID) return;
@@ -99,6 +114,7 @@ public class Projectile : MonoBehaviour
         if (target == null) return;
 
         target.TakeDamage(damage);
+        onHit?.Invoke(other);
         if (!piercing) gameObject.SetActive(false);
     }
 

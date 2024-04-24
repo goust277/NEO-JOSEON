@@ -61,6 +61,8 @@ public class EnemyStateChargeAttack : EnemyStateAttack
 
         foreach (Collider c in hit)
         {
+            if (c.isTrigger)
+                continue;
             IDamageable target = c.GetComponent<IDamageable>(); // 공격 가능한 대상인가?
             if (target == null)
                 continue;
