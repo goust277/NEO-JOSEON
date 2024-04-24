@@ -32,6 +32,7 @@ public class Enemy_Robot : Enemy
     [SerializeField] private int slash2Repeat = 2;
     private int slash2Curr = 0;
     [SerializeField] private float slash2IntervalMod = 0.7f;
+    [SerializeField] private float slash2EndMod = 0.7f;
 
     // 각 공격 상태들
     private EnemyStateAttack melee1;
@@ -135,15 +136,22 @@ public class Enemy_Robot : Enemy
                     {
                         next = meleeTable[Random.Range(0, meleeTable.Count)];
                     }    
-                    if (next == 7)
+                    switch(next)
                     {
-                        melee4lastPos = Random.Range(0, melee4Pos.Count);
-                        melee4_1.SetDest(melee4Pos[melee4lastPos]);
-                        TrySetAnimTrigger("Charge");
-                    }
-                    else
-                    {
-                        TrySetAnimTrigger("Melee1");
+                        case 1:
+                            TrySetAnimTrigger("Melee1");
+                            break;
+                        case 2:
+                            TrySetAnimTrigger("Melee2");
+                            break;
+                        case 7:
+                            melee4lastPos = Random.Range(0, melee4Pos.Count);
+                            melee4_1.SetDest(melee4Pos[melee4lastPos]);
+                            TrySetAnimTrigger("Charge");
+                            break;
+                        default:
+                            TrySetAnimTrigger("Melee1");
+                            break;
                     }
                     SetState(next);
                 }
@@ -177,13 +185,14 @@ public class Enemy_Robot : Enemy
                     if (slash2Curr < slash2Repeat)
                     {
                         melee2.DelayBefore *= slash2IntervalMod;
-                        TrySetAnimTrigger("Melee1");
+                        melee2.DelayAfter *= slash2EndMod;
                         SetState(2);
                     }
                     else
                     {
                         slash2Curr = 0;
                         melee2.DelayBefore /= slash2IntervalMod;
+                        melee2.DelayAfter /= slash2EndMod;
                         SetState(9);
                         TrySetAnimTrigger("Backstep");
                     }
