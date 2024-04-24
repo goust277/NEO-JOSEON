@@ -24,6 +24,7 @@ public class ProjectileQueue : MonoBehaviour
         foreach (Projectile ele in projectiles)
         {
             if (!ele.IsAvailable()) continue; // 이미 사용중이면 건너뜀
+            ele.SetCallbackHit(null);
             return ele;
         }
         return CreateNewProjectile(); // 모두 사용 중이면 새로 하나 만듦
