@@ -44,6 +44,7 @@ public class PlayerDamage : MonoBehaviour, IDamageable
             delay = 0f;
             animator.SetTrigger("Hit");
             hit.TakeDamage();
+            
             hp -= (int)damage.amount;
         }
     }

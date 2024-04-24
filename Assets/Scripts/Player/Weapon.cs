@@ -43,6 +43,7 @@ public class Weapon : MonoBehaviour
     public void TakeDamage()
     {
         StopCoroutine("Swing");  
+        isAtkTime = false;
         attackLv = 0;
     }
 
@@ -50,65 +51,35 @@ public class Weapon : MonoBehaviour
     {
         if (attackLv == 0 || attackLv == 2)
         {
-            yield return GameDefine.waitForSeconds0_1;
+            BoxCollider.enabled = true;
             if (attackLv == 2)
             {
                 attackLv = 0;
             }
             Attack();
+            
             atk1.SetActive(true);
-            Invoke("OffEffect1", 0.5f);
-            float delay = 0;
-            while (delay < atkDelay)
-            {
-                delay += Time.deltaTime;
-                yield return null;
-            }
-            BoxCollider.enabled = true;
+            Invoke("OffEffect1", 0.1f);
 
         }
         else if (attackLv == 1)
         {
-            yield return GameDefine.waitForSeconds0_1;
+            BoxCollider.enabled = false;
             Attack();
-            atk2.SetActive(true);
-            Invoke("OffEffect2", 0.5f);
-            float delay = 0;
-            while (delay < atkDelay)
-            {
-                delay += Time.deltaTime;
-                yield return null;
-            }
             BoxCollider.enabled = true;
+            atk2.SetActive(true);
+            Invoke("OffEffect2", 0.1f);
+
+            yield return new WaitForSeconds(0.1f);
+            BoxCollider.enabled = false;
 
         }
-        //else if (attackLv == 2)
-        //{
-        //    yield return GameDefine.waitForSeconds0_1;
-        //    Attack();
-        //    float delay = 0;
-        //    while (delay < atkDelay)
-        //    {
-        //        delay += Time.deltaTime;
-        //        yield return null;
-        //    }
-        //    BoxCollider.enabled = true;
-        //    float atk = 0;
-        //    while (atk < 0.2f)
-        //    {
-        //        atk += Time.deltaTime;
-        //        yield return null;
-        //    }
-        //    BoxCollider.enabled = false;
-
-        //}
         float onAttack = 0;
         while (onAttack < rate)
         {
             onAttack += Time.deltaTime;
             yield return null;
         }
-        BoxCollider.enabled = false;
         isAtkTime = false;
         attackLv = 0;
     }
@@ -122,7 +93,6 @@ public class Weapon : MonoBehaviour
     }
     private void Attack()
     {
-
         isAtkTime = true;
         attackLv++;
     }
@@ -133,6 +103,7 @@ public class Weapon : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             Vector3 triggerPosition = other.ClosestPoint(transform.position);
+            Debug.Log("Enter");
 
             if (effect != null)
             {
@@ -148,10 +119,11 @@ public class Weapon : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             IDamageable target = other.GetComponent<IDamageable>(); // 인터페이스 찾기
+            Debug.Log(target);
             if (target == null) return; // 없다면 리턴
 
             StartCoroutine(HitLag());
-
+            Debug.Log("1");
             Damage d; // 대미지 구조체
             d.amount = damage; // 피해량
             d.property = string.Empty; // 속성
@@ -159,9 +131,18 @@ public class Weapon : MonoBehaviour
 
 
         }
+
     }
 
-
+    public void AttOn()
+    {
+        Debug.Log("1");
+        BoxCollider.enabled = true;
+    }
+    public void AttkOff()
+    {
+        BoxCollider.enabled = false;
+    }
     IEnumerator HitLag()
     {
         Time.timeScale = 0.2f;

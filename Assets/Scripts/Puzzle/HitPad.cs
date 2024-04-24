@@ -62,7 +62,7 @@ public class HitPad : MonoBehaviour, IDamageable
     
     public void HitDown()
     {
-        if (hitGauge > 0)
+        if (hitGauge > 0 && hitGauge < 3)
         {
             hitGauge--;
             if (keyPad != null)
@@ -81,7 +81,6 @@ public class HitPad : MonoBehaviour, IDamageable
                 keyPad.OpenCancle();
             }
         }
-
     }
 
     private void Puzzle()
