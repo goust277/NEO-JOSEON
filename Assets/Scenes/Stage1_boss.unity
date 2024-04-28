@@ -8569,9 +8569,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dfa800b398005c418814f46ac410365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 20
+  acceleration: 40
   targetPos: {x: 0, y: 0, z: 0}
   toTarget: 1
-  invert: 1
+  backStep: 1
+  backStepDist: 2
 --- !u!4 &452648218 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6542044873083586196, guid: 5756be57d68c8f944ae797434f56ba91,
@@ -15295,7 +15298,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 883767621}
-  m_LocalRotation: {x: -4.1259562e-10, y: 0.997743, z: 0.06714912, w: 0.0000000061305974}
+  m_LocalRotation: {x: 0.0000000037491095, y: 0.997743, z: 0.06714904, w: -0.000000055706646}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
