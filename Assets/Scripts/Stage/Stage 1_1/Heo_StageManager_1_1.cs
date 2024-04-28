@@ -44,7 +44,7 @@ public class Heo_StageManager_1_1 : MonoBehaviour
         }
 
 
-        if (stagemanager.smallNum >= 3 && stagemanager.bigNum == 3)
+        if (stagemanager.smallNum >= 2 && stagemanager.bigNum == 3)
         {
             OpenNextStage();
         }
@@ -83,7 +83,6 @@ public class Heo_StageManager_1_1 : MonoBehaviour
 
         Instantiate(MonsterJumper, spawnPoint_2[0].position, Quaternion.identity);
         Instantiate(MonsterBoomer, spawnPoint_2[1].position, Quaternion.identity);
-        Instantiate(MonsterJumper, spawnPoint_2[2].position, Quaternion.identity);
     }
 
     private void OpenNextStage()

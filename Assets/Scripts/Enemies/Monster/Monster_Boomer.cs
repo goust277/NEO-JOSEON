@@ -122,21 +122,6 @@ public class Monster_Boomer : MonoBehaviour ,IDamageable
         isAttack = false;
     }
 
-    public void TakeDamage()
-    {
-        // 데미지 입는 부분 구현
-        bChargeStart = false;
-        AttackChargeTime = 1.5f;
-        isChase = false;
-        Invoke("ChoiceStart()",0.1f);
-
-        if (currentHp <= 0 )
-        {
-            StartCoroutine(Die());
-            
-            Die();
-        }
-    }
     private void ChoiceStart()
     {
         isChase = true;
@@ -183,7 +168,17 @@ public class Monster_Boomer : MonoBehaviour ,IDamageable
 
     public void TakeDamage(Damage damage)
     {
-        TakeDamage();
+        bChargeStart = false;
+        AttackChargeTime = 1.5f;
+        isChase = false;
+        Invoke("ChoiceStart()", 0.1f);
+
+        if (currentHp <= 0)
+        {
+            StartCoroutine(Die());
+
+            Die();
+        }
         currentHp--;
     }
 }

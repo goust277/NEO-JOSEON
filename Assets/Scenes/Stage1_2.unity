@@ -6686,6 +6686,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5436464839895566841, guid: 593d55fa48146da42b285d918850f2e6,
         type: 3}
+      propertyPath: m_TagString
+      value: Plane
+      objectReference: {fileID: 0}
+    - target: {fileID: 5436464839895566841, guid: 593d55fa48146da42b285d918850f2e6,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -9642,7 +9647,7 @@ MonoBehaviour:
   stagemanager: {fileID: 928882127}
   MonsterBoomer: {fileID: 5446279098342319154, guid: 1477fd91744094341a7a9ab9b8ed034b,
     type: 3}
-  MonsterJumper: {fileID: 4414802889469928982, guid: 39ec0b6af1b9403438f04a10f9bfe001,
+  MonsterJumper: {fileID: 5446279098342319154, guid: 1477fd91744094341a7a9ab9b8ed034b,
     type: 3}
   middleDoor_1: {fileID: 1201598356}
   middleDoor_2: {fileID: 1112342096}
@@ -11270,7 +11275,7 @@ PrefabInstance:
     - target: {fileID: 9101710224750354170, guid: beb800505cc5b194a845af733875f1f2,
         type: 3}
       propertyPath: groundCheck
-      value: 0.8
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 9101710224750354170, guid: beb800505cc5b194a845af733875f1f2,
         type: 3}

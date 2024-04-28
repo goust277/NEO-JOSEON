@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEditor;
-using UnityEditor.TerrainTools;
 using UnityEngine;
 
 public class EnemyStateMeleeArc : EnemyStateAttack
@@ -102,6 +101,9 @@ public class EnemyStateMeleeArc : EnemyStateAttack
 
         foreach (Collider ele in hit)
         {
+            if (ele.isTrigger)
+                continue;
+
             IDamageable target = ele.GetComponent<IDamageable>();// 공격 가능한 대상인가?
             if (target == null)
                 continue;

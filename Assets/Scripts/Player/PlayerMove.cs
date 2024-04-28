@@ -1,10 +1,6 @@
 
 using Cinemachine;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.LookDev;
@@ -32,6 +28,7 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody rb;
 
     public Camera cam;
+    [SerializeField] private GameObject freeLookCamera;
 
     [SerializeField]private bool isGround;
     private bool isAttackReady;
@@ -65,7 +62,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float effectTime;
 
     private PlayerDamage playerDamge;
-    void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         detect = GetComponent<PlayerDetect>();
@@ -76,9 +73,10 @@ public class PlayerMove : MonoBehaviour
         mainSetting = GameObject.Find("Main_Setting");
         stageSetting = GameObject.Find("Stage_Setting");
 
-        MouseOff();
+        Cursor.visible = false;
 
         cam = Camera.main;
+        freeLookCamera = GameObject.FindGameObjectWithTag("FLCamera");
     }
 
     void Update()
@@ -88,18 +86,18 @@ public class PlayerMove : MonoBehaviour
         weapon.damage = damage;
         weapon.effectTime = effectTime;
 
-        if (Input.GetKeyDown(KeyCode.Escape) && !isSetting)
+        if (Input.GetKeyDown(KeyCode.Escape) && !isSetting&&!isInteracting)
         {
             // 상호 작용 시작
             StartSetting();
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) && isSetting)
+        else if (Input.GetKeyDown(KeyCode.Escape) && isSetting && !isInteracting)
         {
             // 상호 작용 중지
 
             EndSettring();
         }
-        if (!isSetting) 
+        if (!isSetting && !playerDamge.isHit) 
         {
             Vector3 cameraForward = Vector3.Scale(cam.transform.forward, new Vector3(1, 0, 1)).normalized;
 
@@ -152,26 +150,25 @@ public class PlayerMove : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.E) && !isInteracting && currentInteractableObject != null)
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                // 상호 작용 시작
-                StartInteraction();
-            }
-            else if (Input.GetKeyDown(KeyCode.E) && isInteracting)
-            {
-                // 상호 작용 중지
-                EndInteraction();
+                if (!isInteracting)
+                {
+                    if (currentInteractableObject != null)
+                        StartInteraction();
+                }
+                else
+                    EndInteraction();
+
             }
 
             if (Input.GetKeyDown(KeyCode.T))
             {
                 Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Confined;
             }
             if (Input.GetKeyDown(KeyCode.R))
             {
                 Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
             }
             if (Input.GetKeyDown(KeyCode.LeftShift) && !isCooldown)
             {
@@ -193,6 +190,7 @@ public class PlayerMove : MonoBehaviour
     {
         weapon.TakeDamage();
         skill.StopSkill();
+
 
     }
     private void FixedUpdate()
@@ -286,10 +284,12 @@ public class PlayerMove : MonoBehaviour
     {
         weapon.isAtkTime = false;
         Quaternion targetRotation = Quaternion.LookRotation(dir, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 100000);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1000000);
         yield return new WaitForSeconds(0.01f);
+
         isCooldown = true;
         rb.useGravity = false;
+
         Vector3 dashDirection = dir != Vector3.zero ? dir : transform.forward;
 
         Vector3 dashPower = dashDirection * dash;
@@ -395,14 +395,31 @@ public class PlayerMove : MonoBehaviour
 
     private void MouseOn()
     {
-        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        if (freeLookCamera != null)
+        {
+            freeLookCamera.SetActive(false);
+        }
     }
 
     private void MouseOff()
     {
         Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Confined;
+        if (freeLookCamera != null)
+        {
+            freeLookCamera.SetActive(true);
+        }
+    }
+    
+    public void AtkOn()
+    {
+        weapon.AttOn();
+    }
+
+    public void AtkOff()
+    {
+        weapon.AttkOff();
     }
 }
 

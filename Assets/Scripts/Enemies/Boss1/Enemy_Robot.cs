@@ -29,6 +29,10 @@ public class Enemy_Robot : Enemy
     [Header("MISC")]
     [SerializeField] private ArrowIndicator TEST_INDICATOR = null;
     [SerializeField] private float stepBackTime = 2.0f;
+    [SerializeField] private int slash2Repeat = 2;
+    private int slash2Curr = 0;
+    [SerializeField] private float slash2IntervalMod = 0.7f;
+    [SerializeField] private float slash2EndMod = 0.7f;
 
     // 각 공격 상태들
     private EnemyStateAttack melee1;
@@ -42,18 +46,48 @@ public class Enemy_Robot : Enemy
     private EnemyStateChargeAttack melee4_1;
     private EnemyStateMeleeBox melee4_2;
 
+    [Header("EFFECT")]
+    [SerializeField] private GameObject slash1 = null;
+    [SerializeField] private GameObject slash2 = null;
+    [SerializeField] private GameObject slash3 = null;
+    [SerializeField] private GameObject slash4_1 = null;
+    [SerializeField] private GameObject slash4_2 = null;
+    [SerializeField] private GameObject chargeEff = null;
+
     protected override void OnAwake()
     {
         melee1 = (EnemyStateAttack)StateList[1];
+        melee1.SetCallbackTiming(() => {
+            GameObject inst = Instantiate(slash1, transform);
+            Destroy(inst, 2);
+        },EnemyStateAttack.CallbackType.ON_START_ATTACK);
+
         melee2 = (EnemyStateAttack)StateList[2];
+        melee2.SetCallbackTiming(() => {
+            GameObject inst = Instantiate(slash2, transform);
+            Destroy(inst, 2);
+        }, EnemyStateAttack.CallbackType.ON_START_ATTACK);
+
         melee3 = (EnemyStateAttack)StateList[3];
+        melee3.SetCallbackTiming(() => {
+            GameObject inst = Instantiate(slash3, transform);
+            Destroy(inst, 2);
+        }, EnemyStateAttack.CallbackType.ON_START_ATTACK);
 
         project = (EnemyStateAttack)StateList[4];
         cross = (EnemyStateAttack)StateList[5];
         charge = (EnemyStateAttack)StateList[6];
+        charge.SetCallbackTiming(() => {
+            GameObject inst = Instantiate(chargeEff, transform);
+            Destroy(inst, 4f);
+        }, EnemyStateAttack.CallbackType.ON_START_ATTACK);
 
         melee4_1 = (EnemyStateChargeAttack)StateList[7];
         melee4_2 = (EnemyStateMeleeBox)StateList[8];
+        melee4_2.SetCallbackTiming(() => {
+            GameObject inst = Instantiate(slash4_2, transform);
+            Destroy(inst, 5f);
+        }, EnemyStateAttack.CallbackType.ON_START_ATTACK);
 
         for (int i = 0; i < melee1Weight; i++)
             meleeTable.Add(1);
@@ -76,6 +110,7 @@ public class Enemy_Robot : Enemy
             {
                 isPhase2 = true;
                 chargeRepeat++;
+                slash2Curr = 0;
                 TrySetAnimFloat("AnimSpeed", 1.2f);
                 for (int i = 1; i < StateList.Length-1; i++)
                 {
@@ -101,13 +136,24 @@ public class Enemy_Robot : Enemy
                     {
                         next = meleeTable[Random.Range(0, meleeTable.Count)];
                     }    
-                    if (next == 7)
+                    switch(next)
                     {
-                        melee4lastPos = Random.Range(0, melee4Pos.Count);
-                        melee4_1.SetDest(melee4Pos[melee4lastPos]);
+                        case 1:
+                            TrySetAnimTrigger("Melee1");
+                            break;
+                        case 2:
+                            TrySetAnimTrigger("Melee2");
+                            break;
+                        case 7:
+                            melee4lastPos = Random.Range(0, melee4Pos.Count);
+                            melee4_1.SetDest(melee4Pos[melee4lastPos]);
+                            TrySetAnimTrigger("Charge");
+                            break;
+                        default:
+                            TrySetAnimTrigger("Melee1");
+                            break;
                     }
                     SetState(next);
-                    TrySetAnimTrigger("Melee1");
                 }
                 if (StateDuration > chaseTimeMax)
                 {
@@ -127,15 +173,37 @@ public class Enemy_Robot : Enemy
                 break;
             case 1: // 부채꼴 공격
                 if (melee1.IsAttackOver())
+                {
                     SetState(9);
+                    TrySetAnimTrigger("Backstep");
+                }
                 break;
             case 2: // 내리치기
                 if (melee2.IsAttackOver())
-                    SetState(9);
+                {
+                    slash2Curr++;
+                    if (slash2Curr < slash2Repeat)
+                    {
+                        melee2.DelayBefore *= slash2IntervalMod;
+                        melee2.DelayAfter *= slash2EndMod;
+                        SetState(2);
+                    }
+                    else
+                    {
+                        slash2Curr = 0;
+                        melee2.DelayBefore /= slash2IntervalMod;
+                        melee2.DelayAfter /= slash2EndMod;
+                        SetState(9);
+                        TrySetAnimTrigger("Backstep");
+                    }
+                }
                 break;
             case 3: // 원형
                 if (melee3.IsAttackOver())
+                {
                     SetState(9);
+                    TrySetAnimTrigger("Backstep");
+                }
                 break;
             case 4: // 발사체
                 if (project.IsAttackOver())
@@ -143,7 +211,10 @@ public class Enemy_Robot : Enemy
                 break;
             case 5: // 십자
                 if (cross.IsAttackOver())
+                {
                     SetState(9);
+                    TrySetAnimTrigger("Backstep");
+                }
                 break;
             case 6: // 돌진
                 if (charge.IsAttacking())
@@ -165,9 +236,15 @@ public class Enemy_Robot : Enemy
                 }
                 break;
             case 7:
+                if (charge.IsAttacking())
+                    TrySetAnimBool("Charging", true);
+                else
+                    TrySetAnimBool("Charging", false);
+
                 if (melee4_1.IsAttackOver())
                 {
-                    Vector3 origin = transform.position;
+                        TrySetAnimBool("Charging", false);
+                        Vector3 origin = transform.position;
                     origin.y += 0.3f;
                     Vector3 end = origin + transform.forward * melee4_2.Range;
                     TEST_INDICATOR.SetThickness(melee4_2.Width * 2f);
@@ -176,6 +253,8 @@ public class Enemy_Robot : Enemy
                     int lockIndex = (melee4lastPos + (int)(melee4Pos.Count * 0.5f)) % melee4Pos.Count;
                     SetSightLock(melee4Pos[lockIndex].position);
 
+                    GameObject inst = Instantiate(slash4_1, transform);
+                    Destroy(inst, 5f);
                     SetState(8);
                 }
                 break;

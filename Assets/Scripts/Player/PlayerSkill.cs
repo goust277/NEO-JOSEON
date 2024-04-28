@@ -79,8 +79,12 @@ public class PlayerSkill : MonoBehaviour
         StartCoroutine(ResetEnemyVelocity(colliders, 0.1f));
         foreach (Collider collider in hidCols)
         {
+            if (collider.isTrigger == true)
+                continue;
             HitPad hitPad = collider.GetComponent<HitPad>();
+
             hitPad.HitDown();
+
         }
     }
     IEnumerator ResetEnemyVelocity(Collider[] colliders, float delay)

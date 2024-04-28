@@ -43,6 +43,8 @@ public class HPbar : MonoBehaviour
             Vector2 currV = fullV;
             currV.x *= rate;
             fill.sizeDelta = currV;
+            if (rate == 0)
+                Deactive();
         }
     }
 }

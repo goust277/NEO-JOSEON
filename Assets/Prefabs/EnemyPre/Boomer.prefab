@@ -152,6 +152,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpMax: 1
   hpCurr: 1
+  hitBlink: 0.2
+  isToonShader: 0
+  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  hitBlinkCurr: 0
   target: {fileID: 0}
   lookAtTarget: 1
   rotationSpeed: 20
@@ -161,6 +165,7 @@ MonoBehaviour:
   - {fileID: 5260876977719969452}
   stateCurrIdx: -1
   stateDuration: 0
+  animator: {fileID: 0}
   detect: 0
   effect: {fileID: 9191127644885697925, guid: d07867fc5bfc07d41bbea4f78da2e622, type: 3}
 --- !u!114 &3132742950359908218

@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro.EditorUtilities;
-using UnityEditor;
-using UnityEditor.Rendering.Toon;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -127,7 +122,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             material = Instantiate(enemyRenderer.material);
             enemyRenderer.material = material;
         }
-        //cOrigin = material.color;
+        cOrigin = material.color;
 
         hpCurr = hpMax;
 

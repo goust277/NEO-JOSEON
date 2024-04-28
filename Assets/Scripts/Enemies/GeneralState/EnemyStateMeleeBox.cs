@@ -102,6 +102,8 @@ public class EnemyStateMeleeBox : EnemyStateAttack
 
             foreach (Collider ele in hit)
             {
+                if (ele.isTrigger)
+                    continue;
                 IDamageable target = ele.GetComponent<IDamageable>();// 공격 가능한 대상인가?
                 if (target == null)
                     continue;

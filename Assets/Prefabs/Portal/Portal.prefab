@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameObjects: []
-  Door: {fileID: 0}
   targetKill: 0
   killCount: 0
 --- !u!1 &400387141323856323
@@ -159,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b44e0abd5acc3b14cbdaf5c037e2634d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: Stage1_boss
+  SceneName: Stage1_2
 --- !u!65 &400387141323856332
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -73644,9 +73644,9 @@ GameObject:
   - component: {fileID: 4414802889469928983}
   - component: {fileID: 4414802889469928981}
   - component: {fileID: 2927230812588572098}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Monster_Jumper
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73704,7 +73704,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
