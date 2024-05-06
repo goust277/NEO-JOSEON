@@ -1,17 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
 public class Heo_MonsterAttackArea : MonoBehaviour
 {
     public float fDamage;
-
-    private void Awake()
-    {
-        Destroy(gameObject, 0.1f);
-    }
-
+    public bool bIsCapter1Monster;
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -19,13 +14,12 @@ public class Heo_MonsterAttackArea : MonoBehaviour
             other.gameObject.GetComponent<PlayerDamage>().TakeDamage();
             return;
         }
-        IDamageable target = other.GetComponent<IDamageable>();
-        Debug.Log(other.name);
-        if (target == null) return;
+        else if(other.CompareTag("HitPad") && bIsCapter1Monster)
+        {
+            NewHitPad newHitPad = other.gameObject.GetComponent<NewHitPad>();
+            newHitPad.GetHitGauge();
+            return;
+        }
 
-        Damage d;
-        d.amount = 0;
-        d.property = "fire";
-        target.TakeDamage(d);
     }
 }

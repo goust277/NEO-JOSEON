@@ -1,11 +1,24 @@
+using Cinemachine;
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.XR.WSA;
 
 public class Weapon : MonoBehaviour
 {
-    private BoxCollider BoxCollider;
+    [SerializeField] private CinemachineFreeLook CMfl;
+    private CinemachineBasicMultiChannelPerlin ChannelPerlin;
+
+    public float ShakeDuration = 0.3f;
+    public float ShakeAmplitude = 1.2f;
+    public float ShakeFrequency = 0.4f;
+
+    private Coroutine coroutine;
+    private MeshCollider BoxCollider;
+
+    [SerializeField] private Animator animator;
     public enum Type { Melee, Range };
     public Type type;
 
@@ -13,7 +26,6 @@ public class Weapon : MonoBehaviour
 
     public int damage;
     public float rate;
-    public float atkDelay = 0.3f;
 
     public bool isAtkTime;
 
@@ -26,7 +38,13 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
-        BoxCollider = GetComponent<BoxCollider>();
+        if (CMfl != null)
+        {
+            ChannelPerlin = CMfl.GetComponent<CinemachineBasicMultiChannelPerlin>();
+   
+        }
+            
+        BoxCollider = GetComponent<MeshCollider>();
         BoxCollider.enabled = false;
         atk1.SetActive(false);
         atk2.SetActive(false);
@@ -35,51 +53,76 @@ public class Weapon : MonoBehaviour
     {
         if (type == Type.Melee) 
         {
-            StopCoroutine("Swing");
-            StartCoroutine("Swing");
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+                coroutine = null;
+            }
+
+            coroutine = StartCoroutine(Swing());
         }
     }
 
-    public void TakeDamage()
+    public void StopAtk()
     {
-        StopCoroutine("Swing");  
+        if (atk1)
+        {
+            atk1.SetActive (false);
+        }
+        else if (atk2) 
+        {
+            atk2.SetActive(false);
+        }
+        if (coroutine != null) 
+        {
+            StopCoroutine(coroutine);
+        }
+ 
         isAtkTime = false;
         attackLv = 0;
     }
-
+    
+    
     IEnumerator Swing()
     {
         if (attackLv == 0 || attackLv == 2)
         {
+            if (atk2)
+            {
+                atk2.SetActive(false);
+            }
             BoxCollider.enabled = true;
             if (attackLv == 2)
             {
                 attackLv = 0;
             }
             Attack();
-            
+            animator.SetTrigger("Atk1");
             atk1.SetActive(true);
-            Invoke("OffEffect1", 0.1f);
+            Invoke("OffEffect1", 0.3f);
+            yield return new WaitForSeconds(rate + 0.1f);
 
         }
         else if (attackLv == 1)
         {
+            if (atk1)
+            {
+                atk1.SetActive(false);
+            }
+            animator.SetTrigger("Atk2");
             BoxCollider.enabled = false;
             Attack();
             BoxCollider.enabled = true;
             atk2.SetActive(true);
-            Invoke("OffEffect2", 0.1f);
+            Invoke("OffEffect2", 0.3f);
 
             yield return new WaitForSeconds(0.1f);
             BoxCollider.enabled = false;
+            yield return new WaitForSeconds(rate);
 
         }
-        float onAttack = 0;
-        while (onAttack < rate)
-        {
-            onAttack += Time.deltaTime;
-            yield return null;
-        }
+        
+
         isAtkTime = false;
         attackLv = 0;
     }
@@ -110,30 +153,27 @@ public class Weapon : MonoBehaviour
                 GameObject spawnEffect = Instantiate(effect, triggerPosition, Quaternion.identity);
                 Destroy(spawnEffect, effectTime);
             }
+            if (other.CompareTag("Enemy"))
+            {
+                other.GetComponent<NewEnemy>().TakeDamage(damage);
+
+                CMfl.GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = ShakeFrequency;
+                CMfl.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = ShakeFrequency;
+                CMfl.GetRig(2).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = ShakeFrequency;
+                StartCoroutine(HitLag());
+
+                Invoke("Zero", 0.1f);
+            }
         }
 
     }
 
-    private void OnTriggerExit(Collider other)
+    private void Zero()
     {
-        if (other.CompareTag("Enemy"))
-        {
-            IDamageable target = other.GetComponent<IDamageable>(); // 인터페이스 찾기
-            Debug.Log(target);
-            if (target == null) return; // 없다면 리턴
-
-            StartCoroutine(HitLag());
-            Debug.Log("1");
-            Damage d; // 대미지 구조체
-            d.amount = damage; // 피해량
-            d.property = string.Empty; // 속성
-            target.TakeDamage(d); // '피해 받기' 메서드 호출
-
-
-        }
-
+        CMfl.GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0;
+        CMfl.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0;
+        CMfl.GetRig(2).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0;
     }
-
     public void AttOn()
     {
         Debug.Log("1");
@@ -147,7 +187,7 @@ public class Weapon : MonoBehaviour
     {
         Time.timeScale = 0.2f;
 
-        yield return new WaitForSecondsRealtime(0.05f);
+        yield return new WaitForSecondsRealtime(0.1f);
 
         Time.timeScale = 1f;
     }

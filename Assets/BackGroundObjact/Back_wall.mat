@@ -73,17 +73,17 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _movespeed: 1
+    - _movespeed: 0.1
     - _spread: 177
-    - _spread_offset: 80
+    - _spread_offset: 150
     m_Colors:
     - _Tilling: {r: 30, g: 30, b: 0, a: 0}
     - _base: {r: 0.4316038, g: 0.5, b: 0.4396955, a: 0}
-    - _basecolor2: {r: 0, g: 0.01004601, b: 1, a: 0}
-    - _bottomcolor: {r: 0, g: 0.057555176, b: 1, a: 0}
+    - _basecolor2: {r: 1, g: 0.39607844, b: 0.29803923, a: 0}
+    - _bottomcolor: {r: 1, g: 0.1764706, b: 0, a: 0}
     - _emicolor: {r: 1, g: 1, b: 1, a: 0}
     - _lazercolor: {r: 1, g: 0, b: 0.6186142, a: 0}
-    - _secondcolor: {r: 0.77254915, g: 0, b: 1, a: 0}
+    - _secondcolor: {r: 1, g: 0.20784314, b: 0, a: 0}
     - _topcolor: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2769530547828175822

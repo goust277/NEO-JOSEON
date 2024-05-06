@@ -25,16 +25,17 @@ public class Heo_StageManager_1_1 : MonoBehaviour
         if(stagemanager.smallNum >= 3 && stagemanager.bigNum == 0)
         {
             stagemanager.bigNum++;
+            stagemanager.bigNum++;
             stagemanager.smallNum = 0;
             MonsterSpawn_1();
         }
 
-        if (stagemanager.smallNum >= 3 && stagemanager.bigNum == 1)
-        {
-            stagemanager.bigNum++;
-            stagemanager.smallNum = 0;
-            MonsterSpawn_2();
-        }
+        //if (stagemanager.smallNum >= 3 && stagemanager.bigNum == 1)
+        //{
+        //    stagemanager.bigNum++;
+        //    stagemanager.smallNum = 0;
+        //    MonsterSpawn_2();
+        //}
 
         if(stagemanager.smallNum >= 3 && stagemanager.bigNum == 2)
         {
@@ -73,8 +74,6 @@ public class Heo_StageManager_1_1 : MonoBehaviour
         Instantiate(MonsterJumper, spawnPoint_1[0].position, Quaternion.identity);
         Instantiate(MonsterBoomer, spawnPoint_1[2].position, Quaternion.identity);
         Instantiate(MonsterJumper, spawnPoint_1[4].position, Quaternion.identity);
-
-
     }
 
     public void MonsterSpawn_3()

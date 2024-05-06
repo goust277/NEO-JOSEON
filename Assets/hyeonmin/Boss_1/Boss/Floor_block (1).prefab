@@ -11,10 +11,7 @@ GameObject:
   - component: {fileID: 6595492360914903055}
   - component: {fileID: 733571564396297742}
   - component: {fileID: 8736313970379565346}
-  - component: {fileID: 4327000169357980244}
-  - component: {fileID: 5615342960983619665}
-  - component: {fileID: 215122521310680792}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Floor_block (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,53 +84,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4327000169357980244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8484601650365504697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f99f9d712594fa46b099807e8114821, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hit: 0
-  matarials:
-  - {fileID: 2100000, guid: 47e94ac470dea3d4d8d372425b6edc4d, type: 2}
-  - {fileID: 2100000, guid: ade7bb40686588f4da90564791c829d2, type: 2}
-  - {fileID: 2100000, guid: 489727108700c9e44aac9f756899f759, type: 2}
-  - {fileID: 2100000, guid: 6c0ea73a31f52584db34248e4b81c398, type: 2}
-  resetTime: 1
-  hitGauge: 0
-  effect: {fileID: 3245556878623823246, guid: be34946abbf351e46977115aea1137db, type: 3}
-  keyPad: {fileID: 0}
-  hitTime: 1
-  padDamage: 5
---- !u!65 &5615342960983619665
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8484601650365504697}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.019384377, z: 1}
-  m_Center: {x: -0.5, y: -0.05, z: 0.5}
---- !u!65 &215122521310680792
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8484601650365504697}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 7, z: 1}
-  m_Center: {x: -0.5, y: 3.49, z: 0.5}

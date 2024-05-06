@@ -8,7 +8,12 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
+    private Coroutine coroutine;
     public string currentMapName;
+
+    [Header("플레이어 이펙트")]
+    [SerializeField] private GameObject UnderLine;
+    [SerializeField] private ParticleSystem DashEffect;
 
     [Header("플레이어 이동")]
     public float speed = 5.0f;
@@ -28,7 +33,7 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody rb;
 
     public Camera cam;
-    [SerializeField] private GameObject freeLookCamera;
+    private GameObject freeLookCamera;
 
     [SerializeField]private bool isGround;
     private bool isAttackReady;
@@ -43,7 +48,7 @@ public class PlayerMove : MonoBehaviour
     private Vector3 dir = Vector3.zero;
     private Animator animator;
 
-    public Weapon weapon;
+
     PlayerDetect detect;
     PlayerSkill skill;
 
@@ -55,10 +60,9 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private string main;
 
     [Header("무기")]
-
+    public Weapon weapon;
     [SerializeField] private int damage;
     [SerializeField] private float rate;
-    [SerializeField] private float atkDelay;
     [SerializeField] private float effectTime;
 
     private PlayerDamage playerDamge;
@@ -81,10 +85,34 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        weapon.atkDelay = atkDelay;
         weapon.rate = rate;
         weapon.damage = damage;
         weapon.effectTime = effectTime;
+
+        Vector3 cameraForward = Vector3.Scale(cam.transform.forward, new Vector3(1, 0, 1)).normalized;
+
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+        dir = z * cameraForward + x * cam.transform.right;
+        if(!isGround) 
+        {
+            animator.SetBool("IsOnAir", true);
+        }
+        else
+        {
+            animator.SetBool("IsOnAir", false);
+
+        }
+
+        if (dir != Vector3.zero)
+        {
+            animator.SetBool("Move", true);
+        }
+        else
+        {
+            animator.SetBool("Move", false);
+        }
+
 
         if (Input.GetKeyDown(KeyCode.Escape) && !isSetting&&!isInteracting)
         {
@@ -97,20 +125,24 @@ public class PlayerMove : MonoBehaviour
 
             EndSettring();
         }
-        if (!isSetting && !playerDamge.isHit) 
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            Vector3 cameraForward = Vector3.Scale(cam.transform.forward, new Vector3(1, 0, 1)).normalized;
+            if (!isInteracting)
+            {
+                if (currentInteractableObject != null)
+                    StartInteraction();
+            }
+            else
+                EndInteraction();
 
-            float x = Input.GetAxis("Horizontal");
-            float z = Input.GetAxis("Vertical");
-            dir = z * cameraForward + x * cam.transform.right;
-
+        }
+        if (!isSetting && !playerDamge.isHit && !isInteracting) 
+        {
             CheckGround();
             Attack();
-            animator.SetInteger("Attack", weapon.attackLv);
             if (weapon.isAtkTime)
             {
-                animator.SetBool("Move", false);
+                //animator.SetBool("Move", false);
             }
 
             if (isAttackReady == false)
@@ -123,9 +155,6 @@ public class PlayerMove : MonoBehaviour
                 isAttackReady = true;
             }
 
-            ani();
-
-
             if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime && !playerDamge.isHit)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
@@ -133,49 +162,44 @@ public class PlayerMove : MonoBehaviour
                     if (isGround == true)
                     {
                         Jump();
+                        animator.SetTrigger("Jump1");
                     }
                     else if (isDoubleJump == false)
                     {
                         Jump();
+                        animator.SetTrigger("Jump2");
                         isDoubleJump = true;
                     }
                 }
-                if (isGround)
-                {
-                    if (Input.GetKeyDown(KeyCode.Mouse1))
-                    {
-                        skill.TriggerSkill();
-                        animator.SetBool("Move", false);
-                    }
-                }
-            }
 
-            if (Input.GetKeyDown(KeyCode.E))
+            }
+            if (isGround && !isDashing)
             {
-                if (!isInteracting)
+                if (Input.GetKeyDown(KeyCode.Mouse1))
                 {
-                    if (currentInteractableObject != null)
-                        StartInteraction();
+                    weapon.StopAtk();
+                    skill.TriggerSkill();
+                    animator.SetBool("Move", false);
                 }
-                else
-                    EndInteraction();
-
             }
+
 
             if (Input.GetKeyDown(KeyCode.T))
             {
                 Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
             }
             if (Input.GetKeyDown(KeyCode.R))
             {
                 Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
             }
             if (Input.GetKeyDown(KeyCode.LeftShift) && !isCooldown)
             {
-                StartCoroutine(Dash());
+                coroutine = StartCoroutine(Dash());
             }
 
-            if (Input.GetKeyDown(KeyCode.Mouse0) && !isInteracting)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && !isInteracting &&!isDashing)
             {
                 isNextAtk = true;
             }
@@ -188,19 +212,34 @@ public class PlayerMove : MonoBehaviour
 
     public void TakeDamage()
     {
-        weapon.TakeDamage();
+        weapon.StopAtk();
         skill.StopSkill();
 
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+            rb.useGravity = true;
+            rb.velocity = Vector3.zero;
+            DashEffect.Stop();
 
+            Invoke("CoolDown", dashCoolTime);
+            isDashing = false;
+        }
+    }
+
+    private void CoolDown()
+    {
+        isCooldown = false;
     }
     private void FixedUpdate()
     {
+
         if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime && !playerDamge.isHit && !isDashing)
         {
             if (dir != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(dir, Vector3.up);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotspeed);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotspeed).normalized;
                 if(isGround)
                 {
                     animator.SetBool("Move", true);
@@ -239,33 +278,6 @@ public class PlayerMove : MonoBehaviour
         rb.AddForce(jumpPower, ForceMode.VelocityChange);
 
     }
-    private void ani()
-    {
-        if (!isGround)
-        {
-            animator.SetBool("jump", true);
-        }
-        else if (isGround)
-        {
-            animator.SetBool("jump", false);
-        }
-        if (isDoubleJump)
-        {
-            animator.SetBool("DoubleJump", true);
-        }
-        else if (!isDoubleJump)
-        {
-            animator.SetBool("DoubleJump", false);
-        }
-        if (isDashing)
-        {
-            animator.SetBool("Dash", true);
-        }
-        else if (!isDashing)
-        {
-            animator.SetBool("Dash", false);
-        }
-    }
     private void CheckGround()
     {
 
@@ -283,21 +295,26 @@ public class PlayerMove : MonoBehaviour
     private IEnumerator Dash()
     {
         weapon.isAtkTime = false;
+        weapon.StopAtk();
+        skill.StopSkill();  
+        animator.SetTrigger("Dash");
+
+        isDashing = true;
         Quaternion targetRotation = Quaternion.LookRotation(dir, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1000000);
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.05f);
 
         isCooldown = true;
         rb.useGravity = false;
-
-        Vector3 dashDirection = dir != Vector3.zero ? dir : transform.forward;
+        rb.velocity = Vector3.zero;
+        DashEffect.Play();
+        Vector3 dashDirection = (dir != Vector3.zero ? dir : transform.forward).normalized;
 
         Vector3 dashPower = dashDirection * dash;
-        rb.AddForce(dashPower, ForceMode.VelocityChange);
+        rb.velocity = dashPower;
 
         Quaternion originalRotation = rb.rotation;
 
-        isDashing = true;
 
         float delay = 0;
         while (delay < dashTime)
@@ -314,6 +331,7 @@ public class PlayerMove : MonoBehaviour
         rb.velocity = Vector3.zero;
 
         isDashing = false;
+        DashEffect.Stop();
 
         yield return new WaitForSeconds(dashCoolTime);
 
@@ -395,7 +413,7 @@ public class PlayerMove : MonoBehaviour
 
     private void MouseOn()
     {
-        Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
         if (freeLookCamera != null)
         {
@@ -406,6 +424,7 @@ public class PlayerMove : MonoBehaviour
     private void MouseOff()
     {
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         if (freeLookCamera != null)
         {
             freeLookCamera.SetActive(true);

@@ -1,8 +1,9 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDamage : MonoBehaviour, IDamageable
+public class PlayerDamage : MonoBehaviour
 {
     [SerializeField] private int hp;
     [SerializeField] private float hitDelay;
@@ -16,6 +17,7 @@ public class PlayerDamage : MonoBehaviour, IDamageable
     {
         animator = GetComponent<Animator>();
         hit = GetComponent<PlayerMove>();
+        
     }
 
     // Update is called once per frame
@@ -31,21 +33,7 @@ public class PlayerDamage : MonoBehaviour, IDamageable
         }
         if(hp <= 0)
         {
-
-        }
-    }
-
-    public void TakeDamage(Damage damage)
-    {
-        if (isHitPosible)
-        {
-            StartCoroutine(Hit());
-            isHitPosible = false;
-            delay = 0f;
-            animator.SetTrigger("Hit");
-            hit.TakeDamage();
-            
-            hp -= (int)damage.amount;
+            Destroy(gameObject, 0.5f);
         }
     }
 

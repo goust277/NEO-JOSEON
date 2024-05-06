@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerSkill : MonoBehaviour
 {
+    private Coroutine coroutine;
     public float skillRange;
     public float pushForce;
 
@@ -12,7 +14,8 @@ public class PlayerSkill : MonoBehaviour
     private float delay;
 
     private Animator animator;
-    [SerializeField] private GameObject effect;
+    [SerializeField] private ParticleSystem effect;
+    GameObject spawnEffect;
 
     public bool isSkillTime;
 
@@ -29,31 +32,34 @@ public class PlayerSkill : MonoBehaviour
     }
     public void TriggerSkill()
     {
-        StartCoroutine("Skill_");
+        coroutine = StartCoroutine(Skill_());
     }
     public void StopSkill()
     {
-        StopCoroutine("Skill_");
-    }
-    private void SkillEffect()
-    {
-        GameObject spawnEffect = Instantiate(effect, transform.position, Quaternion.identity);
-        Destroy(spawnEffect, 0.7f);
-    }
-
-    private void SkillOff()
-    {
-        isSkillTime = false;
+        if(coroutine != null) 
+        {
+            StopCoroutine(coroutine);
+            coroutine = null;
+            isSkillTime = false;
+            effect.Stop();
+        }
     }
 
     IEnumerator Skill_()
     {
         isSkillTime = true;
-        Invoke("SkillOff", 1.2f);
 
         animator.SetTrigger("Skill");
-        Invoke("Skill", 0.8f);
-        Invoke("SkillEffect", 0.3f);
+        effect.Play();
+
+        yield return new WaitForSeconds(0.4f);
+        Skill();
+
+        yield return new WaitForSeconds(0.4f);
+        effect.Stop();
+        
+
+        isSkillTime = false;
 
         yield return null;
     }
@@ -65,40 +71,17 @@ public class PlayerSkill : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-            Rigidbody enemyRigidbody = collider.GetComponent<Rigidbody>();
-            if (enemyRigidbody != null)
+            NewEnemy enemy = collider.GetComponent<NewEnemy>();
+            if (enemy != null)
             {
-                enemyRigidbody.velocity = Vector3.zero;
-
-                enemyRigidbody.isKinematic = false;
-                Vector3 pushDirection = (collider.transform.position - transform.position).normalized;
-
-                enemyRigidbody.AddForce(pushDirection * pushForce, ForceMode.Impulse);
+                enemy.GetComponent<NewEnemy>().TakeDamage(1);
             }
         }
-        StartCoroutine(ResetEnemyVelocity(colliders, 0.1f));
         foreach (Collider collider in hidCols)
         {
-            if (collider.isTrigger == true)
-                continue;
-            HitPad hitPad = collider.GetComponent<HitPad>();
+            NewHitPad hitPad = collider.GetComponent<NewHitPad>();
 
-            hitPad.HitDown();
-
-        }
-    }
-    IEnumerator ResetEnemyVelocity(Collider[] colliders, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        foreach (Collider collider in colliders)
-        {
-            Rigidbody enemyRigidbody = collider.GetComponent<Rigidbody>();
-            if (enemyRigidbody != null)
-            {
-                enemyRigidbody.isKinematic = true;
-                enemyRigidbody.velocity = Vector3.zero; // 적의 속도를 0으로 설정
-            }
+            hitPad.CoolingHitGauge();
         }
     }
 }
