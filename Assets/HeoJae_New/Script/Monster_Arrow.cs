@@ -7,11 +7,11 @@ public class Monster_Arrow : NewEnemy
 {
     private StageManagerAssist stagemanager;
 
-    [Header("¸ó½ºÅÍ »óÅÂ / °ü·Ã ¿ÀºêÁ§Æ®")]
+    [Header("ëª¬ìŠ¤í„° ìƒíƒœ / ê´€ë ¨ ì˜¤ë¸Œì íŠ¸")]
     public bool isAttack;
     public bool doDie;
 
-    [Header("°ø°İ °ü·Ã")]
+    [Header("ê³µê²© ê´€ë ¨")]
     public GameObject arrowObj;
     public Transform positionCreateArrow;
     public float AttackChargeTime;
@@ -19,23 +19,22 @@ public class Monster_Arrow : NewEnemy
     private bool bChargeStart;
 
 
-    [Header("¾Ö´Ï¸ŞÀÌ¼Ç / Äİ¶óÀÌ´õ")]
+    [Header("ì• ë‹ˆë©”ì´ì…˜ / ì½œë¼ì´ë”")]
     public Animator anim;
     public new Collider collider;
     private Rigidbody rb;
 
-    [Header("¸ÓÅ×¸®¾ó")]
-    public Renderer renderer;
-    public Material[] materials;
+    [Header("ë¨¸í…Œë¦¬ì–¼")]
+    private Material[] originalMaterials;
+    Renderer[] renderers;
     public Material white;
     public Material black;
-    private Material[] originalMaterials;
 
-    [Header("ÀÌÆåÆ®")]
+    [Header("ì´í™íŠ¸")]
     public GameObject destroyParticle;
 
-    [Header("±âÅ¸ ¿ÀºêÁ§Æ®")]
-    private Transform player; // ¸ñÇ¥·Î ÇÏ´Â ÇÃ·¹ÀÌ¾î À§Ä¡
+    [Header("ê¸°íƒ€ ì˜¤ë¸Œì íŠ¸")]
+    private Transform player; // ëª©í‘œë¡œ í•˜ëŠ” í”Œë ˆì´ì–´ ìœ„ì¹˜
 
     private void Start()
     {
@@ -44,19 +43,10 @@ public class Monster_Arrow : NewEnemy
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody>();
 
-        // ¸ÓÅ×¸®¾ó Á¤º¸ ÀúÀå
-        //Material[] objectMaterials = renderer.materials;
-        //materials = new Material[objectMaterials.Length];
-        //for (int i = 0; i < objectMaterials.Length; i++)
-        //{
-        //    materials[i] = objectMaterials[i];
-        //}
-
-        //originalMaterials = new Material[materials.Length];
-        //for (int i = 0; i < materials.Length; i++)
-        //{
-        //    originalMaterials[i] = materials[i];
-        //}
+        // #. ë¨¸í…Œë¦¬ì–¼ ì°¾ì•„ì˜¤ê¸°
+        renderers = GetComponentsInChildren<Renderer>();
+        originalMaterials = new Material[renderers.Length];
+        for (int i = 0; i < renderers.Length; i++) originalMaterials[i] = renderers[i].material;
     }
 
     private void Update()
@@ -78,7 +68,7 @@ public class Monster_Arrow : NewEnemy
                 if (AttackChargeTime <= 0f)
                 {
                    
-                    AttackChargeTime = 2f;
+                    AttackChargeTime = 4f;
                     StartCoroutine(Attack());
                 }
             }
@@ -87,10 +77,11 @@ public class Monster_Arrow : NewEnemy
 
     IEnumerator Attack()
     {
-        Debug.Log("½ÇÇà");
-        ShotArrow();
+        Debug.Log("ì‹¤í–‰");
+        anim.SetTrigger("doAttack");
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.2f);
+        ShotArrow();
 
         bChargeStart = false;
 
@@ -110,9 +101,9 @@ public class Monster_Arrow : NewEnemy
     {
         if (!doDie)
         {
-            Debug.Log("µ¥¹ÌÁö ÀÔÀ½");
+            Debug.Log("ë°ë¯¸ì§€ ì…ìŒ");
             currentHp -= damage;
-            // ChangeMaterials(white);
+          
             StopAllCoroutines();
             StartCoroutine(TakeDamage__());
         }
@@ -127,9 +118,9 @@ public class Monster_Arrow : NewEnemy
         }
         else
         {
-            // anim.SetTrigger("doStun");
+            anim.SetTrigger("doStun");
 
-            // Invoke("RestoreMaterials", 0.08f);
+            StartCoroutine(ChangeMaterials(white, 0.08f));
 
             Vector3 direction = player.position - transform.position;
             Quaternion rotation = Quaternion.LookRotation(direction);
@@ -140,24 +131,19 @@ public class Monster_Arrow : NewEnemy
         }
         yield return new WaitForSeconds(0f);
     }
-    void ChangeMaterials(Material newMaterial)
+    IEnumerator ChangeMaterials(Material newMaterial, float duration)
     {
-        for (int i = 0; i < materials.Length; i++) materials[i] = newMaterial;
-        renderer.materials = materials;
+        foreach (Renderer renderer in renderers) renderer.material = newMaterial;
+        yield return new WaitForSeconds(duration);
+        for (int i = 0; i < renderers.Length; i++) renderers[i].material = originalMaterials[i];
     }
-    void RestoreMaterials()
-    {
-        for (int i = 0; i < materials.Length; i++) materials[i] = originalMaterials[i];
-        renderer.materials = materials;
-    }
-
+ 
 
     IEnumerator Die()
     {
-        for (int i = 0; i < materials.Length; i++) materials[i] = black;
-        renderer.materials = materials;
+        ChangeMaterialsBlack(black);
 
-        // anim.SetTrigger("doDie");
+        anim.SetTrigger("doDie");
 
         collider.enabled = false;
 
@@ -165,10 +151,14 @@ public class Monster_Arrow : NewEnemy
         FreezeMonster();
         FixPosition(transform.position);
 
-        yield return new WaitForSeconds(2f); // Á×À½ ¾Ö´Ï¸ŞÀÌ¼Ç ¼Óµµ¿¡ µû¶ó ¼öÄ¡ ¼öÁ¤
-        Vector3 spawnPosition = transform.position + Vector3.up; // ÇöÀç À§Ä¡¿¡¼­ À§·Î 1¸¸Å­ ÀÌµ¿ÇÑ À§Ä¡ °è»ê
+        yield return new WaitForSeconds(2f); // ì£½ìŒ ì• ë‹ˆë©”ì´ì…˜ ì†ë„ì— ë”°ë¼ ìˆ˜ì¹˜ ìˆ˜ì •
+        Vector3 spawnPosition = transform.position + Vector3.up; // í˜„ì¬ ìœ„ì¹˜ì—ì„œ ìœ„ë¡œ 1ë§Œí¼ ì´ë™í•œ ìœ„ì¹˜ ê³„ì‚°
         Instantiate(destroyParticle, spawnPosition, Quaternion.identity);
         Destroy(gameObject);
+    }
+    void ChangeMaterialsBlack(Material newMaterial)
+    {
+        foreach (Renderer renderer in renderers) renderer.material = newMaterial;
     }
 
 
@@ -179,17 +169,17 @@ public class Monster_Arrow : NewEnemy
     }
     public void FreezeMonster()
     {
-        rb.velocity = Vector3.zero;   // RigidbodyÀÇ ÀÌµ¿ ¼Óµµ ÃÊ±âÈ­
-        rb.angularVelocity = Vector3.zero;  // RigidbodyÀÇ °¢¼Óµµ ÃÊ±âÈ­
+        rb.velocity = Vector3.zero;   // Rigidbodyì˜ ì´ë™ ì†ë„ ì´ˆê¸°í™”
+        rb.angularVelocity = Vector3.zero;  // Rigidbodyì˜ ê°ì†ë„ ì´ˆê¸°í™”
     }
 
-    // #.ÇÃ·¹ÀÌ¾î ¹æÇâÀ¸·Î È¸Àü½ÃÅ°´Â ÇÔ¼ö
+    // #.í”Œë ˆì´ì–´ ë°©í–¥ìœ¼ë¡œ íšŒì „ì‹œí‚¤ëŠ” í•¨ìˆ˜
     public void LookAtPlayer()
     {
         if (player != null)
         {
             Vector3 direction = player.position - transform.position;
-            direction.y = 0f; // yÃà È¸ÀüÀ» °í·ÁÇÏÁö ¾ÊÀ½
+            direction.y = 0f; // yì¶• íšŒì „ì„ ê³ ë ¤í•˜ì§€ ì•ŠìŒ
             Quaternion rotation = Quaternion.LookRotation(direction);
             transform.rotation = rotation;
         }

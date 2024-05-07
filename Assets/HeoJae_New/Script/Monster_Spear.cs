@@ -7,37 +7,35 @@ public class Monster_Spear : NewEnemy
 {
     private StageManagerAssist stagemanager;
 
-    [Header("¸ó½ºÅÍ »óÅÂ / °ü·Ã ¿ÀºêÁ§Æ®")]
+    [Header("ëª¬ìŠ¤í„° ìƒíƒœ / ê´€ë ¨ ì˜¤ë¸Œì íŠ¸")]
     public bool isChase = true;
     public bool isAttack;
     public bool doDie;
 
-    [Header("°ø°İ ¹üÀ§")]
+    [Header("ê³µê²© ë²”ìœ„")]
     public GameObject attackArea;
     public float targetRadius;
     public float targetRange;
     public float AttackChargeTime;
     public bool bChargeStart;
 
-    [Header("ÀÌÆåÆ®")]
+    [Header("ì´í™íŠ¸")]
     public ParticleSystem attackParticle;
     public GameObject destroyParticle;
 
-    [Header("¾Ö´Ï¸ŞÀÌ¼Ç / Äİ¶óÀÌ´õ")]
+    [Header("ï¿½ì• ë‹ˆë©”ì´ì…˜ / ì½œë¼ì´ë”")]
     public Animator anim;
     public new Collider collider;
-    private Transform player; // ¸ñÇ¥·Î ÇÏ´Â ÇÃ·¹ÀÌ¾î À§Ä¡
+    private Transform player; 
     private Rigidbody rb;
     private NavMeshAgent nav;
 
-    [Header("¸ÓÅ×¸®¾ó")]
-    public Renderer renderer;
-    public Material[] materials;
+    [Header("ë¨¸í…Œë¦¬ì–¼")]
+    private Material[] originalMaterials;
+    Renderer[] renderers;
     public Material white;
     public Material black;
-    private Material[] originalMaterials;
-
-
+    
     private bool bAttackAnim;
 
 
@@ -49,19 +47,10 @@ public class Monster_Spear : NewEnemy
         rb = GetComponent<Rigidbody>();
         nav = GetComponent<NavMeshAgent>();
 
-        // ¸ÓÅ×¸®¾ó Á¤º¸ ÀúÀå
-        Material[] objectMaterials = renderer.materials;
-        materials = new Material[objectMaterials.Length];
-        for (int i = 0; i < objectMaterials.Length; i++)
-        {
-            materials[i] = objectMaterials[i];
-        }
-
-        originalMaterials = new Material[materials.Length];
-        for (int i = 0; i < materials.Length; i++)
-        {
-            originalMaterials[i] = materials[i];
-        }
+        // #. ë¨¸í…Œë¦¬ì–¼ ì°¾ì•„ì˜¤ê¸°
+        renderers = GetComponentsInChildren<Renderer>();
+        originalMaterials = new Material[renderers.Length];
+        for (int i = 0; i < renderers.Length; i++) originalMaterials[i] = renderers[i].material;
     }
 
     void Update()
@@ -74,20 +63,19 @@ public class Monster_Spear : NewEnemy
             if (!isChase)
             {
                 FixPosition(transform.position);
-                nav.isStopped = true; // NavMeshAgent ¸ØÃã
+                nav.isStopped = true; 
                 nav.speed = 0;
                 nav.angularSpeed = 0;
                 FreezeMonster();
             }
             else
             {
-                // anim.SetBool("isWalk", true);
+                anim.SetBool("isWalk", true);
                 nav.isStopped = false;
-                nav.speed = 3f;
-                nav.angularSpeed = 1200;
+                nav.speed = 2f;
+                nav.angularSpeed = 120;
             }
 
-            // Å¸°ÙÆÃ ¹× °ø°İ
             if (CheckTargetInRange())
             {
                 isChase = false;
@@ -97,18 +85,18 @@ public class Monster_Spear : NewEnemy
             {
                 if (bChargeStart)
                 {
-                    // bChargeStart°¡ trueÀÏ ¶§¿¡¸¸ ½Ã°£À» ¼¼µµ·Ï Á¶°Ç Ãß°¡
-                    AttackChargeTime -= Time.deltaTime; // AttackChargeTimeÀ» ½Ã°£ÀÇ Èå¸§¿¡ µû¶ó °¨¼Ò
+                    anim.SetBool("isWalk", false);
+                    AttackChargeTime -= Time.deltaTime; 
                     if (!bAttackAnim)
                     {
                         bAttackAnim = true;
-                        // anim.SetTrigger("doAttack");
                     }
 
                     if (AttackChargeTime <= 0f)
                     {
+                        isAttack = true;
                         bChargeStart = false;
-                        AttackChargeTime = 1.5f;
+                        AttackChargeTime = 0.6f;
                         StartCoroutine(Attack());
                     }
                 }
@@ -128,10 +116,13 @@ public class Monster_Spear : NewEnemy
 
     IEnumerator Attack()
     {
+        anim.SetTrigger("doAttack");
+
+        yield return new WaitForSeconds(1.1f);
+
         attackParticle.Play();
         attackArea.SetActive(true);
 
-        isAttack = true;
 
         yield return new WaitForSeconds(0.05f);
         attackArea.SetActive(false);
@@ -156,27 +147,30 @@ public class Monster_Spear : NewEnemy
 
     IEnumerator Die()
     {
-        for (int i = 0; i < materials.Length; i++) materials[i] = black;
-        renderer.materials = materials;
+        ChangeMaterialsBlack(black);
 
-        // anim.SetTrigger("doDie");
+        anim.SetTrigger("doDie");
 
         bChargeStart = false;
         AttackChargeTime = 1.5f;
 
         collider.enabled = false;
         isChase = false;
-        nav.isStopped = true; // NavMeshAgent ¸ØÃã
+        nav.isStopped = true; 
         nav.speed = 0;
         nav.angularSpeed = 0;
 
         FreezeMonster();
         FixPosition(transform.position);
 
-        yield return new WaitForSeconds(2f); // Á×À½ ¾Ö´Ï¸ŞÀÌ¼Ç ¼Óµµ¿¡ µû¶ó ¼öÄ¡ ¼öÁ¤
-        Vector3 spawnPosition = transform.position + Vector3.up; // ÇöÀç À§Ä¡¿¡¼­ À§·Î 1¸¸Å­ ÀÌµ¿ÇÑ À§Ä¡ °è»ê
+        yield return new WaitForSeconds(2f); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+        Vector3 spawnPosition = transform.position + Vector3.up; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½Å­ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½
         Instantiate(destroyParticle, spawnPosition, Quaternion.identity);
         Destroy(gameObject);
+    }
+    void ChangeMaterialsBlack(Material newMaterial)
+    {
+        foreach (Renderer renderer in renderers) renderer.material = newMaterial;
     }
 
 
@@ -187,9 +181,9 @@ public class Monster_Spear : NewEnemy
     }
     public void FreezeMonster()
     {
-        nav.velocity = Vector3.zero;  // NavMeshAgentÀÇ ÀÌµ¿ ¼Óµµ ÃÊ±âÈ­
-        rb.velocity = Vector3.zero;   // RigidbodyÀÇ ÀÌµ¿ ¼Óµµ ÃÊ±âÈ­
-        rb.angularVelocity = Vector3.zero;  // RigidbodyÀÇ °¢¼Óµµ ÃÊ±âÈ­
+        nav.velocity = Vector3.zero;  // NavMeshAgentï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Óµï¿½ ï¿½Ê±ï¿½È­
+        rb.velocity = Vector3.zero;   // Rigidbodyï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Óµï¿½ ï¿½Ê±ï¿½È­
+        rb.angularVelocity = Vector3.zero;  // Rigidbodyï¿½ï¿½ ï¿½ï¿½ï¿½Óµï¿½ ï¿½Ê±ï¿½È­
     }
 
 
@@ -202,10 +196,10 @@ public class Monster_Spear : NewEnemy
     {
         if (!doDie)
         {
-            // anim.SetBool("isWalk", false);
+            anim.SetBool("isWalk", false);
             currentHp -= damage;
             isChase = false;
-            ChangeMaterials(white);
+
             StopAllCoroutines();
             StartCoroutine(TakeDamage__());
         }
@@ -222,13 +216,15 @@ public class Monster_Spear : NewEnemy
         }
         else
         {
-            Invoke("RestoreMaterials", 0.08f);
+
+            StartCoroutine(ChangeMaterials(white, 0.08f));
+           
 
             Vector3 direction = player.position - transform.position;
             Quaternion rotation = Quaternion.LookRotation(direction);
             transform.rotation = rotation;
 
-            // anim.SetTrigger("doStun");
+            anim.SetTrigger("doStun");
 
             isAttack = true;
             bChargeStart = false;
@@ -246,16 +242,11 @@ public class Monster_Spear : NewEnemy
     }
 
 
-    void ChangeMaterials(Material newMaterial)
+    IEnumerator ChangeMaterials(Material newMaterial, float duration)
     {
-        for (int i = 0; i < materials.Length; i++) materials[i] = newMaterial;
-        renderer.materials = materials;
-        // Invoke("RestoreMaterials", 0.05f);
-    }
-    void RestoreMaterials()
-    {
-        for (int i = 0; i < materials.Length; i++) materials[i] = originalMaterials[i];
-        renderer.materials = materials;
+        foreach (Renderer renderer in renderers) renderer.material = newMaterial;
+        yield return new WaitForSeconds(duration);
+        for (int i = 0; i < renderers.Length; i++) renderers[i].material = originalMaterials[i];
     }
 
 

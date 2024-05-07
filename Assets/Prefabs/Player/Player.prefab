@@ -3153,7 +3153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentMapName: 
-  UnderLine: {fileID: 5312297230043417948}
+  UnderLine: {fileID: 0}
   DashEffect: {fileID: 7353000827859694742}
   speed: 6
   dash: 13
@@ -3165,7 +3165,6 @@ MonoBehaviour:
   interactionRange: 3
   currentInteractableObject: {fileID: 0}
   cam: {fileID: 0}
-  freeLookCamera: {fileID: 0}
   isGround: 0
   groundCheck: 0.6
   isDoubleJump: 0
@@ -3175,10 +3174,10 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 256
-  weapon: {fileID: 7245651778319247228}
   main: 
+  weapon: {fileID: 7245651778319247228}
   damage: 1
-  rate: 0.35
+  rate: 0.3
   effectTime: 0.4
 --- !u!114 &9101710224750354171
 MonoBehaviour:
@@ -4096,12 +4095,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5121c89c46451048a3087f4bc969ee7, type: 3}
---- !u!198 &5312297230043417948 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2773222426064673625, guid: b5121c89c46451048a3087f4bc969ee7,
-    type: 3}
-  m_PrefabInstance: {fileID: 8053954787713799685}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5312297230062815062 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2773222426078826835, guid: b5121c89c46451048a3087f4bc969ee7,

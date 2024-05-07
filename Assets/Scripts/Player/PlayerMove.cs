@@ -413,7 +413,7 @@ public class PlayerMove : MonoBehaviour
 
     private void MouseOn()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         if (freeLookCamera != null)
         {

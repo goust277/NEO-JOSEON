@@ -118,7 +118,7 @@ public class Weapon : MonoBehaviour
 
             yield return new WaitForSeconds(0.1f);
             BoxCollider.enabled = false;
-            yield return new WaitForSeconds(rate);
+            yield return new WaitForSeconds(0.2f);
 
         }
         

@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerDamage : MonoBehaviour
 {
     [SerializeField] private int hp;
+    public int CurrentHp;
     [SerializeField] private float hitDelay;
     public bool isHit = false;
     private float delay = 0f;
@@ -17,6 +18,7 @@ public class PlayerDamage : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         hit = GetComponent<PlayerMove>();
+        CurrentHp = hp;
         
     }
 
@@ -46,9 +48,10 @@ public class PlayerDamage : MonoBehaviour
             delay = 0f;
             animator.SetTrigger("Hit");
             hit.TakeDamage();
-            hp--;
+            CurrentHp--;
         }
     }
+
 
     IEnumerator Hit()
     {
