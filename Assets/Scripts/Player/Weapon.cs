@@ -146,7 +146,6 @@ public class Weapon : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             Vector3 triggerPosition = other.ClosestPoint(transform.position);
-            Debug.Log("Enter");
 
             if (effect != null)
             {

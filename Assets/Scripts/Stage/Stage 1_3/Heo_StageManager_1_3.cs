@@ -10,6 +10,8 @@ public class Heo_StageManager_1_3 : MonoBehaviour
     [Header("몬스터 종류")]
     public GameObject MonsterBoomer;
     public GameObject MonsterJumper;
+    public GameObject MonsterSpear;
+    public GameObject MonsterBow;
 
     [Header("중간 문들")]
     public GameObject middleDoor_1;
@@ -33,6 +35,7 @@ public class Heo_StageManager_1_3 : MonoBehaviour
         if (stagemanager.smallNum >= 5 && stagemanager.bigNum == 1)
         {
             stagemanager.bigNum++;
+            stagemanager.smallNum = 0;
             middleDoor_1.SetActive(false);
         }
 
@@ -66,10 +69,10 @@ public class Heo_StageManager_1_3 : MonoBehaviour
     {
         middleDoor_1.SetActive(true);
 
-        Instantiate(MonsterBoomer, spawnPoint_2[0].position, Quaternion.identity);
-        Instantiate(MonsterBoomer, spawnPoint_2[1].position, Quaternion.identity);
-        Instantiate(MonsterBoomer, spawnPoint_2[2].position, Quaternion.identity);
-        Instantiate(MonsterBoomer, spawnPoint_2[3].position, Quaternion.identity);
+        Instantiate(MonsterBow, spawnPoint_2[0].position, Quaternion.identity);
+        Instantiate(MonsterBow, spawnPoint_2[1].position, Quaternion.identity);
+        Instantiate(MonsterSpear, spawnPoint_2[2].position, Quaternion.identity);
+        Instantiate(MonsterBow, spawnPoint_2[3].position, Quaternion.identity);
         Instantiate(MonsterBoomer, spawnPoint_2[4].position, Quaternion.identity);
         Instantiate(MonsterBoomer, spawnPoint_2[5].position, Quaternion.identity);
         Instantiate(MonsterBoomer, spawnPoint_2[6].position, Quaternion.identity);

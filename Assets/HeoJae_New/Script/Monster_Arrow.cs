@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 
 public class Monster_Arrow : NewEnemy
@@ -32,9 +33,17 @@ public class Monster_Arrow : NewEnemy
 
     [Header("이펙트")]
     public GameObject destroyParticle;
+    public GameObject chargingParticle;
 
     [Header("기타 오브젝트")]
     private Transform player; // 목표로 하는 플레이어 위치
+
+    [Header("체력바")]
+    public GameObject HpBar;
+    public Image ImageHp;
+
+    public Transform positionNumBox;
+    public GameObject DmgNumBox;
 
     private void Start()
     {
@@ -80,7 +89,11 @@ public class Monster_Arrow : NewEnemy
         Debug.Log("실행");
         anim.SetTrigger("doAttack");
 
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(0.4f);
+        chargingParticle.SetActive(true);
+
+        yield return new WaitForSeconds(0.8f);
+        chargingParticle.SetActive(false);
         ShotArrow();
 
         bChargeStart = false;
@@ -102,8 +115,20 @@ public class Monster_Arrow : NewEnemy
         if (!doDie)
         {
             Debug.Log("데미지 입음");
-            currentHp -= damage;
-          
+
+            int tempDmgNum = damage * Random.Range(80, 120);
+            currentHp -= tempDmgNum;
+            float remainingHpPercentage = Mathf.Round(((float)currentHp / (float)maxHp) * 100f) / 100f;
+            ImageHp.fillAmount = remainingHpPercentage;
+
+            Vector3 parentForward = positionNumBox.forward;
+            Quaternion rotation__ = Quaternion.LookRotation(parentForward);
+            GameObject dmgNumbobbox = Instantiate(DmgNumBox, positionNumBox.position, rotation__);
+            DmgNum dmgBox = dmgNumbobbox.GetComponent<DmgNum>();
+            dmgBox.text_dmgNum.text = tempDmgNum.ToString();
+
+
+
             StopAllCoroutines();
             StartCoroutine(TakeDamage__());
         }
@@ -142,6 +167,7 @@ public class Monster_Arrow : NewEnemy
     IEnumerator Die()
     {
         ChangeMaterialsBlack(black);
+        HpBar.SetActive(false);
 
         anim.SetTrigger("doDie");
 

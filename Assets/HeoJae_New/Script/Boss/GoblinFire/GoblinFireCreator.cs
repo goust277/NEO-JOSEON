@@ -34,7 +34,7 @@ public class GoblinFireCreator : MonoBehaviour
     private void CreateGoblinFire()
     {
         int ranNum = Random.Range(1, 5);
-        int ranNumPosition = Random.Range(0, 21);
+        int ranNumPosition = Random.Range(0, 20);
         switch (ranNum)
         {
             case 1:

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 
 public class Monster_Spear : NewEnemy
@@ -23,7 +24,7 @@ public class Monster_Spear : NewEnemy
     public ParticleSystem attackParticle;
     public GameObject destroyParticle;
 
-    [Header("�애니메이션 / 콜라이더")]
+    [Header("애니메이션 / 콜라이더")]
     public Animator anim;
     public new Collider collider;
     private Transform player; 
@@ -35,7 +36,14 @@ public class Monster_Spear : NewEnemy
     Renderer[] renderers;
     public Material white;
     public Material black;
-    
+
+    [Header("체력바")]
+    public GameObject HpBar;
+    public Image ImageHp;
+
+    public Transform positionNumBox;
+    public GameObject DmgNumBox;
+
     private bool bAttackAnim;
 
 
@@ -97,6 +105,7 @@ public class Monster_Spear : NewEnemy
                         isAttack = true;
                         bChargeStart = false;
                         AttackChargeTime = 0.6f;
+                        StopAllCoroutines();
                         StartCoroutine(Attack());
                     }
                 }
@@ -118,7 +127,7 @@ public class Monster_Spear : NewEnemy
     {
         anim.SetTrigger("doAttack");
 
-        yield return new WaitForSeconds(1.1f);
+        yield return new WaitForSeconds(0.55f);
 
         attackParticle.Play();
         attackArea.SetActive(true);
@@ -148,6 +157,7 @@ public class Monster_Spear : NewEnemy
     IEnumerator Die()
     {
         ChangeMaterialsBlack(black);
+        HpBar.SetActive(false);
 
         anim.SetTrigger("doDie");
 
@@ -181,9 +191,9 @@ public class Monster_Spear : NewEnemy
     }
     public void FreezeMonster()
     {
-        nav.velocity = Vector3.zero;  // NavMeshAgent�� �̵� �ӵ� �ʱ�ȭ
-        rb.velocity = Vector3.zero;   // Rigidbody�� �̵� �ӵ� �ʱ�ȭ
-        rb.angularVelocity = Vector3.zero;  // Rigidbody�� ���ӵ� �ʱ�ȭ
+        nav.velocity = Vector3.zero;  
+        rb.velocity = Vector3.zero;   
+        rb.angularVelocity = Vector3.zero;  
     }
 
 
@@ -197,7 +207,19 @@ public class Monster_Spear : NewEnemy
         if (!doDie)
         {
             anim.SetBool("isWalk", false);
-            currentHp -= damage;
+
+            int tempDmgNum = damage * Random.Range(80, 120);
+            currentHp -= tempDmgNum;
+            float remainingHpPercentage = Mathf.Round(((float)currentHp / (float)maxHp) * 100f) / 100f;
+            ImageHp.fillAmount = remainingHpPercentage;
+
+            Vector3 parentForward = positionNumBox.forward;
+            Quaternion rotation__ = Quaternion.LookRotation(parentForward);
+            GameObject dmgNumbobbox = Instantiate(DmgNumBox, positionNumBox.position, rotation__);
+            DmgNum dmgBox = dmgNumbobbox.GetComponent<DmgNum>();
+            dmgBox.text_dmgNum.text = tempDmgNum.ToString();
+
+
             isChase = false;
 
             StopAllCoroutines();

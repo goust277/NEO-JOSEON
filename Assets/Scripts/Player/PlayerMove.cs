@@ -1,6 +1,7 @@
 
 using Cinemachine;
 using System.Collections;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.LookDev;
@@ -8,17 +9,30 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
+   
+
     private Coroutine coroutine;
     public string currentMapName;
+    [Header("플레이어 튜토리얼")]
+    private bool _jump = true;
+    private bool _dash = true;
+    private bool _atk = true;
+    private bool _skill = true;
+
+    private int tutorial = 0;
+
 
     [Header("플레이어 이펙트")]
     [SerializeField] private GameObject UnderLine;
     [SerializeField] private ParticleSystem DashEffect;
 
     [Header("플레이어 이동")]
+
+
     public float speed = 5.0f;
     public float dash;
     public float dashTime;
+    public float dashDelay;
     public float dashCoolTime;
     public float rotspeed;
     public float maxspeed;
@@ -68,6 +82,15 @@ public class PlayerMove : MonoBehaviour
     private PlayerDamage playerDamge;
     private void Awake()
     {
+        dashDelay = dashCoolTime;
+        if (SceneManager.GetActiveScene().name == "tutorial")
+        {
+            _jump = false;
+            _dash = false;
+            _skill = false;
+            _atk = false;
+        }
+
         rb = GetComponent<Rigidbody>();
         detect = GetComponent<PlayerDetect>();
         skill = GetComponent<PlayerSkill>();
@@ -77,7 +100,7 @@ public class PlayerMove : MonoBehaviour
         mainSetting = GameObject.Find("Main_Setting");
         stageSetting = GameObject.Find("Stage_Setting");
 
-        Cursor.visible = false;
+        MouseOff();
 
         cam = Camera.main;
         freeLookCamera = GameObject.FindGameObjectWithTag("FLCamera");
@@ -94,7 +117,18 @@ public class PlayerMove : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         dir = z * cameraForward + x * cam.transform.right;
-        if(!isGround) 
+
+        if (dashDelay <= dashCoolTime)
+        {
+            isCooldown = true;
+            dashDelay += Time.deltaTime;
+        }
+        else
+        {
+            isCooldown = false;
+        }
+
+            if (!isGround) 
         {
             animator.SetBool("IsOnAir", true);
         }
@@ -140,10 +174,6 @@ public class PlayerMove : MonoBehaviour
         {
             CheckGround();
             Attack();
-            if (weapon.isAtkTime)
-            {
-                //animator.SetBool("Move", false);
-            }
 
             if (isAttackReady == false)
             {
@@ -155,7 +185,7 @@ public class PlayerMove : MonoBehaviour
                 isAttackReady = true;
             }
 
-            if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime && !playerDamge.isHit)
+            if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime && !playerDamge.isHit && _jump)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
@@ -173,7 +203,7 @@ public class PlayerMove : MonoBehaviour
                 }
 
             }
-            if (isGround && !isDashing)
+            if (isGround && !isDashing && _skill)
             {
                 if (Input.GetKeyDown(KeyCode.Mouse1))
                 {
@@ -194,12 +224,13 @@ public class PlayerMove : MonoBehaviour
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
             }
-            if (Input.GetKeyDown(KeyCode.LeftShift) && !isCooldown)
+            if (Input.GetKeyDown(KeyCode.LeftShift) && !isCooldown && _dash)
             {
                 coroutine = StartCoroutine(Dash());
+                dashDelay = 0;
             }
 
-            if (Input.GetKeyDown(KeyCode.Mouse0) && !isInteracting &&!isDashing)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && !isInteracting &&!isDashing && _atk)
             {
                 isNextAtk = true;
             }
@@ -221,16 +252,10 @@ public class PlayerMove : MonoBehaviour
             rb.useGravity = true;
             rb.velocity = Vector3.zero;
             DashEffect.Stop();
-
-            Invoke("CoolDown", dashCoolTime);
             isDashing = false;
         }
     }
 
-    private void CoolDown()
-    {
-        isCooldown = false;
-    }
     private void FixedUpdate()
     {
 
@@ -281,7 +306,7 @@ public class PlayerMove : MonoBehaviour
     private void CheckGround()
     {
 
-        if (Physics.BoxCast(transform.position + (Vector3.up * groundCheck), transform.lossyScale / 2.0f, Vector3.down, out RaycastHit hit, transform.rotation, 0.2f, layer))
+        if (Physics.BoxCast(transform.position + (Vector3.up * groundCheck), transform.lossyScale / 2.0f, Vector3.down, out RaycastHit hit, transform.rotation, 0.4f, layer))
         {
             isGround = true;
             isDoubleJump = false;
@@ -304,7 +329,7 @@ public class PlayerMove : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1000000);
         yield return new WaitForSeconds(0.05f);
 
-        isCooldown = true;
+
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
         DashEffect.Play();
@@ -332,10 +357,6 @@ public class PlayerMove : MonoBehaviour
 
         isDashing = false;
         DashEffect.Stop();
-
-        yield return new WaitForSeconds(dashCoolTime);
-
-        isCooldown = false;
     }
 
     void Attack()
@@ -439,6 +460,21 @@ public class PlayerMove : MonoBehaviour
     public void AtkOff()
     {
         weapon.AttkOff();
+    }
+
+    public void ClearTutorial()
+    {
+        if (tutorial == 0)
+        {
+            tutorial = 1;
+            _jump = true;
+        }
+        else if (tutorial == 1) 
+        {
+            tutorial = 2;
+            _dash = true;
+
+        }
     }
 }
 

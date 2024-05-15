@@ -11,6 +11,7 @@ public class Slash : MonoBehaviour
     public float moveSpeed;
     private bool bIsUse = false;
 
+
     private void Awake()
     {
         Destroy(gameObject, 2.7f);

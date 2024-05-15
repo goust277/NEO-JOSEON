@@ -3158,6 +3158,7 @@ MonoBehaviour:
   speed: 6
   dash: 13
   dashTime: 0.5
+  dashDelay: 0
   dashCoolTime: 2
   rotspeed: 50
   maxspeed: 0
@@ -3212,8 +3213,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cb0b1e1da3ef0547bf0c7849f4d29cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 50
-  hitDelay: 0
+  MaxHp: 10
+  CurrentHp: 0
+  hitDelay: 1
   isHit: 0
 --- !u!95 &9101710224750354169
 Animator:

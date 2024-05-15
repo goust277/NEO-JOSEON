@@ -2,37 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 
 public class NewBoss1 : NewEnemy
 {
-    [Header("보스 능력치")] 
-    public float speedMove; 
-    public float rotationSpeed; 
+    [Header("보스 능력치")]
+    public float speedMove;
+    public float rotationSpeed;
 
-    [Header("보스 상태")] 
-    public bool bIsChase;  
-    public bool isAct;  
+    [Header("보스 상태")]
+    public bool bIsChase;
+    public bool isAct;
+    public bool bIsRotate;
 
-    [Header("머테리얼")] 
-    public Material matWhite; 
-    private Material[] originalMaterials; 
-    Renderer[] renderers; 
+    [Header("머테리얼")]
+    public Material matWhite;
+    private Material[] originalMaterials;
+    Renderer[] renderers;
 
-    [Header("애니메이터")] 
-    public Animator anim; 
+    [Header("애니메이터")]
+    public Animator anim;
 
-    private Transform player;  
-    private NavMeshAgent nav; 
-    private Coroutine nowCoroutine; 
+    private Transform player;
+    private NavMeshAgent nav;
+    private Coroutine nowCoroutine;
 
 
-    [Header("공격 범위")] 
+    [Header("공격 관련")]
+    [SerializeField] private bool bDetectPlayer;
+    [SerializeField] private bool isSearchingPlayer;
+    [SerializeField] private float searchTimer;
+    public float targetRadius;
+    public float targetRange;
     public GameObject attackArea1; 
     public GameObject attackArea2; 
     public GameObject attackArea3; 
     public GameObject slashObj1; 
-    public GameObject slashObj2;   
+    public GameObject slashObj2;
+
+    [Header("이펙트")]
+    public ParticleSystem particleAttack1;
+    public ParticleSystem particleAttack2;
+    public ParticleSystem particleAttack3;
+    public ParticleSystem particleDash;
+
+    [Header("체력바")]
+    public GameObject HpBar;
+    public Image ImageHp;
 
 
     private void Awake()
@@ -46,32 +63,41 @@ public class NewBoss1 : NewEnemy
         originalMaterials = new Material[renderers.Length];
         for (int i = 0; i < renderers.Length; i++) originalMaterials[i] = renderers[i].material;
 
-        anim.SetBool("isWalk",true);
-
-        // nav.isStopped = true;
-
-
-
-        // 네비게이션 설정
-        // bIsChase = true;
-
-        nav.speed = speedMove;
-        nav.angularSpeed = rotationSpeed;
+        // #. 추격 관련 설정
+        BossMoveStart();
     }
 
     private void Update()
     {
-       
-        // 추적 중
-        if (bIsChase)
+        nav.SetDestination(player.position);
+        RotateTowardsPlayer();
+
+        if (!isAct)
         {
-            nav.SetDestination(player.position);
+            if (!isSearchingPlayer)
+            {
+                searchTimer += Time.deltaTime;
+                if (searchTimer >= 4f)
+                {
+                    BossMoveStop();
+                    RandomAttackSelect_Failed();
+
+                    searchTimer = 0f;
+                    isSearchingPlayer = false;
+                }
+
+            }
+
+            bDetectPlayer = CheckTargetInRange();
+            if (bDetectPlayer)
+            {
+                BossMoveStop();
+                RandomAttackSelect_Detect();
+
+                searchTimer = 0f;
+                isSearchingPlayer = false;
+            }
         }
-
-
-
-
-
 
 
 
@@ -96,13 +122,33 @@ public class NewBoss1 : NewEnemy
             Slash_2();
         }
 
-       
+
     }
 
-   
+
 
     #region // 공격 관련 함수들
-    
+
+    // #. 랜덤 공격 실행 - 감지
+    public void RandomAttackSelect_Detect()
+    {
+        int ranNum = Random.Range(0, 15);
+        if (ranNum <= 3) Attack_1();
+        else if(ranNum > 3 && ranNum <= 7) Attack_2();
+        else if(ranNum > 7 && ranNum <= 10) Attack_3();
+        else if (ranNum > 10 && ranNum <= 13) Slash_1();
+        else if (ranNum > 13) Slash_2();
+    }
+
+    // #. 랜덤 공격 실행 - 감지 실패
+    public void RandomAttackSelect_Failed()
+    {
+        int ranNum = Random.Range(0, 10);
+        if (ranNum <= 5) Slash_1();
+        else if (ranNum > 5) Slash_2();
+    }
+
+
     // #. 공격 1
     public void Attack_1()
     {
@@ -118,10 +164,14 @@ public class NewBoss1 : NewEnemy
         anim.SetTrigger("Attack_1");
 
         yield return new WaitForSeconds(1.0f);
+        particleAttack1.Play();
         attackArea1.SetActive(true);
         yield return new WaitForSeconds(0.2f);
+        particleAttack1.Stop();
         attackArea1.SetActive(false);
+        yield return new WaitForSeconds(1.5f);
         isAct = false;
+        BossMoveStart();
     }
 
 
@@ -139,16 +189,21 @@ public class NewBoss1 : NewEnemy
     {
         anim.SetTrigger("Attack_2");
 
-        yield return new WaitForSeconds(1.7f);
+        yield return new WaitForSeconds(1.5f);
+        particleAttack2.Play();
         attackArea2.SetActive(true);
         yield return new WaitForSeconds(0.1f);
+        particleAttack2.Stop();
         attackArea2.SetActive(false);
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(1.2f);
+        particleAttack2.Play();
         attackArea2.SetActive(true);
         yield return new WaitForSeconds(0.1f);
+        particleAttack2.Stop();
         attackArea2.SetActive(false);
         yield return new WaitForSeconds(2.4f);
         isAct = false;
+        BossMoveStart();
     }
 
 
@@ -164,13 +219,17 @@ public class NewBoss1 : NewEnemy
     }
     IEnumerator Attack_3__()
     {
-        anim.SetTrigger("Attack_1");
+        anim.SetTrigger("Attack_3");
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.7f);
+        particleAttack3.Play();
         attackArea3.SetActive(true);
         yield return new WaitForSeconds(0.2f);
+        particleAttack3.Stop();
         attackArea3.SetActive(false);
+        yield return new WaitForSeconds(1.8f);
         isAct = false;
+        BossMoveStart();
     }
 
 
@@ -188,6 +247,7 @@ public class NewBoss1 : NewEnemy
     {
         yield return new WaitForSeconds(1.0f);
         isAct = false;
+        BossMoveStart();
     }
 
 
@@ -211,8 +271,8 @@ public class NewBoss1 : NewEnemy
         GameObject newSlashObj = Instantiate(slashObj1, spawnPosition, Quaternion.identity);
         newSlashObj.transform.rotation = transform.rotation;
         yield return new WaitForSeconds(3.0f);
-        
         isAct = false;
+        BossMoveStart();
     }
 
 
@@ -228,9 +288,9 @@ public class NewBoss1 : NewEnemy
     }
     IEnumerator Slash_2__()
     {
-        anim.SetTrigger("Attack_1");
+        anim.SetTrigger("Slash_2");
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(1.6f);
 
         // 생성 위치를 현재 위치에서 앞, 뒤, 왼쪽, 오른쪽으로 옮깁니다.
         Vector3[] spawnPositions = new Vector3[]
@@ -257,8 +317,8 @@ public class NewBoss1 : NewEnemy
         }
 
         yield return new WaitForSeconds(3.0f);
-
         isAct = false;
+        BossMoveStart();
     }
 
     #endregion
@@ -280,6 +340,7 @@ public class NewBoss1 : NewEnemy
     {
         yield return new WaitForSeconds(1.0f);
         isAct = false;
+        BossMoveStart();
     }
 
     // #. 물러나기
@@ -296,11 +357,9 @@ public class NewBoss1 : NewEnemy
     {
         yield return new WaitForSeconds(1.0f);
         isAct = false;
+        BossMoveStart();
     }
-
     #endregion
-
-
 
 
     #region // 기타 함수들
@@ -308,8 +367,12 @@ public class NewBoss1 : NewEnemy
     // #. 데미지 입음 함수
     public override void TakeDamage(int damage)
     {
-        currentHp -= damage;
         StartCoroutine(ChangeMaterialsTemporarily(matWhite, 0.1f));
+
+        int tempDmgNum = damage * Random.Range(5, 8);
+        currentHp -= tempDmgNum;
+        float remainingHpPercentage = Mathf.Round(((float)currentHp / (float)maxHp) * 100f) / 100f;
+        ImageHp.fillAmount = remainingHpPercentage;
     }
     IEnumerator ChangeMaterialsTemporarily(Material newMaterial, float duration)
     {
@@ -317,6 +380,48 @@ public class NewBoss1 : NewEnemy
         yield return new WaitForSeconds(duration);
         for (int i = 0; i < renderers.Length; i++) renderers[i].material = originalMaterials[i];
     }
+
+    // #. 공격 사정거리 감지
+    bool CheckTargetInRange()
+    {
+        RaycastHit hit;
+        if (Physics.SphereCast(transform.position, targetRadius, transform.forward, out hit, targetRange, LayerMask.GetMask("Player")))
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+    // #. 보스 이동 시작
+    private void BossMoveStart()
+    {
+        anim.SetBool("isWalk", true);
+        nav.speed = speedMove;
+        bIsRotate = true;
+    }
+
+    // #. 보스 이동 중지
+    private void BossMoveStop()
+    {
+        anim.SetBool("isWalk", false);
+        nav.speed = 0f;
+
+        bDetectPlayer = false;
+    }
+
+    private void RotateTowardsPlayer()
+    {
+        if(bIsRotate)
+        {
+            Vector3 direction = player.position - transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+    }
+
+
+
 
     #endregion
 

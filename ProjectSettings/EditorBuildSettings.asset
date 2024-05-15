@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Main.unity
     guid: 8f3c0072f657e8e4781e864693bdad08
   - enabled: 1
+    path: Assets/hyeonmin/Tutorial/tutorial.unity
+    guid: 64402977e40625b48a8864573fe214fc
+  - enabled: 1
     path: Assets/Scenes/Stage_Feild.unity
     guid: 5c031900ecf744e4597f422da0ec92d5
   - enabled: 1

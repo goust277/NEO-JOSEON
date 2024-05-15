@@ -2,11 +2,12 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerDamage : MonoBehaviour
 {
-    [SerializeField] private int hp;
-    public int CurrentHp;
+    public float MaxHp;
+    public float CurrentHp;
     [SerializeField] private float hitDelay;
     public bool isHit = false;
     private float delay = 0f;
@@ -18,7 +19,7 @@ public class PlayerDamage : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         hit = GetComponent<PlayerMove>();
-        CurrentHp = hp;
+        CurrentHp = MaxHp;
         
     }
 
@@ -33,13 +34,13 @@ public class PlayerDamage : MonoBehaviour
         {
             isHitPosible = true;
         }
-        if(hp <= 0)
+        if(CurrentHp <= 0)
         {
             Destroy(gameObject, 0.5f);
         }
     }
 
-    public void TakeDamage()
+    public void TakeDamage(float damage = 1.0f)
     {
         if (isHitPosible)
         {
@@ -48,7 +49,7 @@ public class PlayerDamage : MonoBehaviour
             delay = 0f;
             animator.SetTrigger("Hit");
             hit.TakeDamage();
-            CurrentHp--;
+            CurrentHp -= damage;
         }
     }
 

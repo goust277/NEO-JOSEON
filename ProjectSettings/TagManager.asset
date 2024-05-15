@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - FLCamera
   - HitPad
+  - HpBar
   layers:
   - Default
   - TransparentFX
