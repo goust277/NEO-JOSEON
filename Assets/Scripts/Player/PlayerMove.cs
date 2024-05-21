@@ -80,6 +80,9 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float effectTime;
 
     private PlayerDamage playerDamge;
+
+    [Header("튜토리얼")]
+    public bool onTxt = false;
     private void Awake()
     {
         dashDelay = dashCoolTime;
@@ -118,26 +121,16 @@ public class PlayerMove : MonoBehaviour
         float z = Input.GetAxis("Vertical");
         dir = z * cameraForward + x * cam.transform.right;
 
-        if (dashDelay <= dashCoolTime)
-        {
-            isCooldown = true;
-            dashDelay += Time.deltaTime;
-        }
-        else
-        {
-            isCooldown = false;
-        }
+        CheckGround();
 
-            if (!isGround) 
+        if (!isGround)
         {
             animator.SetBool("IsOnAir", true);
         }
         else
         {
             animator.SetBool("IsOnAir", false);
-
         }
-
         if (dir != Vector3.zero)
         {
             animator.SetBool("Move", true);
@@ -146,9 +139,107 @@ public class PlayerMove : MonoBehaviour
         {
             animator.SetBool("Move", false);
         }
+        if (onTxt == false)
+        {
 
 
-        if (Input.GetKeyDown(KeyCode.Escape) && !isSetting&&!isInteracting)
+            if (dashDelay <= dashCoolTime)
+            {
+                isCooldown = true;
+                dashDelay += Time.deltaTime;
+            }
+            else
+            {
+                isCooldown = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (!isInteracting)
+                {
+                    if (currentInteractableObject != null)
+                        StartInteraction();
+                }
+                else
+                    EndInteraction();
+
+            }
+            if (!isSetting && !playerDamge.isHit && !isInteracting)
+            {
+                
+                Attack();
+
+                if (isAttackReady == false)
+                {
+                    atkDeley += Time.deltaTime;
+                }
+
+                if (weapon.rate < atkDeley)
+                {
+                    isAttackReady = true;
+                }
+
+                if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime && !playerDamge.isHit && _jump && !isDashing)
+                {
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        if (isGround == true)
+                        {
+                            Jump();
+                            animator.SetTrigger("Jump1");
+                        }
+                        else if (isDoubleJump == false)
+                        {
+                            Jump();
+                            animator.SetTrigger("Jump2");
+                            isDoubleJump = true;
+                        }
+                    }
+
+                }
+                if (isGround && !isDashing && _skill)
+                {
+                    if (Input.GetKeyDown(KeyCode.Mouse1))
+                    {
+                        weapon.StopAtk();
+                        skill.TriggerSkill();
+                        animator.SetBool("Move", false);
+                    }
+                }
+
+
+                if (Input.GetKeyDown(KeyCode.T))
+                {
+                    Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Locked;
+                }
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+                }
+                if (Input.GetKeyDown(KeyCode.LeftShift) && !isCooldown && _dash)
+                {
+                    coroutine = StartCoroutine(Dash());
+                    dashDelay = 0;
+                }
+
+                if (Input.GetKeyDown(KeyCode.Mouse0) && !isInteracting && !isDashing && _atk)
+                {
+                    isNextAtk = true;
+                }
+            }
+            else if (isSetting)
+            {
+                dir = Vector3.zero;
+            }
+        }
+
+        else
+        {
+            dir = Vector3.zero;
+        }
+        if (Input.GetKeyDown(KeyCode.Escape) && !isSetting && !isInteracting)
         {
             // 상호 작용 시작
             StartSetting();
@@ -159,86 +250,8 @@ public class PlayerMove : MonoBehaviour
 
             EndSettring();
         }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (!isInteracting)
-            {
-                if (currentInteractableObject != null)
-                    StartInteraction();
-            }
-            else
-                EndInteraction();
-
-        }
-        if (!isSetting && !playerDamge.isHit && !isInteracting) 
-        {
-            CheckGround();
-            Attack();
-
-            if (isAttackReady == false)
-            {
-                atkDeley += Time.deltaTime;
-            }
-
-            if (weapon.rate < atkDeley)
-            {
-                isAttackReady = true;
-            }
-
-            if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime && !playerDamge.isHit && _jump)
-            {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    if (isGround == true)
-                    {
-                        Jump();
-                        animator.SetTrigger("Jump1");
-                    }
-                    else if (isDoubleJump == false)
-                    {
-                        Jump();
-                        animator.SetTrigger("Jump2");
-                        isDoubleJump = true;
-                    }
-                }
-
-            }
-            if (isGround && !isDashing && _skill)
-            {
-                if (Input.GetKeyDown(KeyCode.Mouse1))
-                {
-                    weapon.StopAtk();
-                    skill.TriggerSkill();
-                    animator.SetBool("Move", false);
-                }
-            }
 
 
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-            }
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-            }
-            if (Input.GetKeyDown(KeyCode.LeftShift) && !isCooldown && _dash)
-            {
-                coroutine = StartCoroutine(Dash());
-                dashDelay = 0;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Mouse0) && !isInteracting &&!isDashing && _atk)
-            {
-                isNextAtk = true;
-            }
-        }
-        else if (isSetting)
-        {
-            dir = Vector3.zero;
-        }
     }
 
     public void TakeDamage()
@@ -259,7 +272,7 @@ public class PlayerMove : MonoBehaviour
     private void FixedUpdate()
     {
 
-        if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime && !playerDamge.isHit && !isDashing)
+        if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime && !playerDamge.isHit && !isDashing && !onTxt)
         {
             if (dir != Vector3.zero)
             {

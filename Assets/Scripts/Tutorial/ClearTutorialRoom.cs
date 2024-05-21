@@ -2,9 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO.IsolatedStorage;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ClearTutorialRoom : MonoBehaviour
 {
+    [Header("UI")]
+    [SerializeField] public GameObject txtUi;
+    [SerializeField] private int openZone;
+    [SerializeField] private ClipBoard clipboard;
+    [SerializeField] private Text txt;
+
     [Header("¹®")]
     [SerializeField] private GameObject[] doors;
 
@@ -12,26 +19,49 @@ public class ClearTutorialRoom : MonoBehaviour
     private int point = 0;
 
     [Header("Á¸")]
+    [SerializeField] private GameObject zone;
     [SerializeField] private GameObject[] zones;
 
     private void Start()
     {
+        txtUi.SetActive(false);
+        zone.SetActive(false);
         MaxPoint = zones.Length;
     }
     void Update()
     {
-        
-        if (point == MaxPoint)
+        if (txtUi != null &&  txt != null) 
         {
-            for(int i = 0; i < doors.Length; i++)
+            if (clipboard.id == openZone - 1)
             {
-                Destroy(doors[i]);
+                zone.SetActive(true);
+            }
+            if (clipboard.id == openZone)
+            {
+                if (point == MaxPoint)
+                {
+                    for (int i = 0; i < doors.Length; i++)
+                    {
+                        Destroy(doors[i]);
+                    }
+                }
+                else
+                {
+                    zones[point].SetActive(true);
+                }
+
+                txtUi.SetActive(true);
+                txt.text = "(" + point + "/" + MaxPoint + ")";
+            }
+            else if (clipboard.id > openZone)
+            {
+                txtUi.SetActive (false);
+                txtUi = null;
+                txt = null;
             }
         }
-        else
-        {
-            zones[point].SetActive(true);
-        }
+
+            
     }
 
     public void PointUp()

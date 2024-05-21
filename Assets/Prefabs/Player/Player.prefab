@@ -3180,6 +3180,7 @@ MonoBehaviour:
   damage: 1
   rate: 0.3
   effectTime: 0.4
+  onTxt: 0
 --- !u!114 &9101710224750354171
 MonoBehaviour:
   m_ObjectHideFlags: 0
