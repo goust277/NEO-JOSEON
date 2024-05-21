@@ -26,8 +26,11 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private GameObject UnderLine;
     [SerializeField] private ParticleSystem DashEffect;
 
-    [Header("플레이어 이동")]
+    [Header("바닥체크")]
+    [SerializeField] private float groundCheckRadius = 0.2f;
+    [SerializeField] private Transform _groundCheck;
 
+    [Header("플레이어 이동")]
 
     public float speed = 5.0f;
     public float dash;
@@ -37,6 +40,7 @@ public class PlayerMove : MonoBehaviour
     public float rotspeed;
     public float maxspeed;
     public float jumpHeight;
+    [SerializeField] private float customGravityScale = 2.0f;
 
     [SerializeField] private float interactionRange = 3.0f;
     [SerializeField] private GameObject currentInteractableObject;
@@ -100,6 +104,8 @@ public class PlayerMove : MonoBehaviour
         animator = GetComponent<Animator>();
         playerDamge = GetComponent<PlayerDamage>();
 
+        //rb.useGravity = false;
+
         mainSetting = GameObject.Find("Main_Setting");
         stageSetting = GameObject.Find("Stage_Setting");
 
@@ -117,18 +123,17 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 cameraForward = Vector3.Scale(cam.transform.forward, new Vector3(1, 0, 1)).normalized;
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-        dir = z * cameraForward + x * cam.transform.right;
 
         CheckGround();
 
         if (!isGround)
         {
+            rb.drag = 0f;
             animator.SetBool("IsOnAir", true);
         }
         else
         {
+            rb.drag = 7f;
             animator.SetBool("IsOnAir", false);
         }
         if (dir != Vector3.zero)
@@ -139,9 +144,15 @@ public class PlayerMove : MonoBehaviour
         {
             animator.SetBool("Move", false);
         }
+
+        if (isDashing)
+            rb.drag = 0f;
         if (onTxt == false)
         {
 
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
+            dir = z * cameraForward + x * cam.transform.right;
 
             if (dashDelay <= dashCoolTime)
             {
@@ -233,6 +244,7 @@ public class PlayerMove : MonoBehaviour
             {
                 dir = Vector3.zero;
             }
+
         }
 
         else
@@ -250,8 +262,15 @@ public class PlayerMove : MonoBehaviour
 
             EndSettring();
         }
+        //ApplyCustomGravity();
 
 
+    }
+
+    private void ApplyCustomGravity()
+    {
+        Vector3 gravity = customGravityScale * Physics.gravity;
+        rb.AddForce(gravity, ForceMode.Acceleration);
     }
 
     public void TakeDamage()
@@ -291,7 +310,31 @@ public class PlayerMove : MonoBehaviour
                     animator.SetBool("Move", false);
                 }
             }
-            rb.MovePosition(this.gameObject.transform.position + dir * speed * Time.deltaTime);
+            //rb.MovePosition(this.gameObject.transform.position + dir * speed * Time.deltaTime);
+            if (!isDashing)
+            {
+                //if (rb.velocity.magnitude < maxspeed && !isDashing)
+                //{
+                //    rb.AddForce(dir * speed, ForceMode.Impulse);
+                //}
+                //else if (rb.velocity.magnitude > maxspeed && !isDashing)
+                //{
+                //    Vector3 horizontalVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z).normalized * maxspeed;
+                //    rb.velocity = new Vector3(horizontalVelocity.x, rb.velocity.y, horizontalVelocity.z);
+                //}
+                Vector3 horizontalVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+
+                if (horizontalVelocity.magnitude <= maxspeed)
+                {
+                    rb.AddForce(dir * speed, ForceMode.VelocityChange);
+                }
+                else if (horizontalVelocity.magnitude > maxspeed)
+                {
+                    // y축 속도를 유지하면서 수평 속도 제한
+                    rb.velocity = new Vector3(horizontalVelocity.normalized.x * maxspeed, rb.velocity.y, horizontalVelocity.normalized.z * maxspeed);
+                }
+            }
+
         }
         Vector3 playerPosition = transform.position;
 
@@ -314,20 +357,27 @@ public class PlayerMove : MonoBehaviour
     {
         Vector3 jumpPower = Vector3.up * jumpHeight;
         rb.AddForce(jumpPower, ForceMode.VelocityChange);
+        //rb.velocity = new Vector3(rb.velocity.x, jumpHeight, rb.velocity.z);
 
     }
     private void CheckGround()
     {
+        isGround = Physics.CheckSphere(_groundCheck.position, groundCheckRadius, layer);
 
-        if (Physics.BoxCast(transform.position + (Vector3.up * groundCheck), transform.lossyScale / 2.0f, Vector3.down, out RaycastHit hit, transform.rotation, 0.4f, layer))
+        if(isGround) 
         {
-            isGround = true;
             isDoubleJump = false;
         }
-        else
-        {
-            isGround = false;
-        }
+
+        //if (Physics.BoxCast(transform.position + (Vector3.up * groundCheck), transform.lossyScale / 2.0f, Vector3.down, out RaycastHit hit, transform.rotation, 0.4f, layer))
+        //{
+        //    isGround = true;
+        //    isDoubleJump = false;
+        //}
+        //else
+        //{
+        //    isGround = false;
+        //}
     }
 
     private IEnumerator Dash()

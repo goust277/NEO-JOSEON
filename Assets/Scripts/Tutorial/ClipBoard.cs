@@ -37,7 +37,7 @@ public class ClipBoard : MonoBehaviour
             {
                 playerMove.onTxt = true;
             }
-            if (Input.GetKeyUp(KeyCode.Q))
+            if (Input.GetKeyUp(KeyCode.E))
             {
                 id++;
             }
