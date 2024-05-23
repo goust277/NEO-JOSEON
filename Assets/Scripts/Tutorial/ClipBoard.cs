@@ -52,6 +52,7 @@ public class ClipBoard : MonoBehaviour
                 }
                 txtui.SetActive(false);
                 playerMove.MouseOff();
+
             }
                 
         }

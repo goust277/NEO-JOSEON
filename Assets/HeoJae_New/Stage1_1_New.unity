@@ -1070,6 +1070,11 @@ PrefabInstance:
       propertyPath: hitDelay
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9101710224750354168, guid: beb800505cc5b194a845af733875f1f2,
+        type: 3}
+      propertyPath: ShakeFrequency
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 9101710224750354170, guid: beb800505cc5b194a845af733875f1f2,
         type: 3}
       propertyPath: dash
@@ -1105,6 +1110,12 @@ PrefabInstance:
 --- !u!4 &86657857 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8317618807018512337, guid: beb800505cc5b194a845af733875f1f2,
+    type: 3}
+  m_PrefabInstance: {fileID: 86657856}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &86657858 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9101710224750354174, guid: beb800505cc5b194a845af733875f1f2,
     type: 3}
   m_PrefabInstance: {fileID: 86657856}
   m_PrefabAsset: {fileID: 0}
@@ -2237,6 +2248,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 292917525334466905, guid: 5d86ad40843d68e4eb8d88e081aadf8c,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 86657858}
+    - target: {fileID: 292917525334466911, guid: 5d86ad40843d68e4eb8d88e081aadf8c,
+        type: 3}
+      propertyPath: m_Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 292917525334466911, guid: 5d86ad40843d68e4eb8d88e081aadf8c,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d86ad40843d68e4eb8d88e081aadf8c, type: 3}
