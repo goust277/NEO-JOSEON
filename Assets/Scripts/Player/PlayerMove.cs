@@ -138,12 +138,10 @@ public class PlayerMove : MonoBehaviour
 
         if (!isGround)
         {
-            rb.drag = 0f;
             animator.SetBool("IsOnAir", true);
         }
         else
         {
-            rb.drag = 7f;
             animator.SetBool("IsOnAir", false);
         }
         if (dir != Vector3.zero)
@@ -163,9 +161,8 @@ public class PlayerMove : MonoBehaviour
             skillCoolTime += Time.deltaTime;
         }
 
-        if (onTxt == false)
+        if (onTxt == false) 
         {
-
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
             dir = z * cameraForward + x * cam.transform.right;
@@ -266,6 +263,10 @@ public class PlayerMove : MonoBehaviour
 
         else
         {
+            if (freeLookCamera != null)
+            {
+                freeLookCamera.SetActive(false);
+            }
             dir = Vector3.zero;
         }
         if (Input.GetKeyDown(KeyCode.Escape) && !isSetting && !isInteracting)
@@ -314,7 +315,6 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        bool isWallInFront = CheckWallInDirection(dir);
 
         if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime && !playerDamge.isHit && !isDashing && !onTxt)
         {
@@ -337,9 +337,13 @@ public class PlayerMove : MonoBehaviour
             }
             Vector3 horizontalVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
+            gameObject.transform.position += dir * speed * Time.deltaTime;
+
             if (horizontalVelocity.magnitude <= maxspeed)
             {
-                rb.AddForce(dir * speed, ForceMode.VelocityChange);
+                //rb.AddForce(dir * speed, ForceMode.VelocityChange);
+                
+                
                 //Vector3 forceToAdd = Vector3.zero;
 
                 //// 벽이 없을 때만 힘을 추가
@@ -386,11 +390,6 @@ public class PlayerMove : MonoBehaviour
         }
 
     }
-    bool CheckWallInDirection(Vector3 direction)
-    {
-        // 박스 체크를 사용하여 벽이 있는지 확인
-        return Physics.CheckBox(transform.position + direction * wallCheckDistance, wallCheckSize / 2, Quaternion.identity, layer);
-    }
     private void Jump()
     {
         Vector3 jumpPower = Vector3.up * jumpHeight;
@@ -406,16 +405,6 @@ public class PlayerMove : MonoBehaviour
         {
             isDoubleJump = false;
         }
-
-        //if (Physics.BoxCast(transform.position + (Vector3.up * groundCheck), transform.lossyScale / 2.0f, Vector3.down, out RaycastHit hit, transform.rotation, 0.4f, layer))
-        //{
-        //    isGround = true;
-        //    isDoubleJump = false;
-        //}
-        //else
-        //{
-        //    isGround = false;
-        //}
     }
 
     private IEnumerator Dash()
@@ -533,7 +522,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void MouseOn()
+    public void MouseOn()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -543,7 +532,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void MouseOff()
+    public void MouseOff()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
