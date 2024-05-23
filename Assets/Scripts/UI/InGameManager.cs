@@ -10,6 +10,9 @@ public class InGameManager : MonoBehaviour
     private float dashCoolTime;
     private float dashDelay;
 
+    private float skillCool;
+    private float skillCoolTime;
+
     [Header("æ∆¿Ãƒ‹")]
     [SerializeField] private Image skillImg;
     [SerializeField] private Image dashImg;
@@ -29,8 +32,11 @@ public class InGameManager : MonoBehaviour
     {
         dashCoolTime = player.GetComponent<PlayerMove>().dashCoolTime;
         dashDelay = player.GetComponent<PlayerMove>().dashDelay;
+        skillCool = player.GetComponent<PlayerMove>().skillCool;
+        skillCoolTime = player.GetComponent<PlayerMove>().skillCoolTime;
 
         dashImg.fillAmount = dashDelay / dashCoolTime;
+        skillImg.fillAmount = skillCoolTime / skillCool;
 
         if (dashDelay <= dashCoolTime)
         {
@@ -41,6 +47,17 @@ public class InGameManager : MonoBehaviour
         else
         {
             dashTxt.text = null;
+        }
+
+        if (skillCoolTime < skillCool) 
+        {
+            int cool = (int)skillCool - (int)skillCoolTime;
+
+            skillTxt.text = cool.ToString();
+        }
+        else
+        {
+            skillTxt.text = "";
         }
     }
 }

@@ -97,6 +97,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hitpad
       objectReference: {fileID: 0}
+    - target: {fileID: 4160266701732237374, guid: 4bc131baeee39b342b4aa9cfe79ab560,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8534396948344017917, guid: 4bc131baeee39b342b4aa9cfe79ab560,
         type: 3}
       propertyPath: m_RootOrder

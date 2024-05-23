@@ -27,8 +27,12 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private ParticleSystem DashEffect;
 
     [Header("바닥체크")]
-    [SerializeField] private float groundCheckRadius = 0.2f;
+    [SerializeField] private Vector3 groundCheckSize = new Vector3(0.5f, 0.1f, 0.5f);
     [SerializeField] private Transform _groundCheck;
+
+    [Header("벽 체크")]
+    [SerializeField] private Vector3 wallCheckSize = new Vector3(0.5f, 0.5f, 0.5f); // 벽 체크를 위한 박스의 크기
+    [SerializeField] private float wallCheckDistance = 0.5f; // 벽 체크를 위한 거리
 
     [Header("플레이어 이동")]
 
@@ -71,6 +75,11 @@ public class PlayerMove : MonoBehaviour
     PlayerSkill skill;
 
     private bool isSetting = false;
+
+    [Header("스킬")]
+    public int skillCool;
+    public float skillCoolTime;
+
     [Header("메뉴")]
     private GameObject mainSetting;
     private GameObject stageSetting;
@@ -89,6 +98,7 @@ public class PlayerMove : MonoBehaviour
     public bool onTxt = false;
     private void Awake()
     {
+        skillCoolTime = skillCool;
         dashDelay = dashCoolTime;
         if (SceneManager.GetActiveScene().name == "tutorial")
         {
@@ -147,6 +157,12 @@ public class PlayerMove : MonoBehaviour
 
         if (isDashing)
             rb.drag = 0f;
+
+        if (skillCoolTime < skillCool)
+        {
+            skillCoolTime += Time.deltaTime;
+        }
+
         if (onTxt == false)
         {
 
@@ -208,13 +224,14 @@ public class PlayerMove : MonoBehaviour
                     }
 
                 }
-                if (isGround && !isDashing && _skill)
+                if (isGround && !isDashing && _skill && skillCoolTime >= skillCool)
                 {
                     if (Input.GetKeyDown(KeyCode.Mouse1))
                     {
                         weapon.StopAtk();
                         skill.TriggerSkill();
                         animator.SetBool("Move", false);
+                        skillCoolTime = 0f;
                     }
                 }
 
@@ -266,7 +283,14 @@ public class PlayerMove : MonoBehaviour
 
 
     }
-
+    void OnDrawGizmosSelected()
+    {
+        if (_groundCheck != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawCube(_groundCheck.position, groundCheckSize);
+        }
+    }
     private void ApplyCustomGravity()
     {
         Vector3 gravity = customGravityScale * Physics.gravity;
@@ -290,6 +314,7 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        bool isWallInFront = CheckWallInDirection(dir);
 
         if (isAttackReady && !weapon.isAtkTime && !skill.isSkillTime && !playerDamge.isHit && !isDashing && !onTxt)
         {
@@ -310,29 +335,37 @@ public class PlayerMove : MonoBehaviour
                     animator.SetBool("Move", false);
                 }
             }
-            //rb.MovePosition(this.gameObject.transform.position + dir * speed * Time.deltaTime);
-            if (!isDashing)
-            {
-                //if (rb.velocity.magnitude < maxspeed && !isDashing)
-                //{
-                //    rb.AddForce(dir * speed, ForceMode.Impulse);
-                //}
-                //else if (rb.velocity.magnitude > maxspeed && !isDashing)
-                //{
-                //    Vector3 horizontalVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z).normalized * maxspeed;
-                //    rb.velocity = new Vector3(horizontalVelocity.x, rb.velocity.y, horizontalVelocity.z);
-                //}
-                Vector3 horizontalVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            Vector3 horizontalVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
-                if (horizontalVelocity.magnitude <= maxspeed)
-                {
-                    rb.AddForce(dir * speed, ForceMode.VelocityChange);
-                }
-                else if (horizontalVelocity.magnitude > maxspeed)
-                {
-                    // y축 속도를 유지하면서 수평 속도 제한
-                    rb.velocity = new Vector3(horizontalVelocity.normalized.x * maxspeed, rb.velocity.y, horizontalVelocity.normalized.z * maxspeed);
-                }
+            if (horizontalVelocity.magnitude <= maxspeed)
+            {
+                rb.AddForce(dir * speed, ForceMode.VelocityChange);
+                //Vector3 forceToAdd = Vector3.zero;
+
+                //// 벽이 없을 때만 힘을 추가
+                //if (!isWallInFront)
+                //{
+                //    forceToAdd = dir * speed;
+                //}
+                //else
+                //{
+                //    // 벽이 있는 방향 제외
+                //    if (!CheckWallInDirection(Vector3.right * dir.x))
+                //    {
+                //        forceToAdd += Vector3.right * dir.x * speed;
+                //    }
+                //    if (!CheckWallInDirection(Vector3.forward * dir.z))
+                //    {
+                //        forceToAdd += Vector3.forward * dir.z * speed;
+                //    }
+                //}
+
+                //rb.AddForce(forceToAdd, ForceMode.Acceleration);
+            }
+            else if (horizontalVelocity.magnitude > maxspeed)
+            {
+                // y축 속도를 유지하면서 수평 속도 제한
+                rb.velocity = new Vector3(horizontalVelocity.normalized.x * maxspeed, rb.velocity.y, horizontalVelocity.normalized.z * maxspeed);
             }
 
         }
@@ -353,6 +386,11 @@ public class PlayerMove : MonoBehaviour
         }
 
     }
+    bool CheckWallInDirection(Vector3 direction)
+    {
+        // 박스 체크를 사용하여 벽이 있는지 확인
+        return Physics.CheckBox(transform.position + direction * wallCheckDistance, wallCheckSize / 2, Quaternion.identity, layer);
+    }
     private void Jump()
     {
         Vector3 jumpPower = Vector3.up * jumpHeight;
@@ -362,7 +400,7 @@ public class PlayerMove : MonoBehaviour
     }
     private void CheckGround()
     {
-        isGround = Physics.CheckSphere(_groundCheck.position, groundCheckRadius, layer);
+        isGround = Physics.CheckBox(_groundCheck.position, groundCheckSize / 2, Quaternion.identity, layer);
 
         if(isGround) 
         {

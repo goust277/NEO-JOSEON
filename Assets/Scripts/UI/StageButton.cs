@@ -38,4 +38,9 @@ public class StageButton : MonoBehaviour
             stageSetting.GetComponent<StageSetting>().Close();
         }
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }

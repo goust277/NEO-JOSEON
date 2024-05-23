@@ -2720,7 +2720,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8260197763106799858}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3187,7 +3187,7 @@ MonoBehaviour:
   currentMapName: 
   UnderLine: {fileID: 0}
   DashEffect: {fileID: 7353000827859694742}
-  groundCheckRadius: 0.1
+  groundCheckSize: {x: 0.2, y: 0.1, z: 0.2}
   _groundCheck: {fileID: 3182855847024637933}
   speed: 5
   dash: 12
@@ -3210,6 +3210,8 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 256
+  skillCool: 5
+  skillCoolTime: 0
   main: 
   weapon: {fileID: 7245651778319247228}
   damage: 1

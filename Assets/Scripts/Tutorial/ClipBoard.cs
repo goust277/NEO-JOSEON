@@ -37,11 +37,11 @@ public class ClipBoard : MonoBehaviour
             {
                 playerMove.onTxt = true;
             }
-            if (Input.GetKeyUp(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 id++;
             }
-
+            Debug.Log("d");
             text.text = data_Dialog[id]["Content"].ToString();
 
             if (id == 10 || id == 14 || id == 17)
