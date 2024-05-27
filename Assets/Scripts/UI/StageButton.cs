@@ -25,7 +25,7 @@ public class StageButton : MonoBehaviour
 
     public void StageExit()
     {
-        SceneManager.LoadScene("Stage_Feild");
+        SceneManager.LoadScene("Stage_Feild_New");
     }
     public void ExitUI()
     {
