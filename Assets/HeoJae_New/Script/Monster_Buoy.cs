@@ -62,8 +62,10 @@ public class Monster_Buoy : NewEnemy
             ImageHp.fillAmount = remainingHpPercentage;
 
             Vector3 parentForward = positionNumBox.forward;
-            Quaternion rotation__ = Quaternion.LookRotation(parentForward);
-            GameObject dmgNumbobbox = Instantiate(DmgNumBox, positionNumBox.position, rotation__);
+            Quaternion rotation_ = Quaternion.LookRotation(parentForward);
+            Quaternion yRotation = Quaternion.Euler(0, 180, 0);
+            Quaternion finalRotation = rotation_ * yRotation;
+            GameObject dmgNumbobbox = Instantiate(DmgNumBox, positionNumBox.position, finalRotation);
             DmgNum dmgBox = dmgNumbobbox.GetComponent<DmgNum>();
             dmgBox.text_dmgNum.text = tempDmgNum.ToString();
 
@@ -79,7 +81,7 @@ public class Monster_Buoy : NewEnemy
         {
             doDie = true;
             StopAllCoroutines();
-            StartCoroutine(Die());
+            StartCoroutine(Die_());
         }
         else
         {
@@ -102,8 +104,13 @@ public class Monster_Buoy : NewEnemy
         for (int i = 0; i < renderers.Length; i++) renderers[i].material = originalMaterials[i];
     }
 
+    public override void Die()
+    {
+        base.Die();
+        StartCoroutine(Die_());
 
-    IEnumerator Die()
+    }
+    IEnumerator Die_()
     {
         ChangeMaterialsBlack(black);
         HpBar.SetActive(false);

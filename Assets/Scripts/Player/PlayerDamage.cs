@@ -50,7 +50,7 @@ public class PlayerDamage : MonoBehaviour
         }
         if(CurrentHp <= 0)
         {
-            Destroy(gameObject, 0.5f);
+            animator.SetBool("Death", true);
         }
     }
 
@@ -58,7 +58,7 @@ public class PlayerDamage : MonoBehaviour
     {
         if (isHitPosible)
         {
-            StartCoroutine(Hit());
+            StartCoroutine(Hit()); 
             isHitPosible = false;
             delay = 0f;
             animator.SetTrigger("Hit");

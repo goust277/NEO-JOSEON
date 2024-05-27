@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GoblinFireCreator : MonoBehaviour
 {
+    public NewBoss1 boss;
+
     [Header("µµ±úºñºÒ")]
     public GameObject objGoblinFire;
 
@@ -24,7 +26,7 @@ public class GoblinFireCreator : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= interval)
+        if (timer >= interval && !(boss.bIsDie))
         {
             CreateGoblinFire();
             timer = 0f;

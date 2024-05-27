@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 
 public class Monster_Jumper : NewEnemy
@@ -38,6 +39,12 @@ public class Monster_Jumper : NewEnemy
 
     private Coroutine coroutine;
 
+    [Header("Ã¼·Â¹Ù")]
+    public GameObject HpBar;
+    public Image ImageHp;
+
+    public Transform positionNumBox;
+    public GameObject DmgNumBox;
 
     void Start()
     {
@@ -156,29 +163,49 @@ public class Monster_Jumper : NewEnemy
 
     public override void TakeDamage(int damage)
     {
-        currentHp -= damage;
+        int tempDmgNum = damage * Random.Range(80, 120);
+        currentHp -= tempDmgNum;
+        float remainingHpPercentage = Mathf.Round(((float)currentHp / (float)maxHp) * 100f) / 100f;
+        ImageHp.fillAmount = remainingHpPercentage;
+
+        Vector3 parentForward = positionNumBox.forward;
+        Quaternion rotation = Quaternion.LookRotation(parentForward);
+        Quaternion yRotation = Quaternion.Euler(0, 180, 0);
+        Quaternion finalRotation = rotation * yRotation;
+        GameObject dmgNumbobbox = Instantiate(DmgNumBox, positionNumBox.position, finalRotation);
+        DmgNum dmgBox = dmgNumbobbox.GetComponent<DmgNum>();
+        dmgBox.text_dmgNum.text = tempDmgNum.ToString();
 
         if (currentHp <= 0)
         {
-            StartCoroutine(Die());
+            StartCoroutine(Die_());
         }
         else
         {
             ChangeMaterials(white);
 
             Vector3 direction = player.position - transform.position;
-            Quaternion rotation = Quaternion.LookRotation(direction);
-            transform.rotation = rotation;
+            Quaternion _rotation = Quaternion.LookRotation(direction);
+            transform.rotation = _rotation;
         }
     }
-    IEnumerator Die()
+
+    public override void Die()
+    {
+        base.Die();
+        StartCoroutine(Die_());
+
+    }
+    IEnumerator Die_()
     {
         StopCoroutine(coroutine);
+        HpBar.SetActive(false);
 
         for (int i = 0; i < materials.Length; i++) materials[i] = black;
         renderer.materials = materials;
 
         anim.SetTrigger("doDie");
+
 
         doDie = true;
         collider.enabled = false;
@@ -191,6 +218,7 @@ public class Monster_Jumper : NewEnemy
         Instantiate(destroyParticle, spawnPosition, Quaternion.identity);
         Destroy(gameObject);
     }
+
     void ChangeMaterials(Material newMaterial)
     {
         for (int i = 0; i < materials.Length; i++) materials[i] = newMaterial;

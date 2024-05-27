@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 
 public class Monster_Boomer : NewEnemy
@@ -42,6 +43,12 @@ public class Monster_Boomer : NewEnemy
 
     private bool bAttackAnim;
 
+    [Header("Ã¼·Â¹Ù")]
+    public GameObject HpBar;
+    public Image ImageHp;
+
+    public Transform positionNumBox;
+    public GameObject DmgNumBox;
 
     void Start()
     {
@@ -153,15 +160,22 @@ public class Monster_Boomer : NewEnemy
         bAttackAnim = false;
     }
 
-    
 
-   
-    IEnumerator Die()
+
+
+    public override void Die()
+    {
+        base.Die();
+        StartCoroutine(Die_());
+
+    }
+    IEnumerator Die_()
     {
         for (int i = 0; i < materials.Length; i++) materials[i] = black;
         renderer.materials = materials;
 
         anim.SetTrigger("doDie");
+        HpBar.SetActive(false);
 
         bChargeStart = false;
         AttackChargeTime = 1.5f;
@@ -180,6 +194,7 @@ public class Monster_Boomer : NewEnemy
         Instantiate(destroyParticle, spawnPosition, Quaternion.identity);
         Destroy(gameObject);
     }
+
 
 
 
@@ -205,22 +220,36 @@ public class Monster_Boomer : NewEnemy
         if (!doDie)
         {
             anim.SetBool("isWalk", false);
-            currentHp -= damage;
+
+            int tempDmgNum = damage * Random.Range(80, 120);
+            currentHp -= tempDmgNum;
+            float remainingHpPercentage = Mathf.Round(((float)currentHp / (float)maxHp) * 100f) / 100f;
+            ImageHp.fillAmount = remainingHpPercentage;
+
+            Vector3 parentForward = positionNumBox.forward;
+            Quaternion rotation = Quaternion.LookRotation(parentForward);
+            Quaternion yRotation = Quaternion.Euler(0, 180, 0);
+            Quaternion finalRotation = rotation * yRotation;
+            GameObject dmgNumbobbox = Instantiate(DmgNumBox, positionNumBox.position, finalRotation);
+            DmgNum dmgBox = dmgNumbobbox.GetComponent<DmgNum>();
+            dmgBox.text_dmgNum.text = tempDmgNum.ToString();
+
+
             isChase = false;
             ChangeMaterials(white);
             StopAllCoroutines();
-            StartCoroutine(TakeDamage__());
+            StartCoroutine(TakeDamage());
         }
-           
+
     }
 
-    IEnumerator TakeDamage__()
+    IEnumerator TakeDamage()
     {
         if (currentHp <= 0)
         {
             doDie = true;
             StopAllCoroutines();
-            StartCoroutine(Die());
+            StartCoroutine(Die_());
         }
         else
         {
@@ -238,7 +267,7 @@ public class Monster_Boomer : NewEnemy
             bAttackAnim = false;
         }
 
-        yield return new WaitForSeconds(1.2f); 
+        yield return new WaitForSeconds(1.2f);
 
         isChase = true;
         isAttack = false;
@@ -271,6 +300,8 @@ public class Monster_Boomer : NewEnemy
         for (int i = 0; i < materials.Length; i++) materials[i] = originalMaterials[i];
         renderer.materials = materials;
     }
+
+
 }
 
 

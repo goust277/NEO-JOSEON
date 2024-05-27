@@ -9,11 +9,16 @@ public class SceneChangeNew : MonoBehaviour
     [SerializeField] private string SceneName;
 
     public Image FadInOut;
+    public bool bBoss;
 
     private void Awake()
     {
-        FadInOut.color = new Color(FadInOut.color.r, FadInOut.color.g, FadInOut.color.b, 1f);
-        FadeOut(2f);
+        if(!bBoss)
+        {
+            FadInOut.color = new Color(FadInOut.color.r, FadInOut.color.g, FadInOut.color.b, 1f);
+            FadeOut(2f);
+        }
+       
     }
 
 

@@ -231,18 +231,6 @@ public class PlayerMove : MonoBehaviour
                         skillCoolTime = 0f;
                     }
                 }
-
-
-                if (Input.GetKeyDown(KeyCode.T))
-                {
-                    Cursor.visible = false;
-                    Cursor.lockState = CursorLockMode.Locked;
-                }
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
-                }
                 if (Input.GetKeyDown(KeyCode.LeftShift) && !isCooldown && _dash)
                 {
                     coroutine = StartCoroutine(Dash());
@@ -338,39 +326,6 @@ public class PlayerMove : MonoBehaviour
             Vector3 horizontalVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
             gameObject.transform.position += dir * speed * Time.deltaTime;
-
-            if (horizontalVelocity.magnitude <= maxspeed)
-            {
-                //rb.AddForce(dir * speed, ForceMode.VelocityChange);
-                
-                
-                //Vector3 forceToAdd = Vector3.zero;
-
-                //// 벽이 없을 때만 힘을 추가
-                //if (!isWallInFront)
-                //{
-                //    forceToAdd = dir * speed;
-                //}
-                //else
-                //{
-                //    // 벽이 있는 방향 제외
-                //    if (!CheckWallInDirection(Vector3.right * dir.x))
-                //    {
-                //        forceToAdd += Vector3.right * dir.x * speed;
-                //    }
-                //    if (!CheckWallInDirection(Vector3.forward * dir.z))
-                //    {
-                //        forceToAdd += Vector3.forward * dir.z * speed;
-                //    }
-                //}
-
-                //rb.AddForce(forceToAdd, ForceMode.Acceleration);
-            }
-            else if (horizontalVelocity.magnitude > maxspeed)
-            {
-                // y축 속도를 유지하면서 수평 속도 제한
-                rb.velocity = new Vector3(horizontalVelocity.normalized.x * maxspeed, rb.velocity.y, horizontalVelocity.normalized.z * maxspeed);
-            }
 
         }
         Vector3 playerPosition = transform.position;
