@@ -22,10 +22,19 @@ public class ClipBoard : MonoBehaviour
     [Header("다른 참조")]
     public int id = 0;
     List<Dictionary<string, object>> data_Dialog;
+
+    [Header("기능")]
+    [SerializeField] private GameObject wasd;
+    [SerializeField] private GameObject space;
+    [SerializeField] private GameObject shift;
     private void Start()
     {
         data_Dialog = CSVReader.Read("Test");
-        
+        wasd.SetActive(false);
+        space.SetActive(false);
+        shift.SetActive(false);
+
+
     }
 
     [System.Obsolete]
@@ -52,10 +61,21 @@ public class ClipBoard : MonoBehaviour
                 }
                 txtui.SetActive(false);
                 playerMove.MouseOff();
-
             }
                 
         }
+        if (id == 10)
+            wasd.SetActive(true);
+        else
+            wasd.SetActive(false);
+        if (id == 14)
+            space.SetActive(true);
+        else
+            space.SetActive(false);
+        if (id == 17)
+            shift.SetActive(true);
+        else 
+            shift.SetActive(false);
 
     }
     public void Clear()
