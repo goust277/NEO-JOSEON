@@ -970,9 +970,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2057
-        y: 385
+        y: 435
         width: 228
-        height: 243
+        height: 193
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1033,9 +1033,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2057
-        y: 96
+        y: 152
         width: 228
-        height: 250
+        height: 194
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1108,6 +1108,27 @@ TextureImporter:
       bones: []
       spriteID: 52f309c48d766b14ebc9868c9500ab21
       internalID: -699299258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player ui_0
+      rect:
+        serializedVersion: 2
+        x: 2089
+        y: 96
+        width: 107
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2835e671b5c790244b6a4ffdaab55575
+      internalID: 108169854
       vertices: []
       indices: 
       edges: []

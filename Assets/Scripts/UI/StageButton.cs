@@ -8,7 +8,7 @@ public class StageButton : MonoBehaviour
     [SerializeField] private string SceneName;
     private GameObject mainSetting;
     private GameObject stageSetting;
-
+    [SerializeField] private GameObject UI;
     private void Awake()
     {
         mainSetting = GameObject.Find("Main_Setting");
@@ -42,5 +42,11 @@ public class StageButton : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void Close()
+    {
+        if (UI != null)
+            UI.SetActive(false);
     }
 }

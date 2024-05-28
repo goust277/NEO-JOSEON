@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4522076351549355766}
   - component: {fileID: 5197757943107197765}
   - component: {fileID: 3681469793846539589}
-  - component: {fileID: 5133264447443974994}
   m_Layer: 0
   m_Name: tutorial_wall
   m_TagString: Untagged
@@ -85,17 +84,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5133264447443974994
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3327472498458194636}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2153055306673695580, guid: 7f8cb9d7f4df69744a67bce43a8a9f25, type: 3}

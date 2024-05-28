@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,17 +24,44 @@ public class PlayerDamage : MonoBehaviour
     [Header("Èçµé¸² °­µµ")]
     public float ShakeFrequency = 0.4f;
 
+    [Header("»ç¸Á È­¸é")]
+    [SerializeField] private GameObject die;
+    [SerializeField] private GameObject diePanel;
+    private Image dieImg;
+    [SerializeField]private float temp = 0;
+    private Rigidbody rb;
+    private BoxCollider boxCollider;
+
     void Start()
     {
+        CurrentHp = MaxHp;
+
         animator = GetComponent<Animator>();
         hit = GetComponent<PlayerMove>();
+        if (die != null && diePanel != null )
+        {
+            dieImg = die.GetComponent<Image>();
 
-        CurrentHp = MaxHp;
+            rb = GetComponent<Rigidbody>();
+
+        }
+
+        boxCollider = GetComponent<BoxCollider>();
+        die.SetActive(false);
+        diePanel.SetActive(false);
+
+
 
         if (CMfl != null)
         {
             ChannelPerlin = CMfl.GetComponent<CinemachineBasicMultiChannelPerlin>();
 
+        }
+
+        if(Time.timeScale == 0f)
+        {
+
+            Time.timeScale = 1f;
         }
     }
 
@@ -50,8 +78,12 @@ public class PlayerDamage : MonoBehaviour
         }
         if(CurrentHp <= 0)
         {
-            animator.SetBool("Death", true);
+            Invoke("Die", 1.5f);
+                
+
         }
+
+        
     }
 
     public void TakeDamage(float damage = 1.0f)
@@ -64,6 +96,12 @@ public class PlayerDamage : MonoBehaviour
             animator.SetTrigger("Hit");
             hit.TakeDamage();
             CurrentHp -= damage;
+        }
+
+        if (CurrentHp <= 0)
+        {
+            animator.SetTrigger("Death");
+            die.SetActive(true);
         }
     }
 
@@ -82,5 +120,29 @@ public class PlayerDamage : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(0.3f);
         isHit = false;
+    }
+
+    private void Die()
+    {
+        if (boxCollider == null)
+            return;
+        boxCollider.enabled = false;
+        rb.useGravity = false;
+        Color tempColor = dieImg.color;
+
+        if (temp <= 2 )
+        {
+            temp += Time.deltaTime;
+            tempColor.a = temp;
+
+            dieImg.color = tempColor;
+        }
+        else if (temp >= 2)
+        {
+            diePanel.SetActive(true);
+            Time.timeScale = 0f;
+            hit.MouseOn();
+        }
+        
     }
 }
