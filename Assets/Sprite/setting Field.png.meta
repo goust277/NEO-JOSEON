@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 12
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -36,13 +36,13 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -51,9 +51,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -103,18 +103,307 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: setting Field_6
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 1425
+        width: 2556
+        height: 1438
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38d9ccedce7506a468149ab1f3d58c16
+      internalID: -1339556854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field_7
+      rect:
+        serializedVersion: 2
+        x: 3117
+        y: 2699
+        width: 190
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c52f68c4c72f4db4e9dbef81f14bbf6c
+      internalID: 1338388137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field_13
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 849
+        width: 291
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a03637055f55ba0449bc46b879c94fcc
+      internalID: -979474300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field_14
+      rect:
+        serializedVersion: 2
+        x: 1012
+        y: 850
+        width: 290
+        height: 471
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 530940ab5f23c5d42bd130504055fd9d
+      internalID: 1051145098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field_17
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 841
+        width: 346
+        height: 338
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 936054143385e074c8705fe6aa6f27dd
+      internalID: 629487360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field_28
+      rect:
+        serializedVersion: 2
+        x: 1955
+        y: 965
+        width: 778
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60334f12c4c32554185b648aff283178
+      internalID: 17465504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field_29
+      rect:
+        serializedVersion: 2
+        x: 2870
+        y: 958
+        width: 53
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfb4fff270913c543a059ddd0b9700ce
+      internalID: -616169967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field_30
+      rect:
+        serializedVersion: 2
+        x: 1957
+        y: 829
+        width: 774
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 856e45b6738a044459e9650ab07a5515
+      internalID: 1120866069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field_32
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 526
+        width: 644
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe8a944d7629d8b43825f80aabf30729
+      internalID: -1111218639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field_33
+      rect:
+        serializedVersion: 2
+        x: 1957
+        y: 631
+        width: 774
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc4edd766eb850541bcac336119a0aaf
+      internalID: 418880197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field_35
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 371
+        width: 644
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 701d205c3ef45d847b3641d3eef8c950
+      internalID: 12683981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field_36
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 214
+        width: 646
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 981a52d789cee8346ba0739159f36864
+      internalID: 1653281830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: bec173cc7aa56314fbade5f71dc87161
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      setting Field_0: 979244866
+      setting Field_1: 1791981503
+      setting Field_10: 806313398
+      setting Field_11: -1049139404
+      setting Field_12: -593297568
+      setting Field_13: -979474300
+      setting Field_14: 1051145098
+      setting Field_15: 1133951064
+      setting Field_16: 1972540183
+      setting Field_17: 629487360
+      setting Field_18: 1243736569
+      setting Field_19: -1838583872
+      setting Field_2: -366413974
+      setting Field_20: -2135897673
+      setting Field_21: -169905425
+      setting Field_22: -1093262845
+      setting Field_23: -1619310440
+      setting Field_24: 324644074
+      setting Field_25: 1754442148
+      setting Field_26: 1393078065
+      setting Field_27: -1245215065
+      setting Field_28: 17465504
+      setting Field_29: -616169967
+      setting Field_3: 529197259
+      setting Field_30: 1120866069
+      setting Field_31: 1376061526
+      setting Field_32: -1111218639
+      setting Field_33: 418880197
+      setting Field_34: 1507274809
+      setting Field_35: 12683981
+      setting Field_36: 1653281830
+      setting Field_4: -1759057218
+      setting Field_5: -1897745916
+      setting Field_6: -1339556854
+      setting Field_7: 1338388137
+      setting Field_8: 557279771
+      setting Field_9: -601384051
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

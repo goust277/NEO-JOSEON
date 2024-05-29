@@ -43,13 +43,12 @@ public class PlayerDamage : MonoBehaviour
             dieImg = die.GetComponent<Image>();
 
             rb = GetComponent<Rigidbody>();
+            die.SetActive(false);
+            diePanel.SetActive(false);
 
         }
 
         boxCollider = GetComponent<BoxCollider>();
-        die.SetActive(false);
-        diePanel.SetActive(false);
-
 
 
         if (CMfl != null)

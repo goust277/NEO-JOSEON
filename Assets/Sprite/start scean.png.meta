@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 12
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -36,13 +36,13 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -51,9 +51,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -103,18 +103,193 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: start scean_0
+      rect:
+        serializedVersion: 2
+        x: 1724
+        y: 995
+        width: 51
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4a58a16b42eab14a8bff1fd2482f0aa
+      internalID: 118025848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: start scean_1
+      rect:
+        serializedVersion: 2
+        x: 1084
+        y: 856
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47a676bdec3db2c4c9a24197c30fd3db
+      internalID: 654718874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: start scean_13
+      rect:
+        serializedVersion: 2
+        x: 1877
+        y: 210
+        width: 273
+        height: 628
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ad0c80eec5a2be4b81afc9ca87a3e30
+      internalID: -476830578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: start scean_16
+      rect:
+        serializedVersion: 2
+        x: 1105
+        y: 606
+        width: 653
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c05922bda71dc446a573f347f6c3231
+      internalID: -908856335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: start scean_19
+      rect:
+        serializedVersion: 2
+        x: 1105
+        y: 428
+        width: 652
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09c7fbead1661a54dbda4a34f96e2893
+      internalID: 402020187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: start scean_22
+      rect:
+        serializedVersion: 2
+        x: 1104
+        y: 255
+        width: 653
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11cf90d56e8137f4f813d473c3673503
+      internalID: -911663732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: start scean_23
+      rect:
+        serializedVersion: 2
+        x: 1209
+        y: 401
+        width: 430
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc6d9eecafca81945b0b26a8ee4d8c44
+      internalID: -1152728463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: bb27ec7b84e9aae49b74aad8f83ff3e4
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      start scean_0: 118025848
+      start scean_1: 654718874
+      start scean_10: 1258121515
+      start scean_11: -123521577
+      start scean_12: -1985144609
+      start scean_13: -476830578
+      start scean_14: 903199110
+      start scean_15: 891908308
+      start scean_16: -908856335
+      start scean_17: -1856802919
+      start scean_18: 1896283761
+      start scean_19: 402020187
+      start scean_2: -1622261705
+      start scean_20: 1484014426
+      start scean_21: -1900444230
+      start scean_22: -911663732
+      start scean_23: -1152728463
+      start scean_24: 1400723712
+      start scean_25: -1770141443
+      start scean_26: 129102525
+      start scean_27: -609066646
+      start scean_3: 1823211481
+      start scean_4: -286317030
+      start scean_5: 1593016217
+      start scean_6: -1363833765
+      start scean_7: -188435594
+      start scean_8: -1187575305
+      start scean_9: -582513934
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

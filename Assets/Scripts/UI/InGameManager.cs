@@ -42,22 +42,22 @@ public class InGameManager : MonoBehaviour
         {
             int cool = (int)dashCoolTime - (int)dashDelay;
 
-            dashTxt.text = cool.ToString();
+            //dashTxt.text = cool.ToString();
         }
         else
         {
-            dashTxt.text = null;
+            //dashTxt.text = null;
         }
 
         if (skillCoolTime < skillCool) 
         {
             int cool = (int)skillCool - (int)skillCoolTime;
 
-            skillTxt.text = cool.ToString();
+            //skillTxt.text = cool.ToString();
         }
         else
         {
-            skillTxt.text = "";
+           //w skillTxt.text = "";
         }
     }
 }

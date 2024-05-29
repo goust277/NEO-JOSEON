@@ -9,10 +9,12 @@ public class StageButton : MonoBehaviour
     private GameObject mainSetting;
     private GameObject stageSetting;
     [SerializeField] private GameObject UI;
+    private GameObject freeLookCamera;
     private void Awake()
     {
         mainSetting = GameObject.Find("Main_Setting");
         stageSetting = GameObject.Find("Stage_Setting");
+        freeLookCamera = GameObject.FindGameObjectWithTag("FLCamera");
     }
     public void OnClick()
     {
@@ -47,6 +49,13 @@ public class StageButton : MonoBehaviour
     public void Close()
     {
         if (UI != null)
+        {
             UI.SetActive(false);
+            freeLookCamera.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+            
+
     }
 }

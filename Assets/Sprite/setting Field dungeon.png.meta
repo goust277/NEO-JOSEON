@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 12
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -36,13 +36,13 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -51,9 +51,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -103,18 +103,458 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: setting Field dungeon_0
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 3836
+        width: 291
+        height: 345
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e099cfaef2395824bb6a74fa88ed50b3
+      internalID: 95118190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_1
+      rect:
+        serializedVersion: 2
+        x: 1255
+        y: 3059
+        width: 510
+        height: 937
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07c80195972316448ac3311f57afb2c7
+      internalID: -2120215412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_3
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 3555
+        width: 411
+        height: 222
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e38cf6d7c5776f74089191fa22c9916a
+      internalID: 1638348072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_4
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 3201
+        width: 521
+        height: 292
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d86559953f54f34b9cf384c5c7456a4
+      internalID: 1315381042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_5
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 2730
+        width: 642
+        height: 428
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a85360ef0a24fc4087edaaa3c8f1582
+      internalID: 1911036747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_11
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 2358
+        width: 383
+        height: 311
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e46808c243300e4fbb37777162e0916
+      internalID: 829691187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_12
+      rect:
+        serializedVersion: 2
+        x: 2120
+        y: 1077
+        width: 2555
+        height: 1436
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4714f3576eb49d4f84120727e4f6da9
+      internalID: 1906777293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_13
+      rect:
+        serializedVersion: 2
+        x: 4755
+        y: 2350
+        width: 191
+        height: 181
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da277edb7ff82f8409fcfa8b2fef74a5
+      internalID: 1480595788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_14
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 1863
+        width: 489
+        height: 438
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ccdb38d880220a4ebd79529846dbfeb
+      internalID: -268470021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_15
+      rect:
+        serializedVersion: 2
+        x: 1181
+        y: 1418
+        width: 694
+        height: 932
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7463cb335ed1fb64ea2056c708e9d2e8
+      internalID: 2003025192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_16
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 1552
+        width: 859
+        height: 252
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0799684e858d08a48889ec5785993e3c
+      internalID: -927049448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_20
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 1225
+        width: 477
+        height: 273
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4232462b82eaa7d4a9db2ecf717f666a
+      internalID: -1895742647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_30
+      rect:
+        serializedVersion: 2
+        x: 2496
+        y: 577
+        width: 644
+        height: 148
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0efc37ced221d3843807f7663a2df6d1
+      internalID: 1988584257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_33
+      rect:
+        serializedVersion: 2
+        x: 3592
+        y: 617
+        width: 779
+        height: 37
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2088e61fc85f88b4c92660dc0c616438
+      internalID: 1958840794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_34
+      rect:
+        serializedVersion: 2
+        x: 4507
+        y: 609
+        width: 55
+        height: 53
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9da04d2789c6d3a45a31d161f2080b68
+      internalID: -2048304253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_35
+      rect:
+        serializedVersion: 2
+        x: 2496
+        y: 421
+        width: 644
+        height: 148
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0518fa7089ca2aa4a9292ea6a78d7b43
+      internalID: -741046864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_37
+      rect:
+        serializedVersion: 2
+        x: 2496
+        y: 265
+        width: 646
+        height: 151
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6305be5c9922b4244ae63d386aa0d69e
+      internalID: -1802363275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_38
+      rect:
+        serializedVersion: 2
+        x: 3594
+        y: 378
+        width: 774
+        height: 35
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 986913f9a23d387488417672be00ecdd
+      internalID: -1937664140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting Field dungeon_40
+      rect:
+        serializedVersion: 2
+        x: 3594
+        y: 182
+        width: 774
+        height: 35
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccf83222ff4355c4496fc1ea32568551
+      internalID: 1093827732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 8205ee4f9ea1b3c43924c3460f5bf200
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      setting Field dungeon_0: 95118190
+      setting Field dungeon_1: -2120215412
+      setting Field dungeon_10: -1743091469
+      setting Field dungeon_11: 829691187
+      setting Field dungeon_12: 1906777293
+      setting Field dungeon_13: 1480595788
+      setting Field dungeon_14: -268470021
+      setting Field dungeon_15: 2003025192
+      setting Field dungeon_16: -927049448
+      setting Field dungeon_17: -276687902
+      setting Field dungeon_18: -1739048427
+      setting Field dungeon_19: 584048022
+      setting Field dungeon_2: -1187475305
+      setting Field dungeon_20: -1895742647
+      setting Field dungeon_21: 2082996644
+      setting Field dungeon_22: -1023888363
+      setting Field dungeon_23: 1079445524
+      setting Field dungeon_24: 1537548588
+      setting Field dungeon_25: -1637602159
+      setting Field dungeon_26: 1767111324
+      setting Field dungeon_27: -844106468
+      setting Field dungeon_28: 1554787768
+      setting Field dungeon_29: 1523049674
+      setting Field dungeon_3: 1638348072
+      setting Field dungeon_30: 1988584257
+      setting Field dungeon_31: -1923954038
+      setting Field dungeon_32: 1275608905
+      setting Field dungeon_33: 1958840794
+      setting Field dungeon_34: -2048304253
+      setting Field dungeon_35: -741046864
+      setting Field dungeon_36: -1199495280
+      setting Field dungeon_37: -1802363275
+      setting Field dungeon_38: -1937664140
+      setting Field dungeon_39: 1345731590
+      setting Field dungeon_4: 1315381042
+      setting Field dungeon_40: 1093827732
+      setting Field dungeon_5: 1911036747
+      setting Field dungeon_6: 1896744085
+      setting Field dungeon_7: -1999519773
+      setting Field dungeon_8: 880306424
+      setting Field dungeon_9: 521877875
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
