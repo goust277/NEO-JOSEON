@@ -57,7 +57,7 @@ public class InGameManager : MonoBehaviour
         }
         else
         {
-           //w skillTxt.text = "";
+           // skillTxt.text = "";
         }
     }
 }

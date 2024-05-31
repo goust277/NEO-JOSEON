@@ -96,6 +96,8 @@ public class PlayerMove : MonoBehaviour
 
     [Header("튜토리얼")]
     public bool onTxt = false;
+
+    private bool wallcollision; // 벽과 마주침
     private void Awake()
     {
         skillCoolTime = skillCool;
@@ -104,6 +106,11 @@ public class PlayerMove : MonoBehaviour
         {
             _jump = false;
             _dash = false;
+            _skill = false;
+            _atk = false;
+        }
+        if (SceneManager.GetActiveScene().name == "tutorial _atk")
+        {
             _skill = false;
             _atk = false;
         }
@@ -125,6 +132,8 @@ public class PlayerMove : MonoBehaviour
         freeLookCamera = GameObject.FindGameObjectWithTag("FLCamera");
     }
 
+    public bool Ondie = false;
+
     void Update()
     {
         weapon.rate = rate;
@@ -135,6 +144,7 @@ public class PlayerMove : MonoBehaviour
 
 
         CheckGround();
+        WallCheck();
 
         if (!isGround)
         {
@@ -161,7 +171,7 @@ public class PlayerMove : MonoBehaviour
             skillCoolTime += Time.deltaTime;
         }
 
-        if (onTxt == false) 
+        if (onTxt == false && Ondie == false) 
         {
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
@@ -272,6 +282,10 @@ public class PlayerMove : MonoBehaviour
 
 
     }
+    private void WallCheck()
+    {
+        wallcollision = Physics.Raycast(transform.position + new Vector3(0, 1.0f, 0), transform.forward, 0.6f, LayerMask.GetMask("Plane"));
+    }
     void OnDrawGizmosSelected()
     {
         if (_groundCheck != null)
@@ -279,11 +293,6 @@ public class PlayerMove : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawCube(_groundCheck.position, groundCheckSize);
         }
-    }
-    private void ApplyCustomGravity()
-    {
-        Vector3 gravity = customGravityScale * Physics.gravity;
-        rb.AddForce(gravity, ForceMode.Acceleration);
     }
 
     public void TakeDamage()
@@ -323,9 +332,11 @@ public class PlayerMove : MonoBehaviour
                     animator.SetBool("Move", false);
                 }
             }
-            Vector3 horizontalVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
-            gameObject.transform.position += dir * speed * Time.deltaTime;
+            if (!wallcollision)
+                gameObject.transform.position += dir * speed * Time.deltaTime;
+
+            
 
         }
         Vector3 playerPosition = transform.position;
@@ -521,5 +532,18 @@ public class PlayerMove : MonoBehaviour
 
         }
     }
-}
 
+    public void ClearAtkTutorial()
+    {
+        if(tutorial == 0)
+        {
+            tutorial = 1;
+            _atk = true;
+        }
+        else if (tutorial == 1)
+        {
+            tutorial = 2;
+            _skill =  true;
+        }
+    }
+}

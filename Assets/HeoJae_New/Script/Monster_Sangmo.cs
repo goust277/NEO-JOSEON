@@ -190,8 +190,11 @@ public class Monster_Sangmo : NewEnemy
     }
 
 
+    private void OnDestroy()
+    {
+        stagemanager.smallNum++;
+    }
 
-    
 
 
 }

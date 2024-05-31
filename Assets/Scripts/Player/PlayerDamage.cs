@@ -77,9 +77,10 @@ public class PlayerDamage : MonoBehaviour
         }
         if(CurrentHp <= 0)
         {
+            hit.Ondie = true;
+            boxCollider.enabled = false;
+            rb.useGravity = false;
             Invoke("Die", 1.5f);
-                
-
         }
 
         
@@ -112,21 +113,18 @@ public class PlayerDamage : MonoBehaviour
         CMfl.GetRig(2).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = ShakeFrequency;
         isHit = true;
 
-        yield return new WaitForSecondsRealtime(0.1f);
+        yield return new WaitForSecondsRealtime(0.2f);
         CMfl.GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0;
         CMfl.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0;
         CMfl.GetRig(2).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0;
 
-        yield return new WaitForSecondsRealtime(0.3f);
+        yield return new WaitForSecondsRealtime(0.2f);
         isHit = false;
     }
 
     private void Die()
     {
-        if (boxCollider == null)
-            return;
-        boxCollider.enabled = false;
-        rb.useGravity = false;
+
         Color tempColor = dieImg.color;
 
         if (temp <= 2 )

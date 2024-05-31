@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -28,12 +29,25 @@ public class ClipBoard : MonoBehaviour
     [SerializeField] private GameObject wasd;
     [SerializeField] private GameObject space;
     [SerializeField] private GameObject shift;
+
+    [Header("¹®")]
+    [SerializeField] private GameObject[] door;
+
     private void Start()
     {
         data_Dialog = CSVReader.Read(csvName);
-        wasd.SetActive(false);
-        space.SetActive(false);
-        shift.SetActive(false);
+        if (wasd != null  )
+        {
+            wasd.SetActive(false);
+        }
+        if (space != null )
+        {
+            space.SetActive(false);
+        }
+        if (shift != null)
+        {
+            shift.SetActive(true);
+        }
 
 
     }
@@ -81,9 +95,9 @@ public class ClipBoard : MonoBehaviour
                 shift.SetActive(false);
         }
 
-        else if (SceneManager.GetActiveScene().name == "tutorial_atk")
+        if (SceneManager.GetActiveScene().name == "tutorial _atk")
         {
-            if (txtui.active == true && letter.active == false)
+            if (txtui.active == true)
             {
                 if (playerMove != null)
                 {
@@ -96,7 +110,7 @@ public class ClipBoard : MonoBehaviour
                 Debug.Log("d");
                 text.text = data_Dialog[id]["Content"].ToString();
 
-                if (id == 5 || id == 10 || id == 14)
+                if (id == 5 || id == 9 || id == 13)
                 {
                     if (playerMove != null)
                     {
@@ -104,14 +118,34 @@ public class ClipBoard : MonoBehaviour
                     }
                     txtui.SetActive(false);
                     playerMove.MouseOff();
-                    tuto.SpawnMonster();
+
+                    playerMove.ClearAtkTutorial();
+                    if(id == 5)
+                    {
+                        tuto.SpawnMonster();
+                    }
+                    if (id == 9)
+                    {
+                        tuto.SpawnMonster_2();
+                    }
+                    if (id == 13)
+                    {
+                        for (int i = 0; i < door.Length; i++) 
+                        {
+                            door[i].SetActive(false);
+                        }
+                    }
+                    
                 }
             }
             if (id == 5)
+            {
                 wasd.SetActive(true);
+            }
+                
             else
                 wasd.SetActive(false);
-            if (id == 10)
+            if (id == 9)
                 space.SetActive(true);
             else
                 space.SetActive(false);

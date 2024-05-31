@@ -34,10 +34,16 @@ public class StageButton : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Stage_Feild")
         {
             mainSetting.GetComponent<MainSetting>().Close();
+            freeLookCamera.SetActive(true);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         else
         {
             stageSetting.GetComponent<StageSetting>().Close();
+            freeLookCamera.SetActive(true);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 
@@ -52,8 +58,8 @@ public class StageButton : MonoBehaviour
         {
             UI.SetActive(false);
             freeLookCamera.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
             
 

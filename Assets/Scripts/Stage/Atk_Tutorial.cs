@@ -16,27 +16,39 @@ public class Atk_Tutorial : MonoBehaviour
 
     [Header("다른 참조")]
     [SerializeField] private ClipBoard clipBoard;
+    [SerializeField] private GameObject txts;
     [SerializeField] private Text txt;
 
+    private bool OnCheck = false;
     void Start()
     {
-        
+        stagemanager.bigNum = monsters_1.Length;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (OnCheck)
+        {
+            txts.SetActive(true);
+            txt.text = "(" + stagemanager.smallNum + "/" + stagemanager.bigNum + ")";
+        }
+        else
+            txts.SetActive(false);
+
         if(stagemanager.bigNum == stagemanager.smallNum)
         {
             clipBoard.Clear();
+            OnCheck = false;
+            stagemanager.smallNum = 0;
         }
 
     }
 
     public void SpawnMonster()
     {
+        OnCheck = true;
         stagemanager.bigNum = monsters_1.Length;
-        stagemanager.smallNum = 0;
         for (int i = 0; i < monsters_1.Length; i++) 
         {
             Instantiate(monsters_1[i], spawnPoint_1[i].position, Quaternion.identity);
@@ -44,8 +56,8 @@ public class Atk_Tutorial : MonoBehaviour
     }
     public void SpawnMonster_2()
     {
+        OnCheck = true;
         stagemanager.bigNum = monsters_2.Length;
-        stagemanager.smallNum = 0;
         for (int i = 0; i < monsters_2.Length; i++)
         {
             Instantiate(monsters_2[i], spawnPoint_2[i].position, Quaternion.identity);

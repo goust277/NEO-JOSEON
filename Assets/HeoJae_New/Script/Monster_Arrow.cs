@@ -114,6 +114,7 @@ public class Monster_Arrow : NewEnemy
     {
         if (!doDie)
         {
+           
             Debug.Log("데미지 입음");
 
             int tempDmgNum = damage * Random.Range(80, 120);
@@ -130,7 +131,7 @@ public class Monster_Arrow : NewEnemy
             dmgBox.text_dmgNum.text = tempDmgNum.ToString();
 
 
-
+            chargingParticle.SetActive(false);
             StopAllCoroutines();
             StartCoroutine(TakeDamage__());
         }
