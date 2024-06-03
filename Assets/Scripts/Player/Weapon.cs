@@ -2,12 +2,16 @@ using Cinemachine;
 using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.XR.WSA;
 
 public class Weapon : MonoBehaviour
 {
+    private GameObject player;
+
     [SerializeField] private CinemachineFreeLook CMfl;
     private CinemachineBasicMultiChannelPerlin ChannelPerlin;
 
@@ -25,11 +29,10 @@ public class Weapon : MonoBehaviour
     public int attackLv = 0;
 
     public int damage;
+    public float effectTime;
     public float rate;
 
     public bool isAtkTime;
-
-    public float effectTime;
     [SerializeField] private GameObject effect;
 
     [SerializeField] private GameObject atk1;
@@ -41,9 +44,9 @@ public class Weapon : MonoBehaviour
         if (CMfl != null)
         {
             ChannelPerlin = CMfl.GetComponent<CinemachineBasicMultiChannelPerlin>();
-   
         }
-            
+        player = GameObject.FindGameObjectWithTag("Player");
+
         BoxCollider = GetComponent<MeshCollider>();
         BoxCollider.enabled = false;
         atk1.SetActive(false);
@@ -136,6 +139,7 @@ public class Weapon : MonoBehaviour
     }
     private void Attack()
     {
+        StartCoroutine(MoveFor());
         isAtkTime = true;
         attackLv++;
     }
@@ -190,4 +194,11 @@ public class Weapon : MonoBehaviour
 
         Time.timeScale = 1f;
     }
+
+    IEnumerator MoveFor()
+    {
+        player.GetComponent<PlayerMove>().OnAtk(30);
+
+        yield return null;
+    }    
 }

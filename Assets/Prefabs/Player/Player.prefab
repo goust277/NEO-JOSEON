@@ -3195,7 +3195,7 @@ MonoBehaviour:
   dash: 12
   dashTime: 0.5
   dashDelay: 0
-  dashCoolTime: 2
+  dashCoolTime: 5
   rotspeed: 50
   maxspeed: 6
   jumpHeight: 5
@@ -3212,7 +3212,7 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 256
-  skillCool: 5
+  skillCool: 14
   skillCoolTime: 0
   main: 
   weapon: {fileID: 7245651778319247228}
@@ -3220,6 +3220,7 @@ MonoBehaviour:
   rate: 0.3
   effectTime: 0.4
   onTxt: 0
+  Ondie: 0
 --- !u!114 &9101710224750354171
 MonoBehaviour:
   m_ObjectHideFlags: 0

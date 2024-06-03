@@ -16868,8 +16868,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4401872cd9bbffb428215e579b8fb063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 600
-  currentHp: 600
+  maxHp: 1
+  currentHp: 1
   isChase: 1
   isAttack: 0
   doDie: 0

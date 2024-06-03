@@ -10,8 +10,10 @@ public class StageButton : MonoBehaviour
     private GameObject stageSetting;
     [SerializeField] private GameObject UI;
     private GameObject freeLookCamera;
+    private GameObject player;
     private void Awake()
     {
+        player = GameObject.Find("Player");
         mainSetting = GameObject.Find("Main_Setting");
         stageSetting = GameObject.Find("Stage_Setting");
         freeLookCamera = GameObject.FindGameObjectWithTag("FLCamera");
@@ -60,8 +62,24 @@ public class StageButton : MonoBehaviour
             freeLookCamera.SetActive(true);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-        }
-            
 
+            player.GetComponent<PlayerMove>().CloseSetting();
+        }
+    }
+
+    public void MainClose()
+    {
+        if (UI != null)
+        {
+            UI.SetActive(false);
+        }
+    }
+
+    public void MainOpen()
+    {
+        if (UI != null)
+        {
+            UI.SetActive(true);
+        }
     }
 }

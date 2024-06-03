@@ -1,10 +1,6 @@
-
-using Cinemachine;
 using System.Collections;
 using System.Runtime.InteropServices;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.LookDev;
 using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
@@ -98,6 +94,7 @@ public class PlayerMove : MonoBehaviour
     public bool onTxt = false;
 
     private bool wallcollision; // 벽과 마주침
+
     private void Awake()
     {
         skillCoolTime = skillCool;
@@ -134,6 +131,7 @@ public class PlayerMove : MonoBehaviour
 
     public bool Ondie = false;
 
+    [System.Obsolete]
     void Update()
     {
         weapon.rate = rate;
@@ -198,6 +196,8 @@ public class PlayerMove : MonoBehaviour
                     EndInteraction();
 
             }
+            if (currentInteractableObject == null && isInteracting)
+                EndInteraction();
             if (!isSetting && !playerDamge.isHit && !isInteracting)
             {
                 
@@ -356,8 +356,16 @@ public class PlayerMove : MonoBehaviour
         }
 
     }
+
+    public void OnAtk(float distance)
+    {
+        if (!wallcollision)
+            gameObject.transform.position += transform.forward * distance * Time.deltaTime;
+    }
     private void Jump()
     {
+        wallcollision = false;
+        rb.velocity = Vector3.zero;
         Vector3 jumpPower = Vector3.up * jumpHeight;
         rb.AddForce(jumpPower, ForceMode.VelocityChange);
         //rb.velocity = new Vector3(rb.velocity.x, jumpHeight, rb.velocity.z);
@@ -453,11 +461,14 @@ public class PlayerMove : MonoBehaviour
     }
 
     // 상호 작용 종료 함수
+    [System.Obsolete]
     private void EndInteraction()
     {
         MouseOff();
+        GameObject ch1 = GameObject.FindGameObjectWithTag("Chapter1");
+        if (ch1 != null && ch1.active)
+            ch1.SetActive(false);
         isInteracting = false;
-        currentInteractableObject.GetComponent<InteractableObject>().EndInteract();
     }
 
     private void StartSetting()
@@ -535,7 +546,7 @@ public class PlayerMove : MonoBehaviour
 
     public void ClearAtkTutorial()
     {
-        if(tutorial == 0)
+        if (tutorial == 0)
         {
             tutorial = 1;
             _atk = true;
@@ -543,7 +554,19 @@ public class PlayerMove : MonoBehaviour
         else if (tutorial == 1)
         {
             tutorial = 2;
-            _skill =  true;
+            _skill = true;
+        }
+    }
+
+    public void CloseSetting()
+    {
+        if (isSetting)
+        {
+            isSetting = false;
+        }
+        if (isInteracting)
+        {
+            isInteracting = false;
         }
     }
 }
