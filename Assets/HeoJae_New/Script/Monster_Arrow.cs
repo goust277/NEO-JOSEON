@@ -77,7 +77,7 @@ public class Monster_Arrow : NewEnemy
                 if (AttackChargeTime <= 0f)
                 {
                    
-                    AttackChargeTime = 4f;
+                    AttackChargeTime = 3f;
                     StartCoroutine(Attack());
                 }
             }
@@ -102,11 +102,12 @@ public class Monster_Arrow : NewEnemy
     public void ShotArrow()
     {
         GameObject newSlashObj = Instantiate(arrowObj, positionCreateArrow.position, Quaternion.identity);
-        newSlashObj.transform.rotation = transform.rotation;
+
+        Vector3 targetPosition = player.position + new Vector3(0, 2, 0);
+        Vector3 directionToPlayer = (targetPosition - positionCreateArrow.position).normalized;
+
+        newSlashObj.transform.rotation = Quaternion.LookRotation(directionToPlayer);
     }
-
-
-
 
 
 
@@ -155,7 +156,7 @@ public class Monster_Arrow : NewEnemy
             transform.rotation = rotation;
 
             bChargeStart = false;
-            AttackChargeTime = 3f;
+            AttackChargeTime = 2f;
         }
         yield return new WaitForSeconds(0f);
     }
@@ -217,5 +218,10 @@ public class Monster_Arrow : NewEnemy
             Quaternion rotation = Quaternion.LookRotation(direction);
             transform.rotation = rotation;
         }
+    }
+
+    private void OnDestroy()
+    {
+        stagemanager.smallNum++;
     }
 }

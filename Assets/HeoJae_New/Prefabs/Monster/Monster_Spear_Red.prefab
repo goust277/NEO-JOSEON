@@ -16780,7 +16780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e81ac3f34ffe21e408b3642f524ef934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fDamage: 4
+  fDamage: 5
   bIsCapter1Monster: 0
 --- !u!1 &294167435447522386
 GameObject:

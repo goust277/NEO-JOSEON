@@ -32,13 +32,6 @@ public class Heo_StageManager_1_1 : MonoBehaviour
             MonsterSpawn_1();
         }
 
-        //if (stagemanager.smallNum >= 3 && stagemanager.bigNum == 1)
-        //{
-        //    stagemanager.bigNum++;
-        //    stagemanager.smallNum = 0;
-        //    MonsterSpawn_2();
-        //}
-
         if(stagemanager.smallNum >= 3 && stagemanager.bigNum == 2)
         {
             stagemanager.bigNum++;
@@ -47,7 +40,7 @@ public class Heo_StageManager_1_1 : MonoBehaviour
         }
 
 
-        if (stagemanager.smallNum >= 2 && stagemanager.bigNum == 3)
+        if (stagemanager.smallNum >= 3 && stagemanager.bigNum == 3)
         {
             OpenNextStage();
         }
@@ -59,31 +52,26 @@ public class Heo_StageManager_1_1 : MonoBehaviour
         middleDoor_0.SetActive(true);
 
         Instantiate(MonsterBoomer, spawnPoint_1[0].position, Quaternion.identity);
+        Instantiate(MonsterBoomer, spawnPoint_1[1].position, Quaternion.identity);
         Instantiate(MonsterBoomer, spawnPoint_1[2].position, Quaternion.identity);
-        Instantiate(MonsterBoomer, spawnPoint_1[4].position, Quaternion.identity);
     }
 
 
     private void MonsterSpawn_1()
     {
-        Instantiate(MonsterBoomer, spawnPoint_1[1].position, Quaternion.identity);
-        Instantiate(MonsterJumper, spawnPoint_1[3].position, Quaternion.identity);
-        Instantiate(MonsterBoomer, spawnPoint_1[5].position, Quaternion.identity);
-    }
-
-    private void MonsterSpawn_2()
-    {
-        Instantiate(MonsterJumper, spawnPoint_1[0].position, Quaternion.identity);
-        Instantiate(MonsterBoomer, spawnPoint_1[2].position, Quaternion.identity);
+        Instantiate(MonsterBoomer, spawnPoint_1[3].position, Quaternion.identity);
         Instantiate(MonsterJumper, spawnPoint_1[4].position, Quaternion.identity);
+        Instantiate(MonsterJumper, spawnPoint_1[5].position, Quaternion.identity);
+        Instantiate(MonsterSpear, spawnPoint_1[0].position, Quaternion.identity);
     }
 
     public void MonsterSpawn_3()
     {
         middleDoor_1.SetActive(true);
 
-        Instantiate(MonsterJumper, spawnPoint_2[0].position, Quaternion.identity);
-        Instantiate(MonsterBoomer, spawnPoint_2[1].position, Quaternion.identity);
+        Instantiate(MonsterArrow, spawnPoint_2[0].position, Quaternion.identity);
+        Instantiate(MonsterSpear, spawnPoint_2[1].position, Quaternion.identity);
+        Instantiate(MonsterSpear, spawnPoint_2[2].position, Quaternion.identity);
     }
 
     private void OpenNextStage()

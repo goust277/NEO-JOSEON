@@ -10,7 +10,7 @@ public class Heo_CheckCollider_1_3_2 : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            stageManager.MonsterSpawn_2();
+            stageManager.MonsterSpawn_1();
             Destroy(gameObject);
         }
     }

@@ -17023,14 +17023,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90885d6cecb098f47a0034c3e4e77ee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 400
-  currentHp: 400
+  maxHp: 550
+  currentHp: 550
   isAttack: 0
   doDie: 0
   arrowObj: {fileID: 4847753934324028684, guid: ef23372c12e834746a48f54c7cf0186e,
     type: 3}
   positionCreateArrow: {fileID: 7231725677367668299}
-  AttackChargeTime: 4
+  AttackChargeTime: 3
   arrowSpeed: 0
   anim: {fileID: 2745261751564118486}
   collider: {fileID: 7231725677397806644}

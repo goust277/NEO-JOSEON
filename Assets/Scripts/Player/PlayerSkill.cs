@@ -74,7 +74,7 @@ public class PlayerSkill : MonoBehaviour
             NewEnemy enemy = collider.GetComponent<NewEnemy>();
             if (enemy != null)
             {
-                enemy.GetComponent<NewEnemy>().TakeDamage(1);
+                enemy.GetComponent<NewEnemy>().TakeDamage(2);
             }
         }
         foreach (Collider collider in hidCols)

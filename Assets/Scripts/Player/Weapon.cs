@@ -80,7 +80,8 @@ public class Weapon : MonoBehaviour
         {
             StopCoroutine(coroutine);
         }
- 
+
+        BoxCollider.enabled = false;
         isAtkTime = false;
         attackLv = 0;
     }
