@@ -127,7 +127,7 @@ public class Monster_Spear : NewEnemy
     {
         anim.SetTrigger("doAttack");
 
-        yield return new WaitForSeconds(0.55f);
+        yield return new WaitForSeconds(1.0f);
 
         attackParticle.Play();
         attackArea.SetActive(true);
@@ -228,6 +228,8 @@ public class Monster_Spear : NewEnemy
             dmgBox.text_dmgNum.text = tempDmgNum.ToString();
 
 
+
+            attackArea.SetActive(false);
             isChase = false;
 
             StopAllCoroutines();
@@ -258,7 +260,7 @@ public class Monster_Spear : NewEnemy
 
             isAttack = true;
             bChargeStart = false;
-            AttackChargeTime = 1.5f;
+            AttackChargeTime = 0.6f;
             bAttackAnim = false;
         }
 

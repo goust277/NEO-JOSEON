@@ -72,6 +72,7 @@ public class NewBoss1 : NewEnemy
     public GameObject[] DestroyRoad;
     public Image image_ClearPanel;
     public GameObject image_HpPanel;
+    public CapsuleCollider colliderMine;
 
     private int dashCnt;
 
@@ -157,7 +158,7 @@ public class NewBoss1 : NewEnemy
     // #. 랜덤 공격 실행 - 감지 실패
     public void RandomAttackSelect_Failed()
     {
-        int ranNum = Random.Range(0, 10);
+        int ranNum = Random.Range(6, 10);
         if (ranNum <= 2) Slash_1();
         else if (ranNum > 2 && ranNum <= 5) Slash_2();
         else if (ranNum > 5) Rush();
@@ -467,6 +468,8 @@ public class NewBoss1 : NewEnemy
         bIsRotate = false;
 
         yield return new WaitForSeconds(0.5f);
+        colliderMine.isTrigger = true;
+
         attackAreaRush.SetActive(true);
         particleDash.Play();
 
@@ -523,9 +526,10 @@ public class NewBoss1 : NewEnemy
                 Rush();
             }
         }
-        
-            
+        colliderMine.isTrigger = false;
+
         yield return new WaitForSeconds(1.0f);
+
         isAct = false;
         BossMoveStart();
         dashCnt = 0;
@@ -681,8 +685,6 @@ public class NewBoss1 : NewEnemy
         DestroyRoad[1].SetActive(false);
         DestroyRoad[2].SetActive(false);
     }
-
-
 
 
     // #. 공격 사정거리 감지

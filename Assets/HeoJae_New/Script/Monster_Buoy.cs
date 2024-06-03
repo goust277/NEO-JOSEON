@@ -158,4 +158,9 @@ public class Monster_Buoy : NewEnemy
         }
     }
 
+    private void OnDestroy()
+    {
+        stagemanager.smallNum++;
+    }
+
 }

@@ -18,9 +18,7 @@ public class SceneChangeNew : MonoBehaviour
             FadInOut.color = new Color(FadInOut.color.r, FadInOut.color.g, FadInOut.color.b, 1f);
             FadeOut(2f);
         }
-       
     }
-
 
     private void OnTriggerEnter(Collider other)
     {

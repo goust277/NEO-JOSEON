@@ -10,6 +10,8 @@ public class Heo_StageManager_1_1 : MonoBehaviour
     [Header("몬스터 종류")]
     public GameObject MonsterBoomer;
     public GameObject MonsterJumper;
+    public GameObject MonsterSpear;
+    public GameObject MonsterArrow;
 
     [Header("중간 문들")]
     public GameObject middleDoor_0;

@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterIndex: 0
   Monsters:
-  - {fileID: 3600458928466304764, guid: b7c80b067def5204c839b53b98fac175, type: 3}
+  - {fileID: 3600458928466304764, guid: a2b50e9edf9b21a4caf8c663127b3df7, type: 3}
   - {fileID: 7231725677397806646, guid: e9e093be3653e244680ab0f2ee42659a, type: 3}
   particleFlash: {fileID: 6214306282666171856}
 --- !u!1001 &2311185273226179772

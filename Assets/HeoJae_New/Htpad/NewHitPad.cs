@@ -11,7 +11,7 @@ public class NewHitPad : MonoBehaviour
     public ParticleSystem fireCylinderParticle;
     public GameObject AttackArea;
 
-    Renderer renderer;
+    private new Renderer renderer;
 
     void Start()
     {

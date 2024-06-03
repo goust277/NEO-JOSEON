@@ -11,6 +11,7 @@ TagManager:
   - FLCamera
   - HitPad
   - HpBar
+  - Chapter1
   layers:
   - Default
   - TransparentFX

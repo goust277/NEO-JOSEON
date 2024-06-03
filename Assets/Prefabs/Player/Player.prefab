@@ -3191,11 +3191,11 @@ MonoBehaviour:
   _groundCheck: {fileID: 3182855847024637933}
   wallCheckSize: {x: 0.5, y: 0.5, z: 0.5}
   wallCheckDistance: 0.5
-  speed: 5
+  speed: 6
   dash: 12
   dashTime: 0.5
   dashDelay: 0
-  dashCoolTime: 2
+  dashCoolTime: 5
   rotspeed: 50
   maxspeed: 6
   jumpHeight: 5
@@ -3212,7 +3212,7 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 256
-  skillCool: 5
+  skillCool: 14
   skillCoolTime: 0
   main: 
   weapon: {fileID: 7245651778319247228}
@@ -3220,6 +3220,7 @@ MonoBehaviour:
   rate: 0.3
   effectTime: 0.4
   onTxt: 0
+  Ondie: 0
 --- !u!114 &9101710224750354171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3259,6 +3260,9 @@ MonoBehaviour:
   isHit: 0
   CMfl: {fileID: 0}
   ShakeFrequency: 0.4
+  die: {fileID: 0}
+  diePanel: {fileID: 0}
+  temp: 0
 --- !u!95 &9101710224750354169
 Animator:
   serializedVersion: 5
@@ -3288,9 +3292,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9101710224750354174}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 100
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.01
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -3307,7 +3311,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 1.6, z: 0.3}
+  m_Size: {x: 0.5, y: 1.6, z: 0.54}
   m_Center: {x: -0.03, y: 0.8, z: -0.05}
 --- !u!1001 &627909709472147479
 PrefabInstance:

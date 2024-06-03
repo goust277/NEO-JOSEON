@@ -126,76 +126,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: start scean_1
-      rect:
-        serializedVersion: 2
-        x: 1084
-        y: 856
-        width: 50
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 47a676bdec3db2c4c9a24197c30fd3db
-      internalID: 654718874
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: start scean_13
-      rect:
-        serializedVersion: 2
-        x: 1877
-        y: 210
-        width: 273
-        height: 628
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9ad0c80eec5a2be4b81afc9ca87a3e30
-      internalID: -476830578
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: start scean_16
-      rect:
-        serializedVersion: 2
-        x: 1105
-        y: 606
-        width: 653
-        height: 154
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9c05922bda71dc446a573f347f6c3231
-      internalID: -908856335
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: start scean_19
       rect:
         serializedVersion: 2
-        x: 1105
-        y: 428
-        width: 652
-        height: 156
+        x: 1110
+        y: 433
+        width: 647
+        height: 145
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -210,7 +147,133 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: start scean_22
+      name: start scean_2
+      rect:
+        serializedVersion: 2
+        x: 1084
+        y: 856
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5907d5ad9d03f6540878ed9b040475e0
+      internalID: -1622261705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: start scean_3
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 671
+        width: 686
+        height: 183
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6cf3b14c16f86243a9c69edd5cc7ba9
+      internalID: 1823211481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: start scean_9
+      rect:
+        serializedVersion: 2
+        x: 1877
+        y: 210
+        width: 273
+        height: 627
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd7a3eec9426cf14cb9d5674c199e3f3
+      internalID: -582513934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: start scean_12
+      rect:
+        serializedVersion: 2
+        x: 1105
+        y: 614
+        width: 647
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bcd33b2ee48f2d4f9f64184ef79293c
+      internalID: -1985144609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: start scean_15
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 463
+        width: 684
+        height: 182
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd497abd6860b4c47b5bfeca958a956b
+      internalID: 891908308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: start scean_21
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 239
+        width: 687
+        height: 186
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c0ffd45199e07b47b523bf6bd9eda91
+      internalID: -1900444230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: start scean_23
       rect:
         serializedVersion: 2
         x: 1104
@@ -224,28 +287,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11cf90d56e8137f4f813d473c3673503
-      internalID: -911663732
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: start scean_23
-      rect:
-        serializedVersion: 2
-        x: 1209
-        y: 401
-        width: 430
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cc6d9eecafca81945b0b26a8ee4d8c44
+      spriteID: af55666495b97eb4a806d587cb408740
       internalID: -1152728463
       vertices: []
       indices: 
@@ -282,7 +324,6 @@ TextureImporter:
       start scean_24: 1400723712
       start scean_25: -1770141443
       start scean_26: 129102525
-      start scean_27: -609066646
       start scean_3: 1823211481
       start scean_4: -286317030
       start scean_5: 1593016217
