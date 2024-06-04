@@ -168,7 +168,7 @@ Material:
     - _DissolveSpeed: {r: 0.1, g: 0.1, b: 0, a: 0}
     - _DistortionPower: {r: 0, g: 0, b: 0, a: 0}
     - _DistortionSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissionColor: {r: 0.72804487, g: 2.1781044, b: 2.5283015, a: 1}
+    - _EmissionColor: {r: 3.375481, g: 3.375481, b: 3.375481, a: 1}
     - _MainTex_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Noise_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}

@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Stage_Feild.unity
     guid: 5c031900ecf744e4597f422da0ec92d5
   - enabled: 1
+    path: Assets/HeoJae_New/Stage_Felid_New.unity
+    guid: 0149c33e475e89e4ca552e33d5a309b6
+  - enabled: 1
     path: Assets/HeoJae_New/Stage1_1_New.unity
     guid: de39ac0ffc8a0b047a1ac078c3a767fd
   - enabled: 1
@@ -32,7 +35,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/hyeonmin/Tutorial/tutorial _atk.unity
     guid: 12d83c1fc5167394e9cb1d44f1faaa62
-  - enabled: 1
-    path: Assets/HeoJae_New/Stage_Felid_New.unity
-    guid: 0149c33e475e89e4ca552e33d5a309b6
   m_configObjects: {}

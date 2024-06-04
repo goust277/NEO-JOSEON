@@ -17027,7 +17027,7 @@ MonoBehaviour:
   currentHp: 400
   isAttack: 0
   doDie: 0
-  arrowObj: {fileID: 4847753934324028684, guid: ef23372c12e834746a48f54c7cf0186e,
+  arrowObj: {fileID: 3375247022332767942, guid: 4d41d975cde75904cac0e7d0eb7a2cb5,
     type: 3}
   positionCreateArrow: {fileID: 7231725677367668299}
   AttackChargeTime: 3
@@ -17036,7 +17036,7 @@ MonoBehaviour:
   collider: {fileID: 7231725677397806644}
   white: {fileID: 2100000, guid: edb55a182dd31f24c846351164b1fe2b, type: 2}
   black: {fileID: 2100000, guid: 1a3911706c70f574ab7741441abc5e39, type: 2}
-  destroyParticle: {fileID: 757776380982333125, guid: 9cbfaaf5ad6119e4087929e796ad9066,
+  destroyParticle: {fileID: 220974788809710040, guid: 9a2c08dd962b4314f960bc0698ea55b1,
     type: 3}
   chargingParticle: {fileID: 2486089263703749776}
   HpBar: {fileID: 5109273740966518931}

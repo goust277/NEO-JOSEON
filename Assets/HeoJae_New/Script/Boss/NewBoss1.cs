@@ -188,7 +188,7 @@ public class NewBoss1 : NewEnemy
         yield return new WaitForSeconds(0.2f);
         particleAttack1.Stop();
         attackArea1.SetActive(false);
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.5f);
         isAct = false;
         BossMoveStart();
     }
@@ -220,7 +220,7 @@ public class NewBoss1 : NewEnemy
         yield return new WaitForSeconds(0.1f);
         particleAttack2.Stop();
         attackArea2.SetActive(false);
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(2.3f);
         isAct = false;
         BossMoveStart();
     }
@@ -246,7 +246,7 @@ public class NewBoss1 : NewEnemy
         yield return new WaitForSeconds(0.2f);
         particleAttack3.Stop();
         attackArea3.SetActive(false);
-        yield return new WaitForSeconds(1.6f);
+        yield return new WaitForSeconds(2.1f);
         isAct = false;
         BossMoveStart();
     }
@@ -387,7 +387,7 @@ public class NewBoss1 : NewEnemy
         Vector3 spawnPosition = transform.position + transform.forward * 1.5f;
         GameObject newSlashObj = Instantiate(slashObj1, spawnPosition, Quaternion.identity);
         newSlashObj.transform.rotation = transform.rotation;
-        yield return new WaitForSeconds(1.7f);
+        yield return new WaitForSeconds(2.1f);
         isAct = false;
         BossMoveStart();
     }
@@ -433,7 +433,7 @@ public class NewBoss1 : NewEnemy
             GameObject newSlashObj = Instantiate(slashObj2, spawnPositions[i], rotations[i]);
         }
 
-        yield return new WaitForSeconds(1.7f);
+        yield return new WaitForSeconds(2.2f);
         isAct = false;
         BossMoveStart();
     }
@@ -449,17 +449,17 @@ public class NewBoss1 : NewEnemy
         {
             isAct = true;
             if (nowCoroutine != null) StopCoroutine(nowCoroutine);
-            StartCoroutine(Rush__());
+            StartCoroutine(Rush_());
         }
     }
-    IEnumerator Rush__()
+    IEnumerator Rush_()
     {
-        float dashSpeed = 30f;
+        float dashSpeed = 20f;
         float dashDuration = 0.7f;
 
         yield return new WaitForSeconds(0.2f);
         bIsRotate = true;
-        nav.speed = 0; // 보스 일시 정지
+        nav.speed = 0;
         rotationSpeed = 1000;
         anim.SetBool("isWalk", false);
 
@@ -473,6 +473,9 @@ public class NewBoss1 : NewEnemy
         attackAreaRush.SetActive(true);
         particleDash.Play();
 
+        Vector3 targetVec = player.transform.position - transform.position;
+        Vector3 _targetVec = targetVec.normalized;
+
         float elapsedTime = 0f;
         bool bbAnim = false;
 
@@ -480,10 +483,10 @@ public class NewBoss1 : NewEnemy
         {
             elapsedTime += Time.deltaTime;
 
-            if(elapsedTime >= 0.7f && !bbAnim)
+            if (elapsedTime >= 0.7f && !bbAnim)
             {
                 bbAnim = true;
-                anim.SetTrigger("Dash_End"); 
+                anim.SetTrigger("Dash_End");
             }
 
             if (Physics.Raycast(transform.position, transform.forward * 2, out RaycastHit hit, dashSpeed * Time.deltaTime))
@@ -492,40 +495,21 @@ public class NewBoss1 : NewEnemy
                 {
                     bbAnim = true;
                     anim.SetTrigger("Dash_End");
-                    break; 
+                    nav.velocity = transform.forward * dashSpeed;
+                    break;
                 }
             }
 
-            nav.velocity = transform.forward * dashSpeed;
+            nav.velocity = _targetVec * dashSpeed;
 
             yield return null;
         }
 
         particleDash.Stop();
         attackAreaRush.SetActive(false);
-         
-        nav.velocity = Vector3.zero; // 돌진 종료 후 속도 초기화
 
-        if(!bPhase2)
-        {
-            if (dashCnt < 1)
-            {
-                isAct = false;
-                dashCnt++;
-                StopAllCoroutines();
-                Rush();
-            } 
-        }
-        else if(bPhase2)
-        {
-            if(dashCnt < 2)
-            {
-                isAct = false;
-                dashCnt++;
-                StopAllCoroutines();
-                Rush();
-            }
-        }
+        nav.velocity = Vector3.zero;
+
         colliderMine.isTrigger = false;
 
         yield return new WaitForSeconds(1.0f);

@@ -80,7 +80,7 @@ public class PlayerDamage : MonoBehaviour
             hit.Ondie = true;
             boxCollider.enabled = false;
             rb.useGravity = false;
-            Invoke("Die", 1.5f);
+            Invoke("Die", 2f);
         }
 
         
@@ -127,14 +127,14 @@ public class PlayerDamage : MonoBehaviour
 
         Color tempColor = dieImg.color;
 
-        if (temp <= 2 )
+        if (temp <= 3 )
         {
             temp += Time.deltaTime;
             tempColor.a = temp;
 
             dieImg.color = tempColor;
         }
-        else if (temp >= 2)
+        else if (temp >= 3)
         {
             diePanel.SetActive(true);
             Time.timeScale = 0f;

@@ -77,7 +77,7 @@ Material:
     - _QueueOffset: 0
     - _Smooth_Dissolve: 1
     m_Colors:
-    - _Color: {r: 0, g: 0.7096145, b: 1.4431484, a: 1}
+    - _Color: {r: 1.9267164, g: 1.9267164, b: 1.9267164, a: 1}
     - _DissolveSpeed: {r: -0.4, g: 0.4, b: 0, a: 0}
     - _DistortionPower: {r: 0.3, g: 2, b: 0, a: 0}
     - _DistortionSpeed: {r: -0.4, g: -0.4, b: 0, a: 0}

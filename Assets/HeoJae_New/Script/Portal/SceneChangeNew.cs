@@ -20,6 +20,18 @@ public class SceneChangeNew : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (FadInOut.color.a == 0f)
+        {
+            FadInOut.gameObject.SetActive(false);
+        }
+        else
+        {
+            FadInOut.gameObject.SetActive(true);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))

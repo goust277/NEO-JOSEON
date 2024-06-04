@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Boss1_AttackArea : MonoBehaviour
 {
-    private bool bIsUse = false;
     public float fDamage;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !bIsUse)
+        if (other.CompareTag("Player"))
         {
-            bIsUse = true;
-            other.gameObject.GetComponent<PlayerDamage>().TakeDamage();
+            other.gameObject.GetComponent<PlayerDamage>().TakeDamage(fDamage);
             return;
         }
         if (other.CompareTag("HitPad"))
