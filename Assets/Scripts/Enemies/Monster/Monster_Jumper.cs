@@ -134,6 +134,8 @@ public class Monster_Jumper : NewEnemy
     }
     IEnumerator JumpCoroutine(float jumpHeight, float jumpDuration)
     {
+        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+
         anim.SetTrigger("doJump");
         rb.isKinematic = false;
         yield return new WaitForSeconds(0.3f);

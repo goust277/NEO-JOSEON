@@ -113,4 +113,4 @@ MonoBehaviour:
   particleFire: {fileID: 2268260936331114756, guid: d230960d83bdd2644b224a0a43b1949f,
     type: 3}
   direcNum: 0
-  moveSpeed: 10
+  moveSpeed: 15

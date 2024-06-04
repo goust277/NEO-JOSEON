@@ -3191,7 +3191,7 @@ MonoBehaviour:
   _groundCheck: {fileID: 3182855847024637933}
   wallCheckSize: {x: 0.5, y: 0.5, z: 0.5}
   wallCheckDistance: 0.5
-  speed: 6
+  speed: 5
   dash: 12
   dashTime: 0.5
   dashDelay: 0
@@ -3254,7 +3254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cb0b1e1da3ef0547bf0c7849f4d29cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 10
+  MaxHp: 30
   CurrentHp: 0
   hitDelay: 1
   isHit: 0
@@ -3444,9 +3444,9 @@ MonoBehaviour:
   type: 0
   attackLv: 0
   damage: 0
+  effectTime: 0
   rate: 0
   isAtkTime: 0
-  effectTime: 0
   effect: {fileID: 5376103415881461882, guid: 3f39bf906f8c2e14a812bf4203f6a13e, type: 3}
   atk1: {fileID: 7725845861112012816}
   atk2: {fileID: 646066683730522958}

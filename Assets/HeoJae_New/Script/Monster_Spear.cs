@@ -70,8 +70,9 @@ public class Monster_Spear : NewEnemy
 
             if (!isChase)
             {
+                anim.SetBool("isWalk", false);
                 FixPosition(transform.position);
-                nav.isStopped = true; 
+                nav.isStopped = true;
                 nav.speed = 0;
                 nav.angularSpeed = 0;
                 FreezeMonster();
@@ -82,6 +83,7 @@ public class Monster_Spear : NewEnemy
                 nav.isStopped = false;
                 nav.speed = 2f;
                 nav.angularSpeed = 120;
+                bAttackAnim = false;
             }
 
             if (CheckTargetInRange())
@@ -93,8 +95,7 @@ public class Monster_Spear : NewEnemy
             {
                 if (bChargeStart)
                 {
-                    anim.SetBool("isWalk", false);
-                    AttackChargeTime -= Time.deltaTime; 
+                    AttackChargeTime -= Time.deltaTime;
                     if (!bAttackAnim)
                     {
                         bAttackAnim = true;
@@ -112,6 +113,7 @@ public class Monster_Spear : NewEnemy
             }
         }
     }
+
 
     bool CheckTargetInRange()
     {
@@ -139,7 +141,7 @@ public class Monster_Spear : NewEnemy
         yield return new WaitForSeconds(0.65f);
         attackParticle.Stop();
         FreezeMonster();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.3f);
 
         if (!doDie)
         {

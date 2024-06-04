@@ -4813,7 +4813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e81ac3f34ffe21e408b3642f524ef934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fDamage: 3
+  fDamage: 6
   bIsCapter1Monster: 0
 --- !u!114 &4847753934324028674
 MonoBehaviour:
@@ -4840,7 +4840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a334e55d4f5654ab22f1bc514f381d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 18
 --- !u!1 &4847753934624729555
 GameObject:
   m_ObjectHideFlags: 0

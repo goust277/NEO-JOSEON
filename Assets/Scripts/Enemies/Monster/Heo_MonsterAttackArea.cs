@@ -11,7 +11,7 @@ public class Heo_MonsterAttackArea : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PlayerDamage>().TakeDamage();
+            other.gameObject.GetComponent<PlayerDamage>().TakeDamage(fDamage);
             return;
         }
         else if(other.CompareTag("HitPad") && bIsCapter1Monster)

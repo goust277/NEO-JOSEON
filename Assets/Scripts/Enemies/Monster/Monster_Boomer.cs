@@ -78,10 +78,10 @@ public class Monster_Boomer : NewEnemy
         if (!doDie)
         {
             nav.SetDestination(player.position);
-            
 
             if (!isChase)
             {
+                anim.SetBool("isWalk", false);
                 FixPosition(transform.position);
                 nav.isStopped = true; // NavMeshAgent 멈춤
                 nav.speed = 0;
@@ -91,9 +91,10 @@ public class Monster_Boomer : NewEnemy
             else
             {
                 anim.SetBool("isWalk", true);
-                nav.isStopped = false; 
-                nav.speed = 3f;
+                nav.isStopped = false;
+                nav.speed = 4f;
                 nav.angularSpeed = 1200;
+                bAttackAnim = false;
             }
 
             // 타겟팅 및 공격
@@ -108,16 +109,18 @@ public class Monster_Boomer : NewEnemy
                 {
                     // bChargeStart가 true일 때에만 시간을 세도록 조건 추가
                     AttackChargeTime -= Time.deltaTime; // AttackChargeTime을 시간의 흐름에 따라 감소
+
                     if (!bAttackAnim)
                     {
+                        Debug.Log("애니메이션 작동");
                         bAttackAnim = true;
                         anim.SetTrigger("doAttack");
                     }
-                   
+
                     if (AttackChargeTime <= 0f)
                     {
                         bChargeStart = false;
-                        AttackChargeTime = 1.5f;
+                        AttackChargeTime = 1.0f;
                         StartCoroutine(Attack());
                     }
                 }
@@ -137,11 +140,10 @@ public class Monster_Boomer : NewEnemy
 
     IEnumerator Attack()
     {
-        anim.SetBool("isWalk", false);
         attackParticle.Play();
         GameObject newAttackArea = Instantiate(attackArea, gameObject.transform.position, Quaternion.identity);
         Transform newAttackAreaTransform = newAttackArea.transform;
-        newAttackAreaTransform.localScale = new Vector3(4.5f, 4.5f, 4.5f); 
+        newAttackAreaTransform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
 
         isAttack = true;
 
@@ -178,7 +180,7 @@ public class Monster_Boomer : NewEnemy
         HpBar.SetActive(false);
 
         bChargeStart = false;
-        AttackChargeTime = 1.5f;
+        AttackChargeTime = 1f;
 
         collider.enabled = false;
         isChase = false;
@@ -263,11 +265,11 @@ public class Monster_Boomer : NewEnemy
 
             isAttack = true;
             bChargeStart = false;
-            AttackChargeTime = 1.5f;
+            AttackChargeTime = 1f;
             bAttackAnim = false;
         }
 
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(0.8f);
 
         isChase = true;
         isAttack = false;

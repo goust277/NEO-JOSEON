@@ -480,7 +480,7 @@ public class NewBoss1 : NewEnemy
         {
             elapsedTime += Time.deltaTime;
 
-            if(elapsedTime >= 0.5f && !bbAnim)
+            if(elapsedTime >= 0.7f && !bbAnim)
             {
                 bbAnim = true;
                 anim.SetTrigger("Dash_End"); 

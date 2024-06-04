@@ -17030,7 +17030,7 @@ MonoBehaviour:
   arrowObj: {fileID: 4847753934324028684, guid: ef23372c12e834746a48f54c7cf0186e,
     type: 3}
   positionCreateArrow: {fileID: 7231725677367668299}
-  AttackChargeTime: 4
+  AttackChargeTime: 3
   arrowSpeed: 0
   anim: {fileID: 2745261751564118486}
   collider: {fileID: 7231725677397806644}
