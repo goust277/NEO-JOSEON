@@ -32,7 +32,7 @@ public class Heo_StageManager_1_1 : MonoBehaviour
             MonsterSpawn_1();
         }
 
-        if(stagemanager.smallNum >= 3 && stagemanager.bigNum == 2)
+        if(stagemanager.smallNum >= 4 && stagemanager.bigNum == 2)
         {
             stagemanager.bigNum++;
             stagemanager.smallNum = 0;

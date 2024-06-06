@@ -51,11 +51,11 @@ public class Heo_StageManager_2_1 : MonoBehaviour
             WaterRotate_2();
         }
 
-       
+
 
         // #. 몬스터 스폰 관련
 
-        if (stagemanager.smallNum >= 2 && stagemanager.bigNum == 0)
+        if (stagemanager.smallNum >= 6 && stagemanager.bigNum == 0)
         {
             stagemanager.bigNum++;
             stagemanager.smallNum = 0;
@@ -63,13 +63,13 @@ public class Heo_StageManager_2_1 : MonoBehaviour
             StartCoroutine(Stage1Clear());
         }
 
-        if (stagemanager.smallNum >= 2 && stagemanager.bigNum == 1)
+        if (stagemanager.smallNum >= 5 && stagemanager.bigNum == 1)
         {
             stagemanager.bigNum++;
             stagemanager.smallNum = 0;
 
             StartCoroutine(Stage2Clear());
-           
+
         }
 
 
@@ -82,8 +82,12 @@ public class Heo_StageManager_2_1 : MonoBehaviour
         StartRising(-8.87f, Water_1);
 
         Instantiate(MonsterBuoy, spawnPoint_1[0].position, Quaternion.identity);
-        Instantiate(MonsterSangmo, spawnPoint_1[1].position, Quaternion.identity);
-       
+        Instantiate(MonsterBuoy, spawnPoint_1[1].position, Quaternion.identity);
+        Instantiate(MonsterBuoy, spawnPoint_1[2].position, Quaternion.identity);
+        Instantiate(MonsterBuoy, spawnPoint_1[3].position, Quaternion.identity);
+        Instantiate(MonsterBow, spawnPoint_1[4].position, Quaternion.identity);
+        Instantiate(MonsterBow, spawnPoint_1[5].position, Quaternion.identity);
+
     }
 
     public void MonsterSpawn_1()
@@ -94,8 +98,11 @@ public class Heo_StageManager_2_1 : MonoBehaviour
 
         middleDoor_1.SetActive(true);
 
-        Instantiate(MonsterBuoy, spawnPoint_2[0].position, Quaternion.identity);
+        Instantiate(MonsterSangmo, spawnPoint_2[0].position, Quaternion.identity);
         Instantiate(MonsterSangmo, spawnPoint_2[1].position, Quaternion.identity);
+        Instantiate(MonsterSangmo, spawnPoint_2[2].position, Quaternion.identity);
+        Instantiate(MonsterBow, spawnPoint_2[3].position, Quaternion.identity);
+        Instantiate(MonsterBow, spawnPoint_2[4].position, Quaternion.identity);
     }
 
 
@@ -105,7 +112,7 @@ public class Heo_StageManager_2_1 : MonoBehaviour
 
         switch (state)
         {
-            
+
             case 0: // 왼쪽 회전
                 waterScript_1.bIsTurn = false;
                 waterScript_1.waveType = 0;
@@ -251,11 +258,6 @@ public class Heo_StageManager_2_1 : MonoBehaviour
 
         OpenNextStage();
     }
-
-
-
-
-
     private void OpenNextStage()
     {
         middleDoor_2.SetActive(false);

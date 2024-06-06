@@ -1,0 +1,185 @@
+fileFormatVersion: 2
+guid: 182e610d175dbcc479434841135483af
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: setting_Field_dungeon2 1_12
+      rect:
+        serializedVersion: 2
+        x: 2120
+        y: 1061
+        width: 2555
+        height: 1452
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a04f22d8168535342b38f6d0418d9dfe
+      internalID: 1106504869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: d8d0c93a502edf64fb647f5c1b2d4f57
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      setting_Field_dungeon2 1_0: 1014652224
+      setting_Field_dungeon2 1_1: -211776475
+      setting_Field_dungeon2 1_10: -1325102900
+      setting_Field_dungeon2 1_11: -630374813
+      setting_Field_dungeon2 1_12: 1106504869
+      setting_Field_dungeon2 1_13: -1983969929
+      setting_Field_dungeon2 1_14: -1754938902
+      setting_Field_dungeon2 1_15: 807541260
+      setting_Field_dungeon2 1_16: -1180728877
+      setting_Field_dungeon2 1_17: -2131362301
+      setting_Field_dungeon2 1_18: 1512349793
+      setting_Field_dungeon2 1_19: -189877721
+      setting_Field_dungeon2 1_2: 1717527122
+      setting_Field_dungeon2 1_20: -429271661
+      setting_Field_dungeon2 1_21: -1899005316
+      setting_Field_dungeon2 1_22: 1657824628
+      setting_Field_dungeon2 1_23: -1803835875
+      setting_Field_dungeon2 1_24: 549017485
+      setting_Field_dungeon2 1_25: 2025804174
+      setting_Field_dungeon2 1_26: 422920140
+      setting_Field_dungeon2 1_27: -1785663581
+      setting_Field_dungeon2 1_28: 1875393624
+      setting_Field_dungeon2 1_29: 1462409697
+      setting_Field_dungeon2 1_3: 1605616123
+      setting_Field_dungeon2 1_30: -645248059
+      setting_Field_dungeon2 1_31: 251395076
+      setting_Field_dungeon2 1_32: -584080484
+      setting_Field_dungeon2 1_33: -836755277
+      setting_Field_dungeon2 1_34: 2121028270
+      setting_Field_dungeon2 1_35: -34507264
+      setting_Field_dungeon2 1_36: -1153315459
+      setting_Field_dungeon2 1_37: -1107054524
+      setting_Field_dungeon2 1_38: 493017064
+      setting_Field_dungeon2 1_39: -1416889479
+      setting_Field_dungeon2 1_4: -751855175
+      setting_Field_dungeon2 1_40: -2057547762
+      setting_Field_dungeon2 1_5: 107595577
+      setting_Field_dungeon2 1_6: -737688043
+      setting_Field_dungeon2 1_7: -1495874672
+      setting_Field_dungeon2 1_8: 1162023399
+      setting_Field_dungeon2 1_9: 907966103
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

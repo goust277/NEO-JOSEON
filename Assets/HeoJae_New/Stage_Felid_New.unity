@@ -8540,6 +8540,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4906554721830885386, guid: 5ee179647be9f7a4dacb1f70d6c8e26b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1eff1a6b77409c043ba858598923defc, type: 2}
     - target: {fileID: 5151811558355877919, guid: 5ee179647be9f7a4dacb1f70d6c8e26b,
         type: 3}
       propertyPath: m_Layer

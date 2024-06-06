@@ -3282,7 +3282,7 @@ MonoBehaviour:
   dashCoolTime: 5
   rotspeed: 50
   maxspeed: 6
-  jumpHeight: 5
+  jumpHeight: 6
   customGravityScale: 2
   interactionRange: 3
   currentInteractableObject: {fileID: 0}

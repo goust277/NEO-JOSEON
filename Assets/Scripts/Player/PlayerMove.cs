@@ -40,7 +40,6 @@ public class PlayerMove : MonoBehaviour
     public float rotspeed;
     public float maxspeed;
     public float jumpHeight;
-    [SerializeField] private float customGravityScale = 2.0f;
 
     [SerializeField] private float interactionRange = 3.0f;
     [SerializeField] private GameObject currentInteractableObject;
