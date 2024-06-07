@@ -2262,6 +2262,7 @@ GameObject:
   - component: {fileID: 1159664063}
   - component: {fileID: 1159664062}
   - component: {fileID: 1159664061}
+  - component: {fileID: 1159664066}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -2362,6 +2363,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1159664066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159664060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fbfd7e9b6746b64ba9fa66597a98929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1165035067
 GameObject:
   m_ObjectHideFlags: 0
@@ -3841,7 +3854,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1906777293, guid: dbb3039a88f0178489203e68593ad45c, type: 3}
+  m_Sprite: {fileID: -1063557465, guid: ff3bb27939659d440aab46f4f7111f91, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3876,7 +3889,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 972, y: 547}
-  m_SizeDelta: {x: 2555, y: 1436.2542}
+  m_SizeDelta: {x: 2555, y: 1459.2582}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &292917523439815163
 CanvasRenderer:

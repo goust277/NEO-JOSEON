@@ -36,6 +36,7 @@ public class SceneChangeNew : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
+            other.GetComponent<PlayerMove>().onTxt = true;
             FadeIn(2f);
         }
     }

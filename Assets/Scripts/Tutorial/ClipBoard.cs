@@ -33,6 +33,7 @@ public class ClipBoard : MonoBehaviour
     [Header("¹®")]
     [SerializeField] private GameObject[] door;
 
+    private bool closeletter = false;
     private void Start()
     {
         data_Dialog = CSVReader.Read(csvName);
@@ -57,7 +58,16 @@ public class ClipBoard : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "tutorial")
         {
-            if (txtui.active == true && letter.active == false)
+            if (letter.active)
+            {
+                playerMove.onTxt = true;
+            }
+            else if (letter.active == false && closeletter == false)
+            {
+                txtui.SetActive(true);
+                closeletter = false;
+            }
+            if (txtui.active == true )
             {
                 if (playerMove != null)
                 {
@@ -65,7 +75,12 @@ public class ClipBoard : MonoBehaviour
                 }
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    id++;
+                    if (id == 10 || id == 14 || id == 17)
+                    {
+
+                    }
+                    else
+                        id++;
                 }
                 Debug.Log("d");
                 text.text = data_Dialog[id]["Content"].ToString();

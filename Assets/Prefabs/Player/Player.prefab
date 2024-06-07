@@ -3283,7 +3283,6 @@ MonoBehaviour:
   rotspeed: 50
   maxspeed: 6
   jumpHeight: 6
-  customGravityScale: 2
   interactionRange: 3
   currentInteractableObject: {fileID: 0}
   cam: {fileID: 0}

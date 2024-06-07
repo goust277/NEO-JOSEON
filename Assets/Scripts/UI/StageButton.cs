@@ -22,6 +22,18 @@ public class StageButton : MonoBehaviour
     {
         SceneManager.LoadScene(SceneName);
     }
+
+    public void MainStart()
+    {
+        if (GameData.clearTuto == false)
+        {
+            SceneManager.LoadScene(SceneName);
+        }
+        else if (GameData.clearTuto == true)
+        {
+            SceneManager.LoadScene("Stage_Felid_New");
+        }
+    }
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -33,7 +45,7 @@ public class StageButton : MonoBehaviour
     }
     public void ExitUI()
     {
-        if (SceneManager.GetActiveScene().name == "Stage_Feild")
+        if (SceneManager.GetActiveScene().name == "Stage_Feild_New")
         {
             mainSetting.GetComponent<MainSetting>().Close();
             freeLookCamera.SetActive(true);
