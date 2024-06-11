@@ -147,9 +147,9 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DepthGradient1: {r: 0.10630027, g: 0.5960785, b: 0.6196079, a: 1}
-    - _DepthGradient2: {r: 0.056208394, g: 0.19275743, b: 0.46274477, a: 1}
-    - _DepthGradient3: {r: 0.054082982, g: 0.13348138, b: 0.28903902, a: 1}
+    - _DepthGradient1: {r: 0.1062993, g: 0.5960785, b: 0.6196079, a: 1}
+    - _DepthGradient2: {r: 0.05620768, g: 0.1927565, b: 0.46274477, a: 1}
+    - _DepthGradient3: {r: 0.054082297, g: 0.13348046, b: 0.28903803, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 0.854902, g: 0.9921569, b: 1, a: 1}
     - _FresnelColor: {r: 0.57647055, g: 0.6980392, b: 0.8000001, a: 1}

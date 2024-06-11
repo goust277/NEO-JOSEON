@@ -3287,7 +3287,7 @@ MonoBehaviour:
   dash: 12
   dashTime: 0.5
   dashDelay: 0
-  dashCoolTime: 5
+  dashCoolTime: 2.5
   rotspeed: 50
   maxspeed: 6
   jumpHeight: 6
@@ -3308,7 +3308,7 @@ MonoBehaviour:
   main: 
   weapon: {fileID: 7245651778319247228}
   damage: 1
-  rate: 0.3
+  rate: 0.5
   effectTime: 0.4
   onTxt: 0
   Ondie: 0
@@ -3349,6 +3349,7 @@ MonoBehaviour:
   CurrentHp: 0
   hitDelay: 1
   isHit: 0
+  image: {fileID: 0}
   CMfl: {fileID: 0}
   ShakeFrequency: 1
   die: {fileID: 0}

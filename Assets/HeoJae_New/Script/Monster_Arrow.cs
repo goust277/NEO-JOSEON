@@ -112,7 +112,7 @@ public class Monster_Arrow : NewEnemy
     {
         GameObject newSlashObj = Instantiate(arrowObj, positionCreateArrow.position, Quaternion.identity);
 
-        Vector3 targetPosition = player.position + new Vector3(0, 2, 0);
+        Vector3 targetPosition = player.position + new Vector3(0, 1.2f, 0);
         Vector3 directionToPlayer = (targetPosition - positionCreateArrow.position).normalized;
 
         newSlashObj.transform.rotation = Quaternion.LookRotation(directionToPlayer);

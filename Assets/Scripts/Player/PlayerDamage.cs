@@ -16,13 +16,14 @@ public class PlayerDamage : MonoBehaviour
     private Animator animator;
     private PlayerMove hit;
 
+    [Header("데미지 이미지")]
+    [SerializeField] private Image image;
+
     [Header("카메라")]
     [SerializeField] private CinemachineFreeLook CMfl;
     private CinemachineBasicMultiChannelPerlin ChannelPerlin;
-    //public float ShakeDuration = 0.3f;
-    //public float ShakeAmplitude = 1.2f;
     [Header("흔들림 강도")]
-    public float ShakeFrequency = 0.4f;
+    public float ShakeFrequency;
 
     [Header("사망 화면")]
     [SerializeField] private GameObject die;
@@ -91,6 +92,7 @@ public class PlayerDamage : MonoBehaviour
         if (isHitPosible)
         {
             StartCoroutine(Hit()); 
+            StartCoroutine(ShowImage());
             isHitPosible = false;
             delay = 0f;
             animator.SetTrigger("Hit");
@@ -105,6 +107,27 @@ public class PlayerDamage : MonoBehaviour
         }
     }
 
+    IEnumerator ShowImage()
+    {
+        if (image.color.a == 0f)
+            image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
+
+        image.gameObject.SetActive(true);
+
+        float startTime = Time.time;
+        Color color = image.color;
+        while (Time.time < startTime + 1f)
+        {
+            float t = (Time.time - startTime) / 1f;
+            color.a = Mathf.Lerp(1f, 0f, t);
+            image.color = color;
+            yield return null;
+        }
+        color.a = 0f;
+        image.color = color;
+
+        image.gameObject.SetActive(false);
+    }
 
     IEnumerator Hit()
     {
@@ -118,7 +141,7 @@ public class PlayerDamage : MonoBehaviour
         CMfl.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0;
         CMfl.GetRig(2).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0;
 
-        yield return new WaitForSecondsRealtime(0.2f);
+        yield return new WaitForSecondsRealtime(0.6f);
         isHit = false;
     }
 

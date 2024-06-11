@@ -153,7 +153,7 @@ public class Monster_Buoy : NewEnemy
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerDamage>().TakeDamage();
+            collision.gameObject.GetComponent<PlayerDamage>().TakeDamage(5f);
             return;
         }
     }

@@ -157,10 +157,10 @@ public class PlayerMove : MonoBehaviour
         {
             animator.SetBool("IsOnAir", false);
         }
-        if (dir != Vector3.zero)
+        if (dir != Vector3.zero && !weapon.isAtkTime && !isDashing && !playerDamge.isHit)
         {
             animator.SetBool("Move", true);
-            if (!audioSource.isPlaying && isGround && !weapon.isAtkTime && !isDashing)
+            if (!audioSource.isPlaying && isGround )
             {
                 audioSource.clip = move;
                 audioSource.Play();
