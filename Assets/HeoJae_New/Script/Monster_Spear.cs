@@ -7,6 +7,12 @@ using UnityEngine.AI;
 public class Monster_Spear : NewEnemy
 {
     private StageManagerAssist stagemanager;
+    private AudioSource audioSource;
+
+    [Header("사운드")]
+    [SerializeField] private AudioClip atk;
+    [SerializeField] private AudioClip die;
+    [SerializeField] private AudioClip walk;
 
     [Header("몬스터 상태 / 관련 오브젝트")]
     public bool isChase = true;
@@ -49,6 +55,7 @@ public class Monster_Spear : NewEnemy
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         stagemanager = FindObjectOfType<StageManagerAssist>();
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -80,6 +87,12 @@ public class Monster_Spear : NewEnemy
             else
             {
                 anim.SetBool("isWalk", true);
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = walk;
+                    audioSource.Play();
+                }
+
                 nav.isStopped = false;
                 nav.speed = 2f;
                 nav.angularSpeed = 120;
@@ -131,6 +144,8 @@ public class Monster_Spear : NewEnemy
 
         yield return new WaitForSeconds(1.0f);
 
+        audioSource.clip = atk;
+        audioSource.Play();
         attackParticle.Play();
         attackArea.SetActive(true);
 
@@ -168,6 +183,8 @@ public class Monster_Spear : NewEnemy
         HpBar.SetActive(false);
 
         anim.SetTrigger("doDie");
+        audioSource.clip = atk;
+        audioSource.Play();
 
         bChargeStart = false;
         AttackChargeTime = 1.5f;

@@ -37,10 +37,16 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] private GameObject atk1;
     [SerializeField] private GameObject atk2;
-    
 
+    private AudioSource audioSource;
+
+    [Header("»ç¿îµå")]
+    [SerializeField] private AudioClip Atk1;
+    [SerializeField] private AudioClip Atk2;
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         if (CMfl != null)
         {
             ChannelPerlin = CMfl.GetComponent<CinemachineBasicMultiChannelPerlin>();
@@ -103,6 +109,8 @@ public class Weapon : MonoBehaviour
             Attack();
             animator.SetTrigger("Atk1");
             atk1.SetActive(true);
+            audioSource.clip = Atk1;
+            audioSource.Play();
             Invoke("OffEffect1", 0.3f);
             yield return new WaitForSeconds(rate + 0.1f);
 
@@ -119,7 +127,8 @@ public class Weapon : MonoBehaviour
             BoxCollider.enabled = true;
             atk2.SetActive(true);
             Invoke("OffEffect2", 0.3f);
-
+            audioSource.clip = Atk2;
+            audioSource.Play();
             yield return new WaitForSeconds(0.1f);
             BoxCollider.enabled = false;
             yield return new WaitForSeconds(0.2f);
@@ -140,7 +149,6 @@ public class Weapon : MonoBehaviour
     }
     private void Attack()
     {
-        StartCoroutine(MoveFor());
         isAtkTime = true;
         attackLv++;
     }
@@ -195,11 +203,4 @@ public class Weapon : MonoBehaviour
 
         Time.timeScale = 1f;
     }
-
-    IEnumerator MoveFor()
-    {
-        player.GetComponent<PlayerMove>().OnAtk(30);
-
-        yield return null;
-    }    
 }

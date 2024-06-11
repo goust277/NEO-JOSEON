@@ -8,6 +8,12 @@ using UnityEngine.AI;
 public class Monster_Jumper : NewEnemy
 {
     private StageManagerAssist stagemanager;
+    private AudioSource audioSource;
+
+    [Header("사운드")]
+    [SerializeField] private AudioClip atk;
+    [SerializeField] private AudioClip die;
+    [SerializeField] private AudioClip jump;
 
     [Header("몬스터 상태 / 관련 오브젝트")]
     public bool isAttack;
@@ -48,6 +54,8 @@ public class Monster_Jumper : NewEnemy
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         stagemanager = FindObjectOfType<StageManagerAssist>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody>();
@@ -82,6 +90,8 @@ public class Monster_Jumper : NewEnemy
     IEnumerator Attack()
     {
         rb.isKinematic = true;
+        audioSource.clip = atk;
+        audioSource.Play();
 
         Debug.Log("공격");
         attackParticle.Play();
@@ -135,7 +145,8 @@ public class Monster_Jumper : NewEnemy
     IEnumerator JumpCoroutine(float jumpHeight, float jumpDuration)
     {
         transform.rotation = Quaternion.Euler(0, 0, 0);
-
+        audioSource.clip = jump;
+        audioSource.Play();
         anim.SetTrigger("doJump");
         rb.isKinematic = false;
         yield return new WaitForSeconds(0.3f);
@@ -196,7 +207,8 @@ public class Monster_Jumper : NewEnemy
     {
         base.Die();
         StartCoroutine(Die_());
-
+        audioSource.clip = die;
+        audioSource.Play();
     }
     IEnumerator Die_()
     {

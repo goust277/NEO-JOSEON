@@ -6,17 +6,27 @@ using UnityEngine.Audio;
 
 public class AudioMixerController : MonoBehaviour
 {
-    [SerializeField] private AudioMixer m_AudioMixer;
-    [SerializeField] private Slider m_MusicBGMSlider;
-    [SerializeField] private Slider m_MusicSFXSlider;
-
+    public AudioMixer mixer;
+    public Slider BGM;
+    public Slider SFX;
+    float sound;
+    float SFXsound;
+    private void Awake()
+    {
+        BGM.value = GameData.BGMsound;
+        SFX.value = GameData.SFXSound;
+    }
     public void AudioControl()
     {
-        float sound = m_MusicSFXSlider.value;
+        sound = BGM.value;
+        GameData.BGMsound = BGM.value;
+        SFXsound = SFX.value;
+        GameData.SFXSound = SFX.value;
 
+        if (sound == -40f) mixer.SetFloat("BGM", -80);
+        else mixer.SetFloat("BGM", sound);
 
-        if (sound == -40f) m_AudioMixer.SetFloat("SFX", -80);
-        else m_AudioMixer.SetFloat("SFX", sound);
-
+        if (sound == -40f) mixer.SetFloat("SFX", -80);
+        else mixer.SetFloat("SFX", SFXsound);
     }
 }

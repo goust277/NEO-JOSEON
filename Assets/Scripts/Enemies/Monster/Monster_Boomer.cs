@@ -9,6 +9,12 @@ using UnityEngine.AI;
 public class Monster_Boomer : NewEnemy
 {
     private StageManagerAssist stagemanager;
+    private AudioSource audioSource;
+
+    [Header("사운드")]
+    [SerializeField] private AudioClip atk;
+    [SerializeField] private AudioClip die;
+    [SerializeField] private AudioClip walk;
 
     [Header("몬스터 상태 / 관련 오브젝트")]
     public bool isChase = true;
@@ -52,6 +58,8 @@ public class Monster_Boomer : NewEnemy
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         stagemanager = FindObjectOfType<StageManagerAssist>();
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -144,7 +152,8 @@ public class Monster_Boomer : NewEnemy
         GameObject newAttackArea = Instantiate(attackArea, gameObject.transform.position, Quaternion.identity);
         Transform newAttackAreaTransform = newAttackArea.transform;
         newAttackAreaTransform.localScale = new Vector3(4.5f, 4.5f, 4.5f);
-
+        audioSource.clip = atk;
+        audioSource.Play();
         isAttack = true;
 
         yield return new WaitForSeconds(0.7f);
@@ -169,7 +178,8 @@ public class Monster_Boomer : NewEnemy
     {
         base.Die();
         StartCoroutine(Die_());
-
+        audioSource.clip = die;
+        audioSource.Play();
     }
     IEnumerator Die_()
     {

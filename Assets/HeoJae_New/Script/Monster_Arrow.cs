@@ -7,6 +7,11 @@ using UnityEngine.AI;
 public class Monster_Arrow : NewEnemy
 {
     private StageManagerAssist stagemanager;
+    private AudioSource audioSource;
+
+    [Header("사운드")]
+    [SerializeField] private AudioClip atk;
+    [SerializeField] private AudioClip die;
 
     [Header("몬스터 상태 / 관련 오브젝트")]
     public bool isAttack;
@@ -47,6 +52,8 @@ public class Monster_Arrow : NewEnemy
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         stagemanager = FindObjectOfType<StageManagerAssist>();
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -91,6 +98,8 @@ public class Monster_Arrow : NewEnemy
 
         yield return new WaitForSeconds(0.4f);
         chargingParticle.SetActive(true);
+        audioSource.clip = atk;
+        audioSource.Play();
 
         yield return new WaitForSeconds(0.8f);
         chargingParticle.SetActive(false);
@@ -144,6 +153,8 @@ public class Monster_Arrow : NewEnemy
             doDie = true;
             StopAllCoroutines();
             StartCoroutine(Die_());
+            audioSource.clip = die;
+            audioSource.Play();
         }
         else
         {

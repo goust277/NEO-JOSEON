@@ -7,6 +7,18 @@ using UnityEngine.AI;
 
 public class NewBoss1 : NewEnemy
 {
+    private AudioSource audioSource;
+
+    [Header("사운드")]
+    [SerializeField] private AudioClip[] atk;
+    [SerializeField] private AudioClip charging;
+    [SerializeField] private AudioClip chargingHit;
+    [SerializeField] private AudioClip Fire;
+    [SerializeField] private AudioClip[] slash;
+    [SerializeField] private AudioClip walk;
+    [SerializeField] private AudioClip die;
+    [SerializeField] private AudioClip dash;
+
     [Header("보스 능력치")]
     public float speedMove;
     public float rotationSpeed;
@@ -78,6 +90,7 @@ public class NewBoss1 : NewEnemy
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         // #. 네비게이션 관련 정보 가져오기
         player = GameObject.FindGameObjectWithTag("Player").transform;
         nav = GetComponent<NavMeshAgent>();
@@ -184,8 +197,10 @@ public class NewBoss1 : NewEnemy
 
         yield return new WaitForSeconds(1.0f);
         particleAttack1.Play();
+        PlayAudio(atk[0]);
         attackArea1.SetActive(true);
         yield return new WaitForSeconds(0.2f);
+        audioSource.Stop();
         particleAttack1.Stop();
         attackArea1.SetActive(false);
         yield return new WaitForSeconds(1.5f);
@@ -209,15 +224,19 @@ public class NewBoss1 : NewEnemy
         anim.SetTrigger("Attack_2");
 
         yield return new WaitForSeconds(1.5f);
+        PlayAudio(atk[1]);
         particleAttack2.Play();
         attackArea2.SetActive(true);
         yield return new WaitForSeconds(0.1f);
+        audioSource.Stop();
         particleAttack2.Stop();
         attackArea2.SetActive(false);
         yield return new WaitForSeconds(1.2f);
+        PlayAudio(atk[1]);
         particleAttack2.Play();
         attackArea2.SetActive(true);
         yield return new WaitForSeconds(0.1f);
+        audioSource.Stop();
         particleAttack2.Stop();
         attackArea2.SetActive(false);
         yield return new WaitForSeconds(2.3f);
@@ -241,9 +260,11 @@ public class NewBoss1 : NewEnemy
         anim.SetTrigger("Attack_3");
 
         yield return new WaitForSeconds(0.7f);
+        PlayAudio(atk[2]);
         particleAttack3.Play();
         attackArea3.SetActive(true);
         yield return new WaitForSeconds(0.2f);
+        audioSource.Stop();
         particleAttack3.Stop();
         attackArea3.SetActive(false);
         yield return new WaitForSeconds(2.1f);
@@ -286,7 +307,9 @@ public class NewBoss1 : NewEnemy
 
         yield return new WaitForSeconds(1.3f);
         anim.SetTrigger("Dash_Start");
+        PlayAudio(dash);
         yield return new WaitForSeconds(0.5f);
+        audioSource.Stop();
         attackAreaRush.SetActive(true);
         particleDash.Play();
        
@@ -324,13 +347,13 @@ public class NewBoss1 : NewEnemy
         yield return new WaitForSeconds(0.2f);
         anim.SetTrigger("Attack4_Start");
         yield return new WaitForSeconds(0.3f);
-        particleAttack4_Start.Play();
+        particleAttack4_Start.Play(); // 차징
         yield return new WaitForSeconds(3.2f);
         particleAttack4_Start.Stop();
         anim.SetTrigger("Attack4_End");
         yield return new WaitForSeconds(0.4f);
         attackArea4.SetActive(true);
-        particleAttack4_End.Play();
+        particleAttack4_End.Play(); //히트
         yield return new WaitForSeconds(0.8f);
         attackArea4.SetActive(false);
         yield return new WaitForSeconds(1.6f);
@@ -384,10 +407,12 @@ public class NewBoss1 : NewEnemy
         anim.SetTrigger("Slash_1");
 
         yield return new WaitForSeconds(1.0f);
+        PlayAudio(slash[0]);
         Vector3 spawnPosition = transform.position + transform.forward * 1.5f;
         GameObject newSlashObj = Instantiate(slashObj1, spawnPosition, Quaternion.identity);
         newSlashObj.transform.rotation = transform.rotation;
         yield return new WaitForSeconds(2.1f);
+        audioSource.Stop();
         isAct = false;
         BossMoveStart();
     }
@@ -408,7 +433,7 @@ public class NewBoss1 : NewEnemy
         anim.SetTrigger("Slash_2");
 
         yield return new WaitForSeconds(1.4f);
-
+        PlayAudio(slash[1]);
         // 생성 위치를 현재 위치에서 앞, 뒤, 왼쪽, 오른쪽으로 옮깁니다.
         Vector3[] spawnPositions = new Vector3[]
         {
@@ -434,6 +459,7 @@ public class NewBoss1 : NewEnemy
         }
 
         yield return new WaitForSeconds(2.2f);
+        audioSource.Stop();
         isAct = false;
         BossMoveStart();
     }
@@ -450,6 +476,7 @@ public class NewBoss1 : NewEnemy
             isAct = true;
             if (nowCoroutine != null) StopCoroutine(nowCoroutine);
             StartCoroutine(Rush_());
+            PlayAudio(dash);
         }
     }
     IEnumerator Rush_()
@@ -623,6 +650,7 @@ public class NewBoss1 : NewEnemy
         if (nowCoroutine != null) StopCoroutine(nowCoroutine);
         StopAllCoroutines();
         StartCoroutine(Die__());
+        PlayAudio(die);
     }
     IEnumerator Die__()
     {
@@ -687,6 +715,7 @@ public class NewBoss1 : NewEnemy
     private void BossMoveStart()
     {
         anim.SetBool("isWalk", true);
+        PlayAudio(walk);
         nav.speed = speedMove;
         rotationSpeed = 220;
         bIsRotate = true;
@@ -807,7 +836,11 @@ public class NewBoss1 : NewEnemy
     #endregion
 
 
-
+    private void PlayAudio(AudioClip clip) 
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
+    }
 
 
 

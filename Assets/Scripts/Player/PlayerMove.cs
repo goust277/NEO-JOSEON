@@ -5,7 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
-   
+    [Header("¿Àµð¿À")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource DSaudioSource;
+    [SerializeField] private AudioClip move;
+    [SerializeField] private AudioClip jump;
+    [SerializeField] private AudioClip dashAudio;
+    [SerializeField] private AudioClip skilAudio;
 
     private Coroutine coroutine;
     public string currentMapName;
@@ -154,6 +160,12 @@ public class PlayerMove : MonoBehaviour
         if (dir != Vector3.zero)
         {
             animator.SetBool("Move", true);
+            if (!audioSource.isPlaying && isGround && !weapon.isAtkTime && !isDashing)
+            {
+                audioSource.clip = move;
+                audioSource.Play();
+            }
+                
         }
         else
         {
@@ -235,6 +247,8 @@ public class PlayerMove : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Mouse1))
                     {
                         weapon.StopAtk();
+                        DSaudioSource.clip = skilAudio;
+                        DSaudioSource.Play();
                         skill.TriggerSkill();
                         animator.SetBool("Move", false);
                         skillCoolTime = 0f;
@@ -243,6 +257,8 @@ public class PlayerMove : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.LeftShift) && !isCooldown && _dash)
                 {
                     coroutine = StartCoroutine(Dash());
+                    DSaudioSource.clip = dashAudio;
+                    DSaudioSource.Play();
                     dashDelay = 0;
                 }
 
@@ -367,6 +383,8 @@ public class PlayerMove : MonoBehaviour
         rb.velocity = Vector3.zero;
         Vector3 jumpPower = Vector3.up * jumpHeight;
         rb.AddForce(jumpPower, ForceMode.VelocityChange);
+        audioSource.clip = jump;
+        audioSource.Play();
         //rb.velocity = new Vector3(rb.velocity.x, jumpHeight, rb.velocity.z);
 
     }
@@ -387,21 +405,36 @@ public class PlayerMove : MonoBehaviour
         skill.StopSkill();  
         animator.SetTrigger("Dash");
 
+
         isDashing = true;
-        Quaternion targetRotation = Quaternion.LookRotation(dir, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1000000);
+
         yield return new WaitForSeconds(0.05f);
 
 
+        Vector3 cameraForward = Vector3.Scale(cam.transform.forward, new Vector3(1, 0, 1)).normalized;
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
         DashEffect.Play();
-        Vector3 dashDirection = (dir != Vector3.zero ? dir : transform.forward).normalized;
+        Vector3 dashDirection; //= (dir != Vector3.zero ? dir : cameraForward).normalized;
+
+        if (dir != Vector3.zero) 
+        {
+            dashDirection = dir.normalized;
+        }
+        else
+        {
+            dashDirection = cameraForward.normalized;
+        }
+
+        Quaternion targetRotation = Quaternion.LookRotation(dashDirection);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1000000f);
+        //Quaternion targetRotation = Quaternion.LookRotation(dashDirection);
+        transform.rotation = targetRotation;
 
         Vector3 dashPower = dashDirection * dash;
         rb.velocity = dashPower;
 
-        Quaternion originalRotation = rb.rotation;
+        //Quaternion originalRotation = rb.rotation;
 
 
         float delay = 0;
@@ -411,7 +444,7 @@ public class PlayerMove : MonoBehaviour
 
             rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-            rb.rotation = originalRotation;
+            //rb.rotation = originalRotation;
 
             yield return null;
         }
@@ -567,5 +600,11 @@ public class PlayerMove : MonoBehaviour
         {
             isInteracting = false;
         }
+    }
+
+
+    public void SetLimitMove(bool limit)
+    {
+        enabled = !limit;
     }
 }
