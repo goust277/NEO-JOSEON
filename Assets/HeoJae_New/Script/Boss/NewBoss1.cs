@@ -18,6 +18,7 @@ public class NewBoss1 : NewEnemy
     [SerializeField] private AudioClip walk;
     [SerializeField] private AudioClip die;
     [SerializeField] private AudioClip dash;
+    [SerializeField] private AudioClip clear;
 
     [Header("보스 능력치")]
     public float speedMove;
@@ -144,13 +145,6 @@ public class NewBoss1 : NewEnemy
                 searchTimer = 0f;
                 isSearchingPlayer = false;
             }
-        }
-
-
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Attack_4();
         }
     }
 
@@ -687,10 +681,13 @@ public class NewBoss1 : NewEnemy
         }
         yield return new WaitForSeconds(2f);
 
+        PlayAudio(clear);
+
         FadeOut();
         image_HpPanel.SetActive(false);
 
         yield return new WaitForSeconds(6f);
+
 
         ClearStep.SetActive(true);
         DestroyRoad[0].SetActive(false);

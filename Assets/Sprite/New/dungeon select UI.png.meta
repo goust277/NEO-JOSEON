@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 12
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -36,13 +36,13 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -51,9 +51,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -103,18 +103,515 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: dungeon select UI_2
+      rect:
+        serializedVersion: 2
+        x: 3759
+        y: 4831
+        width: 1342
+        height: 676
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 510ef01cc24eb5a45964fb8a107a41ea
+      internalID: -1158976739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_3
+      rect:
+        serializedVersion: 2
+        x: 5172
+        y: 4831
+        width: 1342
+        height: 676
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9f7e6d6b861c434fa6bfd79df177ff7
+      internalID: -109465124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_4
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 2357
+        width: 3189
+        height: 1750
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dd6ffa9ed49e4548a1052a200139651
+      internalID: -2130356004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_6
+      rect:
+        serializedVersion: 2
+        x: 4055
+        y: 3973
+        width: 62
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52cd3722a9c2e1d4cbcb225ad5e691c8
+      internalID: 1657370490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_10
+      rect:
+        serializedVersion: 2
+        x: 3885
+        y: 3453
+        width: 1105
+        height: 461
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b145283d8248fbe4eae886622a367c4e
+      internalID: 1633088067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_11
+      rect:
+        serializedVersion: 2
+        x: 5246
+        y: 3614
+        width: 227
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85477958ea9e86e45aae6224a4924038
+      internalID: 338609653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_13
+      rect:
+        serializedVersion: 2
+        x: 5210
+        y: 3360
+        width: 323
+        height: 245
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78c9e8aacf2f0494ebd1355ecffbf086
+      internalID: 976461053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_19
+      rect:
+        serializedVersion: 2
+        x: 3885
+        y: 2697
+        width: 1105
+        height: 462
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8f4478174b6f8b4aa572cf76f9decea
+      internalID: 609128044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_20
+      rect:
+        serializedVersion: 2
+        x: 5233
+        y: 2930
+        width: 662
+        height: 267
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d311cc1fc0b1a544496009c54d2f10ac
+      internalID: -740120171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_21
+      rect:
+        serializedVersion: 2
+        x: 6021
+        y: 2800
+        width: 405
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31ea85033efa8ab498fb463a187f2b20
+      internalID: 920755624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_22
+      rect:
+        serializedVersion: 2
+        x: 5233
+        y: 2577
+        width: 662
+        height: 269
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3e9dbef5f312234ea441b17c23456fa
+      internalID: 135002729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_23
+      rect:
+        serializedVersion: 2
+        x: 6021
+        y: 2522
+        width: 405
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 367b8dff74939474098c61a448260aae
+      internalID: -426476396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_24
+      rect:
+        serializedVersion: 2
+        x: 5233
+        y: 2250
+        width: 662
+        height: 267
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c8a497e210afd548adc2e3cc57e3557
+      internalID: 1225498603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_25
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 250
+        width: 3189
+        height: 1747
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5aca3cfb8a02c014282d9b50886241ea
+      internalID: -2035084477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_27
+      rect:
+        serializedVersion: 2
+        x: 4498
+        y: 1583
+        width: 402
+        height: 475
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c956e74a87dc3684eab6e08b5e0f4a3b
+      internalID: 85330119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_28
+      rect:
+        serializedVersion: 2
+        x: 5528
+        y: 1623
+        width: 521
+        height: 431
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a67ccc1f7452f58449a24295ba431458
+      internalID: 1949047898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_29
+      rect:
+        serializedVersion: 2
+        x: 4423
+        y: 1220
+        width: 553
+        height: 318
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01a05c66df828c741a669083d875cbd5
+      internalID: -1371708987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_30
+      rect:
+        serializedVersion: 2
+        x: 5460
+        y: 985
+        width: 657
+        height: 598
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 007fc42ee92385f44940e787f23ae13e
+      internalID: 434506565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_31
+      rect:
+        serializedVersion: 2
+        x: 4351
+        y: 766
+        width: 697
+        height: 408
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ce7fae447aaf7940ab13ec2fa8b2132
+      internalID: -1926196984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_32
+      rect:
+        serializedVersion: 2
+        x: 5234
+        y: 582
+        width: 1122
+        height: 360
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a31439689d3546b49975fa4762d0d9da
+      internalID: 864479896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_33
+      rect:
+        serializedVersion: 2
+        x: 4269
+        y: 157
+        width: 860
+        height: 582
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6356f0ca61d4ff4e83f3307d27555eb
+      internalID: 1726869623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dungeon select UI_34
+      rect:
+        serializedVersion: 2
+        x: 5465
+        y: 160
+        width: 646
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a64fa828cebb82641b107d942743a4e5
+      internalID: 1198239529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 05ee36b829d70b04795aa49da01c2c01
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      dungeon select UI_0: -11603963
+      dungeon select UI_1: -568059378
+      dungeon select UI_10: 1633088067
+      dungeon select UI_11: 338609653
+      dungeon select UI_12: 608104509
+      dungeon select UI_13: 976461053
+      dungeon select UI_14: 204351432
+      dungeon select UI_15: -398545464
+      dungeon select UI_16: 1538474403
+      dungeon select UI_17: 1426469839
+      dungeon select UI_18: 1470853435
+      dungeon select UI_19: 609128044
+      dungeon select UI_2: -1158976739
+      dungeon select UI_20: -740120171
+      dungeon select UI_21: 920755624
+      dungeon select UI_22: 135002729
+      dungeon select UI_23: -426476396
+      dungeon select UI_24: 1225498603
+      dungeon select UI_25: -2035084477
+      dungeon select UI_26: -41314243
+      dungeon select UI_27: 85330119
+      dungeon select UI_28: 1949047898
+      dungeon select UI_29: -1371708987
+      dungeon select UI_3: -109465124
+      dungeon select UI_30: 434506565
+      dungeon select UI_31: -1926196984
+      dungeon select UI_32: 864479896
+      dungeon select UI_33: 1726869623
+      dungeon select UI_34: 1198239529
+      dungeon select UI_4: -2130356004
+      dungeon select UI_5: -661335775
+      dungeon select UI_6: 1657370490
+      dungeon select UI_7: 1084801875
+      dungeon select UI_8: -963768667
+      dungeon select UI_9: 1271191698
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

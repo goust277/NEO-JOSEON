@@ -16,8 +16,9 @@ public class PlayerDamage : MonoBehaviour
     private Animator animator;
     private PlayerMove hit;
 
-    [Header("데미지 이미지")]
+    [Header("데미지")]
     [SerializeField] private Image image;
+    [SerializeField] private ParticleSystem hitEffect;
 
     [Header("카메라")]
     [SerializeField] private CinemachineFreeLook CMfl;
@@ -96,6 +97,7 @@ public class PlayerDamage : MonoBehaviour
             isHitPosible = false;
             delay = 0f;
             animator.SetTrigger("Hit");
+            
             hit.TakeDamage();
             CurrentHp -= damage;
         }
@@ -107,12 +109,15 @@ public class PlayerDamage : MonoBehaviour
         }
     }
 
+    
+
     IEnumerator ShowImage()
     {
         if (image.color.a == 0f)
             image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
 
         image.gameObject.SetActive(true);
+        hitEffect.Play();
 
         float startTime = Time.time;
         Color color = image.color;
@@ -126,6 +131,7 @@ public class PlayerDamage : MonoBehaviour
         color.a = 0f;
         image.color = color;
 
+        hitEffect.Stop();
         image.gameObject.SetActive(false);
     }
 

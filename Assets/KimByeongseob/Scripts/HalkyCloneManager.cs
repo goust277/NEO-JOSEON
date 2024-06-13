@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class HalkyCloneManager : NewEnemy
 {
+    private SoundManager soundManager;
     public GameObject[] sangmoObject;       // 상모 오브젝트
     public float slapTime = 0.1f;         // 후려치기 피격타임
     public float spinTime = 2f;           // 상모 돌리기 피격타임
@@ -27,7 +28,18 @@ public class HalkyCloneManager : NewEnemy
     {
         animator = GetComponentInChildren<Animator>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        soundManager = FindObjectOfType<SoundManager>();
     }
+
+    private void OnEnable()
+    {
+        // 상모 오브젝트를 비활성화
+        foreach (var obj in sangmoObject)
+        {
+            obj.SetActive(false);
+        }
+    }
+
 
     // 근거리 공격 (후려치기, 상모 돌리기)
     public IEnumerator StartShortAttack(int attackType)
@@ -36,9 +48,10 @@ public class HalkyCloneManager : NewEnemy
         {
             case 1:
                 // 후려치기 공격
-                transform.LookAt(playerTransform);
                 animator.SetTrigger("IsShortAttack_1");
                 yield return new WaitForSeconds(S_initialDelay);
+                soundManager.PlaySound("Attack_1");
+                transform.LookAt(playerTransform);
                 sangmoObject[0].SetActive(true);
                 effectAttack1.Play();
                 yield return new WaitForSeconds(slapTime);
@@ -51,6 +64,7 @@ public class HalkyCloneManager : NewEnemy
                 float elapsedTime = 0f;
                 float toggleInterval = 0.2f; // 이펙트를 껐다 켰다 할 간
                 transform.LookAt(playerTransform);
+                soundManager.StartLoopSound("Attack_2");
                 animator.SetTrigger("IsShortAttack_2");
                 yield return new WaitForSeconds(S_initialDelay);
                 sangmoObject[1].SetActive(true);
@@ -63,6 +77,7 @@ public class HalkyCloneManager : NewEnemy
                     elapsedTime += 2 * toggleInterval;
                 }
                 sangmoObject[1].SetActive(false);
+                soundManager.StopLoopSound("Attack_2");
                 yield return new WaitForSeconds(S_endingDelay);
                 break;
         }

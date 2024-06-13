@@ -29,6 +29,7 @@ public class Monster_Spear : NewEnemy
     [Header("이펙트")]
     public ParticleSystem attackParticle;
     public GameObject destroyParticle;
+    [SerializeField] private ParticleSystem hitEffect;
 
     [Header("애니메이션 / 콜라이더")]
     public Animator anim;
@@ -246,7 +247,8 @@ public class Monster_Spear : NewEnemy
             DmgNum dmgBox = dmgNumbobbox.GetComponent<DmgNum>();
             dmgBox.text_dmgNum.text = tempDmgNum.ToString();
 
-
+            if(hitEffect != null)
+                hitEffect.Play();
 
             attackArea.SetActive(false);
             isChase = false;

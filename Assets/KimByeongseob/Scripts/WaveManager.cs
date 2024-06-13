@@ -15,8 +15,8 @@ public class WaveManager : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        //if (other.CompareTag("Enemy")) // 충돌한 객체가 플레이어인지 확인
-        //{
+        if (other.CompareTag("Buoy")) // 충돌한 객체가 플레이어인지 확인
+        {
             Rigidbody EnemyRigidbody = other.GetComponent<Rigidbody>();
             if (EnemyRigidbody != null)
             {
@@ -28,18 +28,18 @@ public class WaveManager : MonoBehaviour
                     case 2:
                         CounterClockwiseWave(EnemyRigidbody);
                         break;
-                    case 3:
-                        InwardWave(EnemyRigidbody);
-                        break;
-                    case 4:
-                        OutwardWave(EnemyRigidbody);
-                        break;
+                    //case 3:
+                    //    InwardWave(EnemyRigidbody);
+                    //    break;
+                    //case 4:
+                    //    OutwardWave(EnemyRigidbody);
+                    //    break;
                     default:
                         Debug.Log("Invalid wave type");
                         break;
                 }
             }
-        //}
+        }
     }
 
     private void ClockwiseWave(Rigidbody EnemyRigidbody)

@@ -34,6 +34,7 @@ public class ClipBoard : MonoBehaviour
     [SerializeField] private GameObject[] door;
 
     private bool closeletter = false;
+    private bool mouseOff = false;
     private void Start()
     {
         data_Dialog = CSVReader.Read(csvName);
@@ -80,9 +81,12 @@ public class ClipBoard : MonoBehaviour
 
                     }
                     else
+                    {
+                        mouseOff = false;
                         id++;
+                    }
+                        
                 }
-                Debug.Log("d");
                 text.text = data_Dialog[id]["Content"].ToString();
 
                 if (id == 10 || id == 14 || id == 17)
@@ -92,7 +96,13 @@ public class ClipBoard : MonoBehaviour
                         playerMove.onTxt = false;
                     }
                     txtui.SetActive(false);
-                    playerMove.MouseOff();
+
+                    if (mouseOff == false)
+                    {
+                        playerMove.MouseOff();
+                        mouseOff = true;
+                    }
+                   
                 }
 
             }
@@ -122,7 +132,6 @@ public class ClipBoard : MonoBehaviour
                 {
                     id++;
                 }
-                Debug.Log("d");
                 text.text = data_Dialog[id]["Content"].ToString();
 
                 if (id == 5 || id == 9 || id == 13)
@@ -132,8 +141,8 @@ public class ClipBoard : MonoBehaviour
                         playerMove.onTxt = false;
                     }
                     txtui.SetActive(false);
-                    playerMove.MouseOff();
 
+                    playerMove.MouseOff();
                     playerMove.ClearAtkTutorial();
                     if(id == 5)
                     {

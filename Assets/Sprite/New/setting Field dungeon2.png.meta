@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 12
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -36,13 +36,13 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -51,9 +51,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -103,18 +103,80 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: setting Field dungeon2_12
+      rect:
+        serializedVersion: 2
+        x: 2120
+        y: 1061
+        width: 2555
+        height: 1452
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47d2f1c34c8d051459cfbdaccad0a97d
+      internalID: -799409507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: a34699aec0b52644db2f489d4f945ba0
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      setting Field dungeon2_0: 714588284
+      setting Field dungeon2_1: -1393783567
+      setting Field dungeon2_10: -2113232011
+      setting Field dungeon2_11: -957968578
+      setting Field dungeon2_12: -799409507
+      setting Field dungeon2_13: 1409093403
+      setting Field dungeon2_14: -91093522
+      setting Field dungeon2_15: 2071048885
+      setting Field dungeon2_16: -1088081076
+      setting Field dungeon2_17: -1580127723
+      setting Field dungeon2_18: -445380826
+      setting Field dungeon2_19: -20743367
+      setting Field dungeon2_2: 1928598803
+      setting Field dungeon2_20: 2121522796
+      setting Field dungeon2_21: 1010103449
+      setting Field dungeon2_22: 641537689
+      setting Field dungeon2_23: -726692591
+      setting Field dungeon2_24: -1046992924
+      setting Field dungeon2_25: 892456928
+      setting Field dungeon2_26: -302720986
+      setting Field dungeon2_27: -1209811698
+      setting Field dungeon2_28: 1773664298
+      setting Field dungeon2_29: 1132713597
+      setting Field dungeon2_3: -1629207123
+      setting Field dungeon2_30: -1246356084
+      setting Field dungeon2_31: 397394027
+      setting Field dungeon2_32: 214544692
+      setting Field dungeon2_33: 1466380379
+      setting Field dungeon2_34: 1325785551
+      setting Field dungeon2_35: 372446528
+      setting Field dungeon2_36: -1215999764
+      setting Field dungeon2_37: 1921519291
+      setting Field dungeon2_38: 968570587
+      setting Field dungeon2_39: 1251700251
+      setting Field dungeon2_4: -1905110946
+      setting Field dungeon2_40: 1622192079
+      setting Field dungeon2_5: 754291023
+      setting Field dungeon2_6: -180662029
+      setting Field dungeon2_7: 41809382
+      setting Field dungeon2_8: 558325097
+      setting Field dungeon2_9: -1450727445
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

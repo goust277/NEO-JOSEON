@@ -11,6 +11,8 @@ public class Monster_Boomer : NewEnemy
     private StageManagerAssist stagemanager;
     private AudioSource audioSource;
 
+
+
     [Header("사운드")]
     [SerializeField] private AudioClip atk;
     [SerializeField] private AudioClip die;
@@ -31,6 +33,7 @@ public class Monster_Boomer : NewEnemy
     [Header("이펙트")]
     public ParticleSystem attackParticle;
     public GameObject destroyParticle;
+    [SerializeField] private ParticleSystem hitEffect;
 
     [Header("애니메이션 / 콜라이더")]
     public Animator anim;
@@ -246,6 +249,9 @@ public class Monster_Boomer : NewEnemy
             DmgNum dmgBox = dmgNumbobbox.GetComponent<DmgNum>();
             dmgBox.text_dmgNum.text = tempDmgNum.ToString();
 
+            hitEffect.Play();
+            Invoke("StopHit", 0.2f);
+
 
             isChase = false;
             ChangeMaterials(white);
@@ -253,6 +259,11 @@ public class Monster_Boomer : NewEnemy
             StartCoroutine(TakeDamage());
         }
 
+    }
+
+    private void StopHit()
+    {
+        hitEffect.Stop();
     }
 
     IEnumerator TakeDamage()

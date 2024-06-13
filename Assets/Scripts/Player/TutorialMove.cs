@@ -15,7 +15,6 @@ public class TutorialMove : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 letter.SetActive(false);
-                Debug.Log("A0");
             }
         }
 

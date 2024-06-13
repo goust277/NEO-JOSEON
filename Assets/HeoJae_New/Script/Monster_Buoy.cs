@@ -26,6 +26,7 @@ public class Monster_Buoy : NewEnemy
 
     [Header("이펙트")]
     public GameObject destroyParticle;
+    [SerializeField] private ParticleSystem hitEffect;
 
     [Header("체력바")]
     public GameObject HpBar;
@@ -69,7 +70,7 @@ public class Monster_Buoy : NewEnemy
             DmgNum dmgBox = dmgNumbobbox.GetComponent<DmgNum>();
             dmgBox.text_dmgNum.text = tempDmgNum.ToString();
 
-
+            hitEffect.Play();
 
             StopAllCoroutines();
             StartCoroutine(TakeDamage__());

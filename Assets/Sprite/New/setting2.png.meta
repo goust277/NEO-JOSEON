@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 12
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -36,13 +36,13 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -51,9 +51,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -103,18 +103,139 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: setting2_6
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 1405
+        width: 2556
+        height: 1458
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1192714313d7014fa41ee79f590cf99
+      internalID: -339757944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting2_13
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 849
+        width: 281
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a918e7c4afd0b244dac1537b02b21f05
+      internalID: 1694053569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting2_14
+      rect:
+        serializedVersion: 2
+        x: 1012
+        y: 843
+        width: 290
+        height: 478
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9105a6291231be4f86c62278a8c2093
+      internalID: 1423662629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: setting2_0
+      rect:
+        serializedVersion: 2
+        x: 565
+        y: 843
+        width: 344
+        height: 340
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39c3758e8aab6b64084428c958cae5db
+      internalID: -744207438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 755c0484aa122c243866a923169a9bd8
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      setting2_0: -744207438
+      setting2_1: -836190821
+      setting2_10: -628142223
+      setting2_11: 1073380118
+      setting2_12: -776899788
+      setting2_13: 1694053569
+      setting2_14: 1423662629
+      setting2_15: -1435245067
+      setting2_16: 1337811578
+      setting2_17: -1215570830
+      setting2_18: -324404484
+      setting2_19: -101516448
+      setting2_2: 1605181122
+      setting2_20: 1138893657
+      setting2_21: 1098484098
+      setting2_22: -1105741299
+      setting2_23: -615544711
+      setting2_24: -808664172
+      setting2_25: -496205096
+      setting2_26: -117810719
+      setting2_27: -545029185
+      setting2_28: -1429059298
+      setting2_29: -1434574112
+      setting2_3: -172153455
+      setting2_30: 873876553
+      setting2_31: -1335250869
+      setting2_32: 2022799357
+      setting2_33: 626714362
+      setting2_34: 634882144
+      setting2_35: 1074156680
+      setting2_36: -1383334572
+      setting2_4: -1444872482
+      setting2_5: -1133727858
+      setting2_6: -339757944
+      setting2_7: 1531717880
+      setting2_8: 10386457
+      setting2_9: 575229408
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

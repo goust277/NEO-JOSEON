@@ -11,10 +11,14 @@ public class AudioMixerController : MonoBehaviour
     public Slider SFX;
     float sound;
     float SFXsound;
-    private void Awake()
+    private void Start()
     {
         BGM.value = GameData.BGMsound;
         SFX.value = GameData.SFXSound;
+        Debug.Log("SFX value set to: " + SFX.value);
+        Debug.Log("BGM value set to: " + BGM.value);
+
+        GameData.LoadData();
     }
     public void AudioControl()
     {
@@ -26,7 +30,7 @@ public class AudioMixerController : MonoBehaviour
         if (sound == -40f) mixer.SetFloat("BGM", -80);
         else mixer.SetFloat("BGM", sound);
 
-        if (sound == -40f) mixer.SetFloat("SFX", -80);
+        if (SFXsound == -40f) mixer.SetFloat("SFX", -80);
         else mixer.SetFloat("SFX", SFXsound);
     }
 }

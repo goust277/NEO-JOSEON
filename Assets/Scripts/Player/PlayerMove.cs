@@ -84,6 +84,8 @@ public class PlayerMove : MonoBehaviour
     [Header("¸Þ´º")]
     private GameObject mainSetting;
     private GameObject stageSetting;
+    [SerializeField] private GameObject debug;
+
 
     [SerializeField] private string main;
 
@@ -128,6 +130,8 @@ public class PlayerMove : MonoBehaviour
         mainSetting = GameObject.Find("Main_Setting");
         stageSetting = GameObject.Find("Stage_Setting");
 
+        debug.SetActive(false);
+
         MouseOff();
 
         cam = Camera.main;
@@ -139,6 +143,20 @@ public class PlayerMove : MonoBehaviour
     [System.Obsolete]
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.F12))
+        {
+            if (debug.active != true)
+            {
+                debug.SetActive(true);
+                MouseOn();
+            }
+            else
+            {
+                debug.SetActive(false);
+                MouseOff();
+            }
+        }
+
         weapon.rate = rate;
         weapon.damage = damage;
         weapon.effectTime = effectTime;
@@ -582,6 +600,7 @@ public class PlayerMove : MonoBehaviour
         {
             tutorial = 1;
             _atk = true;
+
         }
         else if (tutorial == 1)
         {

@@ -130,6 +130,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounceEffectPrefab: {fileID: 2223803694593754959, guid: adea20f4f68a94541b159d84ed9e12c7,
     type: 3}
+  fDamage: 3
+  rb: {fileID: 0}
+  speedThreshold: 0.3
 --- !u!1001 &7580180307716789701
 PrefabInstance:
   m_ObjectHideFlags: 0

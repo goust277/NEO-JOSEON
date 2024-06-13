@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6681477206727210020}
+  - component: {fileID: 2023964948162147994}
   m_Layer: 0
   m_Name: Position_DmgNumCreate
   m_TagString: Untagged
@@ -31,6 +32,19 @@ Transform:
   m_Father: {fileID: 4637678122535514833}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2023964948162147994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345988057696131478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fad9f19935d66e428902c9732a895e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!1 &2887374101540768688
 GameObject:
   m_ObjectHideFlags: 0
@@ -12005,6 +12019,7 @@ MonoBehaviour:
   attackParticle: {fileID: 3876873880504672942}
   destroyParticle: {fileID: 220974788809710040, guid: 9a2c08dd962b4314f960bc0698ea55b1,
     type: 3}
+  hitEffect: {fileID: 0}
   anim: {fileID: 4637678121288675317}
   collider: {fileID: 4637678122535514838}
   white: {fileID: 2100000, guid: edb55a182dd31f24c846351164b1fe2b, type: 2}
@@ -13230,6 +13245,7 @@ GameObject:
   - component: {fileID: 3365417117907166171}
   - component: {fileID: 3994465752217424230}
   - component: {fileID: 8606658842085926988}
+  - component: {fileID: 6640505688423425254}
   m_Layer: 5
   m_Name: HpBar
   m_TagString: Untagged
@@ -13297,6 +13313,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6640505688423425254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720339516666897536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fad9f19935d66e428902c9732a895e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!1 &6516229631128934097
 GameObject:
   m_ObjectHideFlags: 0
@@ -18249,7 +18278,7 @@ MonoBehaviour:
   m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 1
+  m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &8448700254582663814

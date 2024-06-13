@@ -34,6 +34,7 @@ public class Monster_Sangmo : NewEnemy
     [Header("¿Ã∆Â∆Æ")]
     public GameObject destroyParticle;
     public ParticleSystem particleAttack;
+    [SerializeField] private ParticleSystem hitEffect;
     private float interval = 0.3f;
     private bool isInvoking = false;
 
@@ -107,6 +108,8 @@ public class Monster_Sangmo : NewEnemy
             GameObject dmgNumbobbox = Instantiate(DmgNumBox, positionNumBox.position, finalRotation);
             DmgNum dmgBox = dmgNumbobbox.GetComponent<DmgNum>();
             dmgBox.text_dmgNum.text = tempDmgNum.ToString();
+
+            hitEffect.Play();
 
             StopAllCoroutines();
             StartCoroutine(TakeDamage__());

@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
+using System.Runtime.InteropServices;
 
 public class Monster_Jumper : NewEnemy
 {
@@ -29,6 +30,7 @@ public class Monster_Jumper : NewEnemy
     [Header("이펙트")]
     public ParticleSystem attackParticle;
     public GameObject destroyParticle;
+    [SerializeField] private ParticleSystem hitEffect;
 
     [Header("애니메이션 / 콜라이더")]
     public Animator anim;
@@ -144,7 +146,7 @@ public class Monster_Jumper : NewEnemy
     }
     IEnumerator JumpCoroutine(float jumpHeight, float jumpDuration)
     {
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+        //transform.rotation = Quaternion.Euler(0, 0, 0);
         audioSource.clip = jump;
         audioSource.Play();
         anim.SetTrigger("doJump");
@@ -188,6 +190,8 @@ public class Monster_Jumper : NewEnemy
         GameObject dmgNumbobbox = Instantiate(DmgNumBox, positionNumBox.position, finalRotation);
         DmgNum dmgBox = dmgNumbobbox.GetComponent<DmgNum>();
         dmgBox.text_dmgNum.text = tempDmgNum.ToString();
+
+        hitEffect.Play();
 
         if (currentHp <= 0)
         {

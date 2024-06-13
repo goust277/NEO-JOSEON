@@ -33,10 +33,18 @@ public class StageButton : MonoBehaviour
         {
             SceneManager.LoadScene("Stage_Felid_New");
         }
+        GameData.LoadData();
     }
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Reset()
+    {
+        GameData.Chapter = 1;
+        GameData.Stage = 1;
+        GameData.clearTuto = false;
     }
 
     public void StageExit()

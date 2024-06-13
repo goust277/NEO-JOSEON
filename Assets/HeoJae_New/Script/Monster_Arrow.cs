@@ -39,6 +39,7 @@ public class Monster_Arrow : NewEnemy
     [Header("이펙트")]
     public GameObject destroyParticle;
     public GameObject chargingParticle;
+    [SerializeField] private ParticleSystem hitEffect;
 
     [Header("기타 오브젝트")]
     private Transform player; // 목표로 하는 플레이어 위치
@@ -139,7 +140,8 @@ public class Monster_Arrow : NewEnemy
             GameObject dmgNumbobbox = Instantiate(DmgNumBox, positionNumBox.position, finalRotation);
             DmgNum dmgBox = dmgNumbobbox.GetComponent<DmgNum>();
             dmgBox.text_dmgNum.text = tempDmgNum.ToString();
-
+            if (hitEffect != null)
+                hitEffect.Play();
 
             chargingParticle.SetActive(false);
             StopAllCoroutines();
